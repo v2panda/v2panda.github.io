@@ -8,7 +8,7 @@
   <id>http://v2panda.com/</id>
   
   <author>
-    <name><![CDATA[v2panda]]></name>
+    <name><![CDATA[熊猫]]></name>
     <email><![CDATA[pdxuzhen@gmail.com]]></email>
   </author>
   
@@ -67,7 +67,7 @@
     <link href="http://v2panda.com/2015/07/27/iOS%E5%BC%80%E5%8F%91Tips/"/>
     <id>http://v2panda.com/2015/07/27/iOS开发Tips/</id>
     <published>2015-07-27T08:44:49.000Z</published>
-    <updated>2015-10-19T10:20:16.000Z</updated>
+    <updated>2015-10-19T10:49:45.000Z</updated>
     <content type="html"><![CDATA[<p>以上是摘要</p>
 <a id="more"></a>
 <h3 id="介绍">介绍</h3><p>随着开发的进行，用到的一些小技巧和插件工具也越来越多。在这里统一的总结一下，方便查阅，时时更新。</p>
@@ -123,7 +123,7 @@
 <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)someMethod &#123; </span><br><span class="line">  <span class="keyword">if</span> (![someOther boolValue])</span><br><span class="line">   &#123; </span><br><span class="line">        <span class="keyword">return</span>; </span><br><span class="line">   &#125; </span><br><span class="line">  <span class="comment">//Do something important</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>不应该:</strong></p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">-</span> (void)<span class="tag">someMethod</span> &#123;</span><br><span class="line"> <span class="tag">if</span> ([someOther boolValue]) </span><br><span class="line">   &#123; </span><br><span class="line">    <span class="comment">//Do something important</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="持续更新…">持续更新…</h5>]]></content>
+]]></content>
     <summary type="html">
     <![CDATA[<p>以上是摘要</p>]]>
     
