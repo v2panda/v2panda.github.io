@@ -3,21 +3,21 @@
   <title><![CDATA[v2panda's blog]]></title>
   <subtitle><![CDATA[subtitle]]></subtitle>
   <link href="/atom.xml" rel="self"/>
-  <link href="http://yoursite.com/"/>
+  <link href="http://v2panda.com/"/>
   <updated>2015-10-19T02:55:41.000Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://v2panda.com/</id>
   
   <author>
     <name><![CDATA[v2panda]]></name>
-    
+    <email><![CDATA[pdxuzhen@gmail.com]]></email>
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
     <title><![CDATA[firstblog]]></title>
-    <link href="http://yoursite.com/2015/10/19/firstblog/"/>
-    <id>http://yoursite.com/2015/10/19/firstblog/</id>
+    <link href="http://v2panda.com/2015/10/19/firstblog/"/>
+    <id>http://v2panda.com/2015/10/19/firstblog/</id>
     <published>2015-10-19T02:55:41.000Z</published>
     <updated>2015-10-19T02:55:41.000Z</updated>
     <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
@@ -34,16 +34,16 @@
     <![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io]]>
     </summary>
     
-      <category term="github" scheme="http://yoursite.com/tags/github/"/>
+      <category term="github" scheme="http://v2panda.com/tags/github/"/>
     
-      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+      <category term="iOS" scheme="http://v2panda.com/categories/iOS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Hello World]]></title>
-    <link href="http://yoursite.com/2015/10/19/hello-world/"/>
-    <id>http://yoursite.com/2015/10/19/hello-world/</id>
+    <link href="http://v2panda.com/2015/10/19/hello-world/"/>
+    <id>http://v2panda.com/2015/10/19/hello-world/</id>
     <published>2015-10-19T00:49:22.000Z</published>
     <updated>2015-10-19T00:49:22.000Z</updated>
     <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
@@ -59,6 +59,77 @@
     <summary type="html">
     <![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io]]>
     </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[iOS开发Tips]]></title>
+    <link href="http://v2panda.com/2015/07/27/iOS%E5%BC%80%E5%8F%91Tips/"/>
+    <id>http://v2panda.com/2015/07/27/iOS开发Tips/</id>
+    <published>2015-07-27T08:44:49.000Z</published>
+    <updated>2015-10-19T09:11:21.000Z</updated>
+    <content type="html"><![CDATA[<p>以上是摘要</p>
+<a id="more"></a>
+<h3 id="介绍">介绍</h3><p>随着开发的进行，用到的一些小技巧和插件工具也越来越多。在这里统一的总结一下，方便查阅，时时更新。</p>
+<h5 id="小技巧">小技巧</h5><ul>
+<li>一个 GCC 非常模糊的特性，以及 Clang 也有的特性是，代码块如果在闭合的圆括号内的话，会返回最后语句的值。</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSURL</span> *url = (&#123; </span><br><span class="line">    <span class="built_in">NSString</span> *urlString = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@/%@"</span>, baseURLString, endpoint]; </span><br><span class="line">    [<span class="built_in">NSURL</span> URLWithString:urlString];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这个特性非常适合组织小块的代码，通常是设置一个类。给出一个重要的入口并且减少相关干扰，能让代码聚焦于关键的变量和函数中。此外，这个方法有一个优点，所有的变量都在代码块中，也就是只在代码块的区域中有效，这意味着可以减少对其他作用域的命名污染。</p>
+<ul>
+<li>在 Block 内如果需要访问 self 的方法、变量，建议使用 weakSelf。<br>如果在 Block 内需要多次 访问 self，则需要使用 strongSelf。</li>
+</ul>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">__weak __typeof__<span class="list">(<span class="keyword">self</span>)</span> weakSelf = self<span class="comment">;</span></span><br><span class="line"> dispatch_async<span class="list">(<span class="keyword">dispatch_get_global_queue</span><span class="list">(<span class="keyword">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>)</span>, ^&#123;</span><br><span class="line">    __strong __typeof<span class="list">(<span class="keyword">self</span>)</span> strongSelf = weakSelf<span class="comment">;</span></span><br><span class="line">    if <span class="list">(<span class="keyword">strongSelf</span>)</span> &#123; </span><br><span class="line">     [strongSelf doSomething]<span class="comment">; </span></span><br><span class="line">     [strongSelf doSomethingElse]<span class="comment">; </span></span><br><span class="line">    &#125; else &#123; </span><br><span class="line">     // Probably nothing... return<span class="comment">; </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>在 doSomething 中，weakSelf 不会变成 nil，不过在 doSomething 执行完成，调用第二个方法 doOtherThing 的时候，weakSelf 有可能被释放。即在没有循环引用的时候，block 是否被 retain 或者是一个属性都没关系。如果 block 被传递或者 copy 了，在执行的时候，weakSelf 可能会变成 nil。于是，strongSelf 就派上用场了,而__strong确保在 Block 内，strongSelf 不会被释放。</p>
+<h5 id="Xcode插件">Xcode插件</h5><p>1.<a href="https://github.com/omz/ColorSense-for-Xcode" target="_blank" rel="external">ColorSense for Xcode</a> - 用UIColor或者 NSColor的方法会弹出色盘和颜色角标，赞！</p>
+<p>2.<a href="https://github.com/markohlebar/Peckham" target="_blank" rel="external">Peckham</a> - 能十分方便的在代码中引入头文件,支持模糊搜索，快捷键control+command+p。</p>
+<p>3.<a href="https://github.com/stefanceriu/SCXcodeMiniMap" target="_blank" rel="external">SCXcodeMinimap</a> - 可以再代码侧面添加一个小地图，方便搜索的时候快速定位，快捷键control+shift+m。</p>
+<p>4.<a href="https://github.com/trawor/XToDo" target="_blank" rel="external">XToDo</a> - 快速添加todo list(view -&gt;snippets),且能精确查找todo，快捷键control+t。</p>
+<p>5.<a href="https://github.com/onevcat/VVDocumenter-Xcode" target="_blank" rel="external">VVDocumenter</a> - 快速注释，快捷键///。</p>
+<p>6.<a href="https://github.com/ksuther/KSImageNamed-Xcode" target="_blank" rel="external">KSImageNamed</a> - 自动在 imageNamed:方法后面列出项目里所有的文件名，带缩略图。</p>
+<p>7.<a href="https://github.com/holtwick/HOStringSense-for-Xcode" target="_blank" rel="external">HOStringSense</a> - 格式化字符串，方便好用。</p>
+<p>8.<a href="https://github.com/FuzzyAutocomplete/FuzzyAutocompletePlugin" target="_blank" rel="external">FuzzyAutocompletePlugin</a> - 方法名模糊匹配，提高效率的好工具。</p>
+<p>9.<a href="https://github.com/travisjeffery/ClangFormat-Xcode" target="_blank" rel="external">ClangFormat-Xcode</a> - 一键格式化代码。</p>
+<h5 id="几种处理JSON的工具or网站">几种处理JSON的工具or网站</h5><p><a href="http://www.bejson.com/" target="_blank" rel="external">JSON校验</a><br><a href="http://www.runoob.com/tool/json/index.html" target="_blank" rel="external">JSON格式化工具</a><br><a href="http://www.jsoneditoronline.org/" target="_blank" rel="external">json editor online</a></p>
+<h5 id="图片压缩">图片压缩</h5><p><a href="https://tinypng.com/" target="_blank" rel="external">tinypng</a> - 无损压缩，高效好用。</p>
+<h5 id="调试接口">调试接口</h5><p>Postman(chrome插件 - 见图)<br><img src="http://upload-images.jianshu.io/upload_images/234048-fbb6e6ba6cfc54b5.png?imageMogr2/auto-orient/strip|imageView2/2/w/1240" alt="Postman"></p>
+<h5 id="注释">注释</h5><p>几种常用的注释样式：</p>
+<p>1.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span> ,<span class="keyword">strong</span>) RHBankCard *bankCard;<span class="comment">/**&lt;银行卡信息*/</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span> ,<span class="keyword">strong</span>) RHBankCard *bankCard;<span class="comment">///&lt;银行卡信息</span></span><br></pre></td></tr></table></figure></p>
+<p>2.<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span><span class="keyword">*</span>银行卡信息<span class="keyword">*</span>/</span><br><span class="line"><span class="comment">@property (nonatomic ,strong) RHBankCard *bankCard;</span></span><br></pre></td></tr></table></figure></p>
+<p>3.<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">typedef <span class="class"><span class="keyword">enum</span></span></span><br><span class="line">&#123;</span><br><span class="line"> <span class="constant">ShareTypeSinaWeibo</span> = <span class="number">1</span>,         <span class="regexp">/**&lt; 新浪微博 */</span></span><br><span class="line"> <span class="constant">ShareTypeTencentWeibo</span> = <span class="number">2</span>,      <span class="regexp">/**&lt; 腾讯微博 */</span></span><br><span class="line"> <span class="constant">ShareTypeDouBan</span> = <span class="number">5</span>,            <span class="regexp">/**&lt; 豆瓣社区 */</span></span><br><span class="line"> <span class="constant">ShareTypeQQSpace</span> = <span class="number">6</span>,           <span class="regexp">/**&lt; QQ空间 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="constant">ShareType</span>;</span><br></pre></td></tr></table></figure></p>
+<p>4.</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span>  initWithStyle</span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span>  <span class="comment">@param style           style description</span></span><br><span class="line"> <span class="keyword">*</span>  <span class="comment">@param reuseIdentifier reuseIdentifier description</span></span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span>  <span class="comment">@return self</span></span><br><span class="line"> <span class="keyword">*</span>/</span><br><span class="line">- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString <span class="keyword">*</span>)reuseIdentifier;</span><br></pre></td></tr></table></figure>
+<p>前两种注释方式可以自由选择，让代码更美观。第三种是用在enum类型，第四种用的是喵神的<a href="https://github.com/onevcat/VVDocumenter-Xcode" target="_blank" rel="external">VVDocumenter</a>插件，适用于param多的方法。</p>
+<h5 id="正确地定义常量">正确地定义常量</h5><p>以前定义常量都是用的#define，很简单也方便，从没想过可能出现的问题。一般这么定义：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hexcolor">#def</span>ine ANIMATION_DURATION_SHORT <span class="number">0.3</span></span><br><span class="line"><span class="hexcolor">#def</span>ine ANIMATION_DURATION_MIDDLE <span class="number">0.6</span></span><br><span class="line"><span class="hexcolor">#def</span>ine ANIMATION_DURATION_LONG <span class="number">1.0</span></span><br></pre></td></tr></table></figure>
+<p>这段代码是不是看起来很熟悉，在开发中也会经常用到。那么问题来了，宏定义只是简单地替换，即将一切宏定义替换成定义后面的内容，所以</p>
+<ul>
+<li>宏定义不会检查替换的“<strong>类型</strong>”，只要遇到，就做替换。</li>
+<li>宏定义不保证“<strong>不可变</strong>”，因为可以<strong>重复定义</strong>，不能保证值不变。</li>
+</ul>
+<p>所以，恰当的常量应该具备合适的名字、正确的类型，还有const、extern等关键字的修饰。例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//动画时间长度常量 </span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> NSTimeInterval kAnimationDurationLong = <span class="number">1.0f</span>;</span><br></pre></td></tr></table></figure>
+<p>首先加static，限定在本文件中使用，确保不与其他的常量冲突，其次加const确保常量不被改变。若要定义一个全局变量，则在.h文件中用extern声明，在.m中定义，这样:</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//.h</span></span><br><span class="line"><span class="keyword">extern</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> PDUserInfoNotification;</span><br><span class="line"><span class="comment">//.m</span></span><br><span class="line"><span class="built_in">NSString</span> * <span class="keyword">const</span> PDUserInfoNotification = <span class="string">@"PDUserInfoNotification"</span>;</span><br></pre></td></tr></table></figure>
+<p>关于这点，更详细的可以看<a href="http://tutuge.me/2015/03/11/Effective-Objective-C-读书笔记-Item-4-如何正确定义常量/" target="_blank" rel="external">这里</a>。</p>
+<h5 id="CGRect函数">CGRect函数</h5><p>当访问CGRect里的x, y, width, 或 height时，应该使用<a href="http://developer.apple.com/library/ios/#documentation/graphicsimaging/reference/CGGeometry/Reference/reference.html" target="_blank" rel="external">CGGeometry函数</a>而不是直接通过结构体来访问。引用Apple的CGGeometry:在这个参考文档中所有的函数，接受CGRect结构体作为输入，在计算它们结果时隐式地标准化这些rectangles。因此，你的应用程序应该避免直接访问和修改保存在CGRect数据结构中的数据。相反，使用这些函数来操纵rectangles和获取它们的特性。</p>
+<p><strong>应该:</strong></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CGRect</span> frame = <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.frame</span>;</span><br><span class="line"><span class="built_in">CGFloat</span> x = <span class="built_in">CGRectGetMinX</span>(frame);</span><br><span class="line"><span class="built_in">CGFloat</span> y = <span class="built_in">CGRectGetMinY</span>(frame);</span><br><span class="line"><span class="built_in">CGFloat</span> width = <span class="built_in">CGRectGetWidth</span>(frame);</span><br><span class="line"><span class="built_in">CGFloat</span> height = <span class="built_in">CGRectGetHeight</span>(frame);</span><br><span class="line"><span class="built_in">CGRect</span> frame = <span class="built_in">CGRectMake</span>(<span class="number">0.0</span>, <span class="number">0.0</span>, width, height);</span><br></pre></td></tr></table></figure>
+<p><strong>不应该:</strong></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CGRect</span> frame = <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.frame</span>;</span><br><span class="line"><span class="built_in">CGFloat</span> x = frame<span class="variable">.origin</span><span class="variable">.x</span>;</span><br><span class="line"><span class="built_in">CGFloat</span> y = frame<span class="variable">.origin</span><span class="variable">.y</span>;</span><br><span class="line"><span class="built_in">CGFloat</span> width = frame<span class="variable">.size</span><span class="variable">.width</span>;</span><br><span class="line"><span class="built_in">CGFloat</span> height = frame<span class="variable">.size</span><span class="variable">.height</span>;</span><br><span class="line"><span class="built_in">CGRect</span> frame = (<span class="built_in">CGRect</span>)&#123; <span class="variable">.origin</span> = <span class="built_in">CGPointZero</span>, <span class="variable">.size</span> = frame<span class="variable">.size</span> &#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a href="https://github.com/samlaudev/Objective-C-Coding-Style#黄金路径" target="_blank" rel="external"></a></p>
+<h5 id="黄金路径">黄金路径</h5><p>当使用条件语句编码时，左手边的代码应该是”golden” 或 “happy”路径。也就是不要嵌套if<br>语句，多个返回语句也是OK。<br><strong>应该:</strong></p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)someMethod &#123; </span><br><span class="line">  <span class="keyword">if</span> (![someOther boolValue])</span><br><span class="line">   &#123; </span><br><span class="line">        <span class="keyword">return</span>; </span><br><span class="line">   &#125; </span><br><span class="line">  <span class="comment">//Do something important</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>不应该:</strong></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">-</span> (void)<span class="tag">someMethod</span> &#123;</span><br><span class="line"> <span class="tag">if</span> ([someOther boolValue]) </span><br><span class="line">   &#123; </span><br><span class="line">    <span class="comment">//Do something important</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="持续更新…">持续更新…</h5>]]></content>
+    <summary type="html">
+    <![CDATA[<p>以上是摘要</p>]]>
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://v2panda.com/tags/iOS/"/>
     
   </entry>
   

@@ -2,27 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/about/index.html</loc>
+    <loc>http://v2panda.com/2015/07/27/iOS%E5%BC%80%E5%8F%91Tips/</loc>
+    <lastmod>2015-10-19T09:11:21.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://v2panda.com/about/index.html</loc>
     <lastmod>2015-10-19T05:13:38.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://yoursite.com/2015/10/19/firstblog/</loc>
+    <loc>http://v2panda.com/2015/10/19/firstblog/</loc>
     <lastmod>2015-10-19T02:55:41.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://yoursite.com/categories/index.html</loc>
+    <loc>http://v2panda.com/categories/index.html</loc>
     <lastmod>2015-10-19T02:29:06.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/index.html</loc>
+    <loc>http://v2panda.com/tags/index.html</loc>
     <lastmod>2015-10-19T02:27:46.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://yoursite.com/2015/10/19/hello-world/</loc>
+    <loc>http://v2panda.com/2015/10/19/hello-world/</loc>
     <lastmod>2015-10-19T00:49:22.000Z</lastmod>
   </url>
   
