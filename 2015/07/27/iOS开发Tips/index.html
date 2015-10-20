@@ -47,17 +47,17 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="以上是摘要">
+<meta name="description" content="介绍随着开发的进行，用到的一些小技巧和插件工具也越来越多。在这里统一的总结一下，方便查阅，时时更新。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS开发Tips">
 <meta property="og:url" content="http://v2panda.com/2015/07/27/iOS开发Tips/index.html">
 <meta property="og:site_name" content="v2panda's blog">
-<meta property="og:description" content="以上是摘要">
+<meta property="og:description" content="介绍随着开发的进行，用到的一些小技巧和插件工具也越来越多。在这里统一的总结一下，方便查阅，时时更新。">
 <meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/20150727/a.png">
-<meta property="og:updated_time" content="2015-10-19T10:49:45.000Z">
+<meta property="og:updated_time" content="2015-10-20T09:47:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS开发Tips">
-<meta name="twitter:description" content="以上是摘要">
+<meta name="twitter:description" content="介绍随着开发的进行，用到的一些小技巧和插件工具也越来越多。在这里统一的总结一下，方便查阅，时时更新。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -244,16 +244,18 @@
       
 
       
-        <span itemprop="articleBody"><p>以上是摘要</p>
+        <span itemprop="articleBody"><h3 id="介绍">介绍</h3><p>随着开发的进行，用到的一些小技巧和插件工具也越来越多。在这里统一的总结一下，方便查阅，时时更新。</p>
 <a id="more"></a>
-<h3 id="介绍">介绍</h3><p>随着开发的进行，用到的一些小技巧和插件工具也越来越多。在这里统一的总结一下，方便查阅，时时更新。</p>
+<h3 id="介绍-1">介绍</h3><p>随着开发的进行，用到的一些小技巧和插件工具也越来越多。在这里统一的总结一下，方便查阅，时时更新。</p>
 <h5 id="小技巧">小技巧</h5><ul>
 <li>一个 GCC 非常模糊的特性，以及 Clang 也有的特性是，代码块如果在闭合的圆括号内的话，会返回最后语句的值。</li>
 </ul>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSURL</span> *url = (&#123; </span><br><span class="line">    <span class="built_in">NSString</span> *urlString = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@/%@"</span>, baseURLString, endpoint]; </span><br><span class="line">    [<span class="built_in">NSURL</span> URLWithString:urlString];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>这个特性非常适合组织小块的代码，通常是设置一个类。给出一个重要的入口并且减少相关干扰，能让代码聚焦于关键的变量和函数中。此外，这个方法有一个优点，所有的变量都在代码块中，也就是只在代码块的区域中有效，这意味着可以减少对其他作用域的命名污染。</p>
 <ul>
-<li>在 Block 内如果需要访问 self 的方法、变量，建议使用 weakSelf。<br>如果在 Block 内需要多次 访问 self，则需要使用 strongSelf。</li>
+<li><p>在 Block 内如果需要访问 self 的方法、变量，建议使用 weakSelf。</p>
+<p>如果在 Block 内需要多次 访问 self，则需要使用 strongSelf。</p>
+</li>
 </ul>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">__weak __typeof__<span class="list">(<span class="keyword">self</span>)</span> weakSelf = self<span class="comment">;</span></span><br><span class="line"> dispatch_async<span class="list">(<span class="keyword">dispatch_get_global_queue</span><span class="list">(<span class="keyword">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>)</span>, ^&#123;</span><br><span class="line">    __strong __typeof<span class="list">(<span class="keyword">self</span>)</span> strongSelf = weakSelf<span class="comment">;</span></span><br><span class="line">    if <span class="list">(<span class="keyword">strongSelf</span>)</span> &#123; </span><br><span class="line">     [strongSelf doSomething]<span class="comment">; </span></span><br><span class="line">     [strongSelf doSomethingElse]<span class="comment">; </span></span><br><span class="line">    &#125; else &#123; </span><br><span class="line">     // Probably nothing... return<span class="comment">; </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>在 doSomething 中，weakSelf 不会变成 nil，不过在 doSomething 执行完成，调用第二个方法 doOtherThing 的时候，weakSelf 有可能被释放。即在没有循环引用的时候，block 是否被 retain 或者是一个属性都没关系。如果 block 被传递或者 copy 了，在执行的时候，weakSelf 可能会变成 nil。于是，strongSelf 就派上用场了,而__strong确保在 Block 内，strongSelf 不会被释放。</p>
@@ -266,13 +268,19 @@
 <p>7.<a href="https://github.com/holtwick/HOStringSense-for-Xcode" target="_blank" rel="external">HOStringSense</a> - 格式化字符串，方便好用。</p>
 <p>8.<a href="https://github.com/FuzzyAutocomplete/FuzzyAutocompletePlugin" target="_blank" rel="external">FuzzyAutocompletePlugin</a> - 方法名模糊匹配，提高效率的好工具。</p>
 <p>9.<a href="https://github.com/travisjeffery/ClangFormat-Xcode" target="_blank" rel="external">ClangFormat-Xcode</a> - 一键格式化代码。</p>
-<h5 id="几种处理JSON的工具or网站">几种处理JSON的工具or网站</h5><p><a href="http://www.bejson.com/" target="_blank" rel="external">JSON校验</a><br><a href="http://www.runoob.com/tool/json/index.html" target="_blank" rel="external">JSON格式化工具</a><br><a href="http://www.jsoneditoronline.org/" target="_blank" rel="external">json editor online</a></p>
+<h5 id="几种处理JSON的工具or网站">几种处理JSON的工具or网站</h5><p><a href="http://www.bejson.com/" target="_blank" rel="external">JSON校验</a></p>
+<p><a href="http://www.runoob.com/tool/json/index.html" target="_blank" rel="external">JSON格式化工具</a></p>
+<p><a href="http://www.jsoneditoronline.org/" target="_blank" rel="external">json editor online</a></p>
 <h5 id="图片压缩">图片压缩</h5><p><a href="https://tinypng.com/" target="_blank" rel="external">tinypng</a> - 无损压缩，高效好用。</p>
-<h5 id="调试接口">调试接口</h5><p>Postman(chrome插件 - 见图)<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/20150727/a.png" alt="Postman"></p>
+<h5 id="调试接口">调试接口</h5><p>Postman(chrome插件 - 见图)</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/20150727/a.png" alt="Postman"></p>
 <h5 id="注释">注释</h5><p>几种常用的注释样式：</p>
-<p>1.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span> ,<span class="keyword">strong</span>) RHBankCard *bankCard;<span class="comment">/**&lt;银行卡信息*/</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span> ,<span class="keyword">strong</span>) RHBankCard *bankCard;<span class="comment">///&lt;银行卡信息</span></span><br></pre></td></tr></table></figure></p>
-<p>2.<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span><span class="keyword">*</span>银行卡信息<span class="keyword">*</span>/</span><br><span class="line"><span class="comment">@property (nonatomic ,strong) RHBankCard *bankCard;</span></span><br></pre></td></tr></table></figure></p>
-<p>3.<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">typedef <span class="class"><span class="keyword">enum</span></span></span><br><span class="line">&#123;</span><br><span class="line"> <span class="constant">ShareTypeSinaWeibo</span> = <span class="number">1</span>,         <span class="regexp">/**&lt; 新浪微博 */</span></span><br><span class="line"> <span class="constant">ShareTypeTencentWeibo</span> = <span class="number">2</span>,      <span class="regexp">/**&lt; 腾讯微博 */</span></span><br><span class="line"> <span class="constant">ShareTypeDouBan</span> = <span class="number">5</span>,            <span class="regexp">/**&lt; 豆瓣社区 */</span></span><br><span class="line"> <span class="constant">ShareTypeQQSpace</span> = <span class="number">6</span>,           <span class="regexp">/**&lt; QQ空间 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="constant">ShareType</span>;</span><br></pre></td></tr></table></figure></p>
+<p>1.</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span> ,<span class="keyword">strong</span>) RHBankCard *bankCard;<span class="comment">/**&lt;银行卡信息*/</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span> ,<span class="keyword">strong</span>) RHBankCard *bankCard;<span class="comment">///&lt;银行卡信息</span></span><br></pre></td></tr></table></figure>
+<p>2.</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span><span class="keyword">*</span>银行卡信息<span class="keyword">*</span>/</span><br><span class="line"><span class="comment">@property (nonatomic ,strong) RHBankCard *bankCard;</span></span><br></pre></td></tr></table></figure>
+<p>3.</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">typedef <span class="class"><span class="keyword">enum</span></span></span><br><span class="line">&#123;</span><br><span class="line"> <span class="constant">ShareTypeSinaWeibo</span> = <span class="number">1</span>,         <span class="regexp">/**&lt; 新浪微博 */</span></span><br><span class="line"> <span class="constant">ShareTypeTencentWeibo</span> = <span class="number">2</span>,      <span class="regexp">/**&lt; 腾讯微博 */</span></span><br><span class="line"> <span class="constant">ShareTypeDouBan</span> = <span class="number">5</span>,            <span class="regexp">/**&lt; 豆瓣社区 */</span></span><br><span class="line"> <span class="constant">ShareTypeQQSpace</span> = <span class="number">6</span>,           <span class="regexp">/**&lt; QQ空间 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="constant">ShareType</span>;</span><br></pre></td></tr></table></figure>
 <p>4.</p>
 <figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span>  initWithStyle</span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span>  <span class="comment">@param style           style description</span></span><br><span class="line"> <span class="keyword">*</span>  <span class="comment">@param reuseIdentifier reuseIdentifier description</span></span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span>  <span class="comment">@return self</span></span><br><span class="line"> <span class="keyword">*</span>/</span><br><span class="line">- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString <span class="keyword">*</span>)reuseIdentifier;</span><br></pre></td></tr></table></figure>
 <p>前两种注释方式可以自由选择，让代码更美观。第三种是用在enum类型，第四种用的是喵神的<a href="https://github.com/onevcat/VVDocumenter-Xcode" target="_blank" rel="external">VVDocumenter</a>插件，适用于param多的方法。</p>
@@ -295,11 +303,12 @@
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CGRect</span> frame = <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.frame</span>;</span><br><span class="line"><span class="built_in">CGFloat</span> x = frame<span class="variable">.origin</span><span class="variable">.x</span>;</span><br><span class="line"><span class="built_in">CGFloat</span> y = frame<span class="variable">.origin</span><span class="variable">.y</span>;</span><br><span class="line"><span class="built_in">CGFloat</span> width = frame<span class="variable">.size</span><span class="variable">.width</span>;</span><br><span class="line"><span class="built_in">CGFloat</span> height = frame<span class="variable">.size</span><span class="variable">.height</span>;</span><br><span class="line"><span class="built_in">CGRect</span> frame = (<span class="built_in">CGRect</span>)&#123; <span class="variable">.origin</span> = <span class="built_in">CGPointZero</span>, <span class="variable">.size</span> = frame<span class="variable">.size</span> &#125;;</span><br></pre></td></tr></table></figure>
 <hr>
 <p><a href="https://github.com/samlaudev/Objective-C-Coding-Style#黄金路径" target="_blank" rel="external"></a></p>
-<h5 id="黄金路径">黄金路径</h5><p>当使用条件语句编码时，左手边的代码应该是”golden” 或 “happy”路径。也就是不要嵌套if<br>语句，多个返回语句也是OK。<br><strong>应该:</strong></p>
+<h5 id="黄金路径">黄金路径</h5><p>当使用条件语句编码时，左手边的代码应该是”golden” 或 “happy”路径。也就是不要嵌套if</p>
+<p>语句，多个返回语句也是OK。</p>
+<p><strong>应该:</strong></p>
 <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)someMethod &#123; </span><br><span class="line">  <span class="keyword">if</span> (![someOther boolValue])</span><br><span class="line">   &#123; </span><br><span class="line">        <span class="keyword">return</span>; </span><br><span class="line">   &#125; </span><br><span class="line">  <span class="comment">//Do something important</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>不应该:</strong></p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">-</span> (void)<span class="tag">someMethod</span> &#123;</span><br><span class="line"> <span class="tag">if</span> ([someOther boolValue]) </span><br><span class="line">   &#123; </span><br><span class="line">    <span class="comment">//Do something important</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</span>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">-</span> (void)<span class="tag">someMethod</span> &#123;</span><br><span class="line"> <span class="tag">if</span> ([someOther boolValue]) </span><br><span class="line">   &#123; </span><br><span class="line">    <span class="comment">//Do something important</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></span>
       
     </div>
 
@@ -316,13 +325,17 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/10/13/滑动返回手势探究/" rel="prev">
-                <i class="fa fa-chevron-left"></i> 滑动返回手势探究
+              <a href="/2015/09/29/链式编程初探/" rel="prev">
+                <i class="fa fa-chevron-left"></i> 链式编程初探
               </a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/04/07/iOS简单使用keychain存储密码/" rel="next">
+                iOS简单使用keychain存储密码 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -412,7 +425,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -426,7 +439,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -488,7 +501,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#小技巧"><span class="nav-number">1.0.1.</span> <span class="nav-text">小技巧</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Xcode插件"><span class="nav-number">1.0.2.</span> <span class="nav-text">Xcode插件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#几种处理JSON的工具or网站"><span class="nav-number">1.0.3.</span> <span class="nav-text">几种处理JSON的工具or网站</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#图片压缩"><span class="nav-number">1.0.4.</span> <span class="nav-text">图片压缩</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#调试接口"><span class="nav-number">1.0.5.</span> <span class="nav-text">调试接口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注释"><span class="nav-number">1.0.6.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#正确地定义常量"><span class="nav-number">1.0.7.</span> <span class="nav-text">正确地定义常量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CGRect函数"><span class="nav-number">1.0.8.</span> <span class="nav-text">CGRect函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#黄金路径"><span class="nav-number">1.0.9.</span> <span class="nav-text">黄金路径</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-1"><span class="nav-number">2.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#小技巧"><span class="nav-number">2.0.1.</span> <span class="nav-text">小技巧</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Xcode插件"><span class="nav-number">2.0.2.</span> <span class="nav-text">Xcode插件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#几种处理JSON的工具or网站"><span class="nav-number">2.0.3.</span> <span class="nav-text">几种处理JSON的工具or网站</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#图片压缩"><span class="nav-number">2.0.4.</span> <span class="nav-text">图片压缩</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#调试接口"><span class="nav-number">2.0.5.</span> <span class="nav-text">调试接口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注释"><span class="nav-number">2.0.6.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#正确地定义常量"><span class="nav-number">2.0.7.</span> <span class="nav-text">正确地定义常量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CGRect函数"><span class="nav-number">2.0.8.</span> <span class="nav-text">CGRect函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#黄金路径"><span class="nav-number">2.0.9.</span> <span class="nav-text">黄金路径</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="v2panda,panda,Hexo,next" />
+  <meta name="keywords" content="iOS," />
 
 
 
@@ -47,25 +47,25 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="前言
-从iOS7开始，苹果增加了页面右滑返回的效果，具体的是以UINavigationController为容器的ViewController间右滑切换页面。
+<meta name="description" content="前言从iOS7开始，苹果增加了页面右滑返回的效果，具体的是以UINavigationController为容器的ViewController间右滑切换页面。
 代码里的设置是：
-self.navigationController.interactivePopGestureRecognizer.enabled = YES;（default is YES）可以看到苹果给navigationContro">
+1self.navigationController.interactivePopGestureRecognizer.enabled = YES;（default is YES）
+可以看到苹果给navigationContr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="滑动返回手势探究">
 <meta property="og:url" content="http://v2panda.com/2015/10/13/滑动返回手势探究/index.html">
 <meta property="og:site_name" content="v2panda's blog">
-<meta property="og:description" content="前言
-从iOS7开始，苹果增加了页面右滑返回的效果，具体的是以UINavigationController为容器的ViewController间右滑切换页面。
+<meta property="og:description" content="前言从iOS7开始，苹果增加了页面右滑返回的效果，具体的是以UINavigationController为容器的ViewController间右滑切换页面。
 代码里的设置是：
-self.navigationController.interactivePopGestureRecognizer.enabled = YES;（default is YES）可以看到苹果给navigationContro">
-<meta property="og:updated_time" content="2015-10-20T06:53:17.000Z">
+1self.navigationController.interactivePopGestureRecognizer.enabled = YES;（default is YES）
+可以看到苹果给navigationContr">
+<meta property="og:updated_time" content="2015-10-20T09:42:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="滑动返回手势探究">
-<meta name="twitter:description" content="前言
-从iOS7开始，苹果增加了页面右滑返回的效果，具体的是以UINavigationController为容器的ViewController间右滑切换页面。
+<meta name="twitter:description" content="前言从iOS7开始，苹果增加了页面右滑返回的效果，具体的是以UINavigationController为容器的ViewController间右滑切换页面。
 代码里的设置是：
-self.navigationController.interactivePopGestureRecognizer.enabled = YES;（default is YES）可以看到苹果给navigationContro">
+1self.navigationController.interactivePopGestureRecognizer.enabled = YES;（default is YES）
+可以看到苹果给navigationContr">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -221,7 +221,7 @@ self.navigationController.interactivePopGestureRecognizer.enabled = YES;（defau
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-10-13T14:52:02+08:00" content="2015-10-13">
+            <time itemprop="dateCreated" datetime="2015-10-13T16:44:49+08:00" content="2015-10-13">
               2015-10-13
             </time>
           </span>
@@ -252,121 +252,49 @@ self.navigationController.interactivePopGestureRecognizer.enabled = YES;（defau
       
 
       
-        <span itemprop="articleBody"><p>前言</p>
-<p>从iOS7开始，苹果增加了页面右滑返回的效果，具体的是以UINavigationController为容器的ViewController间右滑切换页面。</p>
+        <span itemprop="articleBody"><h4 id="前言">前言</h4><p>从iOS7开始，苹果增加了页面右滑返回的效果，具体的是以UINavigationController为容器的ViewController间右滑切换页面。</p>
 <p>代码里的设置是：</p>
-<p>self.navigationController.interactivePopGestureRecognizer.enabled = YES;（default is YES）<br>可以看到苹果给navigationController添加了一个手势（具体为UIScreenEdgePanGestureRecognizer（边缘手势，同样是ios7以后才有的）），就是利用这个手势实现的 iOS7的侧滑返回。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.interactivePopGestureRecognizer</span><span class="variable">.enabled</span> = <span class="literal">YES</span>;（<span class="keyword">default</span> is <span class="literal">YES</span>）</span><br></pre></td></tr></table></figure>
+<p>可以看到苹果给navigationController添加了一个手势（具体为UIScreenEdgePanGestureRecognizer（边缘手势，同样是ios7以后才有的）），就是利用这个手势实现的 iOS7的侧滑返回。</p>
 <p>但在日常开发中，我们大多会自定义返回按钮，此时系统的右滑返回就会失效。然而支持滑动返回已成为iOS上必须实现的交互，若没有那APP离被卸载就不远了。</p>
-<p>设置interactivePopGestureRecognizer</p>
-<p>对于这种失效的情况，考虑到interactivePopGestureRecognizer也有delegate属性，替换默认的self.navigationController.interactivePopGestureRecognizer.delegate来配置右滑返回的表现也是可行的。我们可以在主NavigationController中设置一下：</p>
-<p>self.navigationController.interactivePopGestureRecognizer.delegate =(id)self<br>然而这样又会出现很多问题，比如说在rootViewController的时候这个手势也可以响应，导致整个程序页面不响应；push了多层后，快速的触发两次手势，也会错乱。</p>
-<p>最佳方案</p>
-<p>通过设置interactivePopGestureRecognizer可以简单的实现，但又会出现很多问题，所以我们可以自己实现一个手势去替换掉系统的，运用</p>
-<p>runtime+KVC+AOP</p>
-<p>的方式，用KVC拿到interactivePopGestureRecognizer的target和action，用runtime动态替换掉，面向切面编程，不用在原工程上增删代码。</p>
-<p>实现</p>
-<p>还是写码最省事，直接动手！</p>
-<p>首先，创建一个UINavigationController的分类,再添加UIViewController的分类,在UINavigationController.h里声明自定义的手势，在UIViewController.h里声明pda_interactivePopDisabled是否显示手势和pda_interactivePopMaxAllowedInitialDistanceToLeftEdge手势滑动距左边最大的距离。</p>
-<p>#import <uikit uikit.h=""></uikit></p>
-<p>@interface UINavigationController (PDAPopGesture)</p>
-<p>@property (nonatomic, strong, readonly) UIPanGestureRecognizer *pda_popGestureRecognizer;</p>
-<p>@end</p>
-<p>@interface UIViewController (PDAPopGesture)</p>
-<p>@property (nonatomic, assign) BOOL pda_interactivePopDisabled;</p>
-<p>@property (nonatomic, assign) CGFloat pda_interactivePopMaxAllowedInitialDistanceToLeftEdge;</p>
-<p>@end<br>在.m里定义一个私有类，设置手势的执行条件。</p>
-<p>#import “UINavigationController+PDAPopGesture.h”</p>
-<p>#import <objc runtime.h=""></objc></p>
-<p>@interface PDAFullscreenPopGestureRecognizerDelegate : NSObject <uigesturerecognizerdelegate></uigesturerecognizerdelegate></p>
-<p>@property (nonatomic, weak) UINavigationController *navigationController;</p>
-<p>@end</p>
-<p>@implementation PDAFullscreenPopGestureRecognizerDelegate</p>
+<a id="more"></a>
+<h4 id="前言-1">前言</h4><p>从iOS7开始，苹果增加了页面右滑返回的效果，具体的是以UINavigationController为容器的ViewController间右滑切换页面。</p>
+<p>代码里的设置是：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.interactivePopGestureRecognizer</span><span class="variable">.enabled</span> = <span class="literal">YES</span>;（<span class="keyword">default</span> is <span class="literal">YES</span>）</span><br></pre></td></tr></table></figure>
+<p>可以看到苹果给navigationController添加了一个手势（具体为UIScreenEdgePanGestureRecognizer（边缘手势，同样是ios7以后才有的）），就是利用这个手势实现的 iOS7的侧滑返回。</p>
+<p>但在日常开发中，我们大多会自定义返回按钮，此时系统的右滑返回就会失效。然而支持滑动返回已成为iOS上必须实现的交互，若没有那APP离被卸载就不远了。</p>
+<h4 id="设置interactivePopGestureRecognizer">设置interactivePopGestureRecognizer</h4><p>对于这种失效的情况，考虑到interactivePopGestureRecognizer也有delegate属性，替换默认的self.navigationController.interactivePopGestureRecognizer.delegate来配置右滑返回的表现也是可行的。我们可以在主NavigationController中设置一下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self<span class="class">.navigationController</span><span class="class">.interactivePopGestureRecognizer</span><span class="class">.delegate</span> =(id)self</span><br></pre></td></tr></table></figure>
+<p>然而这样又会出现很多问题，比如说在rootViewController的时候这个手势也可以响应，导致整个程序页面不响应；push了多层后，快速的触发两次手势，也会错乱。</p>
+<h4 id="最佳方案">最佳方案</h4><p>通过设置interactivePopGestureRecognizer可以简单的实现，但又会出现很多问题，所以我们可以自己实现一个手势去替换掉系统的，运用</p>
 <ul>
-<li><p>(BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer<br>{<br>  // 当为根控制器时，手势不执行。<br>  if (self.navigationController.viewControllers.count &lt;= 1) {</p>
-<pre><code><span class="keyword">return</span> <span class="literal">NO</span>;
-</code></pre><p>  }</p>
-<p>  // 设置一个页面是否显示此手势，默认为NO 显示。<br>  UIViewController *topViewController = self.navigationController.viewControllers.lastObject;<br>  if (topViewController.pda_interactivePopDisabled) {</p>
-<pre><code><span class="keyword">return</span> <span class="literal">NO</span>;
-</code></pre><p>  }</p>
-<p>  //  手势滑动距左边框的距离超过maxAllowedInitialDistance 手势不执行。<br>  CGPoint beginningLocation = [gestureRecognizer locationInView:gestureRecognizer.view];<br>  CGFloat maxAllowedInitialDistance = topViewController.pda_interactivePopMaxAllowedInitialDistanceToLeftEdge;<br>  if (maxAllowedInitialDistance &gt; 0 &amp;&amp; beginningLocation.x &gt; maxAllowedInitialDistance) {</p>
-<pre><code><span class="keyword">return</span> <span class="literal">NO</span>;
-</code></pre><p>  }</p>
-<p>  // 当push、pop动画正在执行时，手势不执行。<br>  if ([[self.navigationController valueForKey:@”_isTransitioning”] boolValue]) {</p>
-<pre><code><span class="keyword">return</span> <span class="literal">NO</span>;
-</code></pre><p>  }</p>
-<p>  //  向左边(反方向)拖动，手势不执行。<br>  CGPoint translation = [gestureRecognizer translationInView:gestureRecognizer.view];<br>  if (translation.x &lt;= 0) {</p>
-<pre><code><span class="keyword">return</span> <span class="literal">NO</span>;
-</code></pre><p>  }</p>
-<p>  return YES;<br>}</p>
-</li>
+<li>runtime+KVC+AOP</li>
 </ul>
-<p>@end<br>再在UINavigationController的实现里用Method Swizzling替换pushViewController方法。</p>
-<p>+(void)load<br>{<br>    static dispatch_once_t onceToken;<br>    dispatch_once(&amp;onceToken, ^{<br>        Class class = [self class];</p>
-<pre><code>    SEL originalSelector = @<span class="keyword">selector</span>(pushViewController:animated:);
-    SEL swizzledSelector = @<span class="keyword">selector</span>(pda_pushViewController:animated:);
-
-    <span class="function"><span class="keyword">Method</span> <span class="title">originalMethod</span> = <span class="title">class_getInstanceMethod</span><span class="params">(<span class="keyword">class</span>, originalSelector)</span>;</span>
-    <span class="function"><span class="keyword">Method</span> <span class="title">swizzledMethod</span> = <span class="title">class_getInstanceMethod</span><span class="params">(<span class="keyword">class</span>, swizzledSelector)</span>;</span>
-
-    BOOL success = class_addMethod(<span class="keyword">class</span>, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
-    <span class="keyword">if</span> (success) <span class="comment">{
-        class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
-    }</span> <span class="keyword">else</span> <span class="comment">{
-        method_exchangeImplementations(originalMethod, swizzledMethod);
-    }</span>
-});
-</code></pre><p>}<br>这里需要注意的是Method Swizzling API 提供的三个方法来动态替换类方法或实例方法。</p>
-<p>class_replaceMethod                         替换类方法的定义</p>
-<p>method_exchangeImplementations   交换 2 个方法的实现</p>
-<p>method_setImplementation               设置 1 个方法的实现</p>
+<p>的方式，用KVC拿到interactivePopGestureRecognizer的target和action，用runtime动态替换掉，面向切面编程，不用在原工程上增删代码。</p>
+<h4 id="实现">实现</h4><p>还是写码最省事，直接动手！</p>
+<p>首先，创建一个UINavigationController的分类,再添加UIViewController的分类,在UINavigationController.h里声明自定义的手势，在UIViewController.h里声明pda_interactivePopDisabled是否显示手势和pda_interactivePopMaxAllowedInitialDistanceToLeftEdge手势滑动距左边最大的距离。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UINavigationController</span> (<span class="title">PDAPopGesture</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>, <span class="keyword">readonly</span>) <span class="built_in">UIPanGestureRecognizer</span> *pda_popGestureRecognizer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIViewController</span> (<span class="title">PDAPopGesture</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> pda_interactivePopDisabled;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> pda_interactivePopMaxAllowedInitialDistanceToLeftEdge;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>在.m里定义一个私有类，设置手势的执行条件。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">"UINavigationController+PDAPopGesture.h"</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">PDAFullscreenPopGestureRecognizerDelegate</span> : <span class="title">NSObject</span> &lt;<span class="title">UIGestureRecognizerDelegate</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="built_in">UINavigationController</span> *navigationController;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">PDAFullscreenPopGestureRecognizerDelegate</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)gestureRecognizerShouldBegin:(<span class="built_in">UIPanGestureRecognizer</span> *)gestureRecognizer</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 当为根控制器时，手势不执行。</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.viewControllers</span><span class="variable">.count</span> &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 设置一个页面是否显示此手势，默认为NO 显示。</span></span><br><span class="line">    <span class="built_in">UIViewController</span> *topViewController = <span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.viewControllers</span><span class="variable">.lastObject</span>;</span><br><span class="line">    <span class="keyword">if</span> (topViewController<span class="variable">.pda_interactivePopDisabled</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//  手势滑动距左边框的距离超过maxAllowedInitialDistance 手势不执行。</span></span><br><span class="line">    <span class="built_in">CGPoint</span> beginningLocation = [gestureRecognizer locationInView:gestureRecognizer<span class="variable">.view</span>];</span><br><span class="line">    <span class="built_in">CGFloat</span> maxAllowedInitialDistance = topViewController<span class="variable">.pda_interactivePopMaxAllowedInitialDistanceToLeftEdge</span>;</span><br><span class="line">    <span class="keyword">if</span> (maxAllowedInitialDistance &gt; <span class="number">0</span> &amp;&amp; beginningLocation<span class="variable">.x</span> &gt; maxAllowedInitialDistance) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 当push、pop动画正在执行时，手势不执行。</span></span><br><span class="line">    <span class="keyword">if</span> ([[<span class="keyword">self</span><span class="variable">.navigationController</span> valueForKey:<span class="string">@"_isTransitioning"</span>] boolValue]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//  向左边(反方向)拖动，手势不执行。</span></span><br><span class="line">    <span class="built_in">CGPoint</span> translation = [gestureRecognizer translationInView:gestureRecognizer<span class="variable">.view</span>];</span><br><span class="line">    <span class="keyword">if</span> (translation<span class="variable">.x</span> &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>再在UINavigationController的实现里用Method Swizzling替换pushViewController方法。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">+(void)load</span><br><span class="line">&#123;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        Class <span class="class"><span class="keyword">class</span> = [<span class="title">self</span> <span class="title">class</span>];</span></span><br><span class="line">        </span><br><span class="line">        SEL originalSelector = @selector(pushViewController:animated:);</span><br><span class="line">        SEL swizzledSelector = @selector(pda_pushViewController:animated:);</span><br><span class="line">        </span><br><span class="line">        Method originalMethod = class_getInstanceMethod(<span class="class"><span class="keyword">class</span>, <span class="typename">originalSelector);</span></span></span><br><span class="line">        Method swizzledMethod = class_getInstanceMethod(<span class="class"><span class="keyword">class</span>, <span class="typename">swizzledSelector);</span></span></span><br><span class="line">        </span><br><span class="line">        BOOL success = class_addMethod(<span class="class"><span class="keyword">class</span>, <span class="typename">originalSelector</span>, <span class="typename">method_getImplementation</span></span>(swizzledMethod), method_getTypeEncoding(swizzledMethod));</span><br><span class="line">        <span class="keyword">if</span> (success) &#123;</span><br><span class="line">            class_replaceMethod(<span class="class"><span class="keyword">class</span>, <span class="typename">swizzledSelector</span>, <span class="typename">method_getImplementation</span></span>(originalMethod), method_getTypeEncoding(originalMethod));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            method_exchangeImplementations(originalMethod, swizzledMethod);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里需要注意的是Method Swizzling API 提供的三个方法来动态替换类方法或实例方法。</p>
+<ul>
+<li>class_replaceMethod                         替换类方法的定义</li>
+<li>method_exchangeImplementations   交换 2 个方法的实现</li>
+<li>method_setImplementation               设置 1 个方法的实现</li>
+</ul>
 <p>而这三个又有些使用上的区别，class_replaceMethod, 当需要替换的方法可能有不存在的情况时，可以考虑使用该方法。method_exchangeImplementations，当需要交换 2 个方法的实现时使用。method_setImplementation 最简单的用法，当仅仅需要为一个方法设置其实现方式时使用。</p>
 <p>所以这里得先确认添加的方法是否存在，举个具体的例子, 假设要替换掉[NSView description]方法，如果NSView 没有实现-description (可选的) 那你就可会得到NSObject的方法。 如果调用method_exchangeImplementations , 你就会把NSObject 的方法替换成你的代码，这显然不是我们想要的。</p>
 <p>所以在这里定义一个BOOL值来接收class_addMethod的返回值，class_addMethod会动态的给类添加方法，若方法fd_viewWillAppear已存在，class_addMethod会返回失败，此时调用method_exchangeImplementations去替换，若不存在，则用class_replaceMethod替换。</p>
 <p>继续实现pda_pushViewController:animated方法</p>
-<ul>
-<li><p>(void)pda_pushViewController:(UIViewController *)viewController animated:(BOOL)animated<br>{<br>  if (![self.interactivePopGestureRecognizer.view.gestureRecognizers containsObject:self.pda_popGestureRecognizer])<br>  {</p>
-<pre><code><span class="comment">//  添加我们自己的侧滑返回手势</span>
-[<span class="keyword">self</span><span class="variable">.interactivePopGestureRecognizer</span><span class="variable">.view</span> addGestureRecognizer:<span class="keyword">self</span><span class="variable">.pda_popGestureRecognizer</span>];
-<span class="comment">/*
- 新建一个UIPanGestureRecognizer，让它的触发和系统的这个手势相同，
- 这就需要利用runtime获取系统手势的target和action。
- */</span>
-<span class="comment">//  用KVC取出target和action</span>
-<span class="built_in">NSArray</span> *internalTargets = [<span class="keyword">self</span><span class="variable">.interactivePopGestureRecognizer</span> valueForKey:<span class="string">@"targets"</span>];
-<span class="keyword">id</span> internalTarget = [internalTargets<span class="variable">.firstObject</span> valueForKey:<span class="string">@"target"</span>];
-SEL internalAction = <span class="built_in">NSSelectorFromString</span>(<span class="string">@"handleNavigationTransition:"</span>);
-
-<span class="comment">//  将自定义的代理（手势执行条件）传给手势的delegate</span>
-<span class="keyword">self</span><span class="variable">.pda_popGestureRecognizer</span><span class="variable">.delegate</span> = <span class="keyword">self</span><span class="variable">.pda_popGestureRecognizerDelegate</span>;
-<span class="comment">//  将target和action传给手势</span>
-[<span class="keyword">self</span><span class="variable">.pda_popGestureRecognizer</span> addTarget:internalTarget action:internalAction];
-
-<span class="comment">//  设置系统的为NO</span>
-<span class="keyword">self</span><span class="variable">.interactivePopGestureRecognizer</span><span class="variable">.enabled</span> = <span class="literal">NO</span>;
-</code></pre><p>  }<br>  //  执行原本的方法<br>  if (![self.viewControllers containsObject:viewController]) {</p>
-<pre><code>[self <span class="string">pda_pushViewController:</span>viewController <span class="string">animated:</span>animated];
-</code></pre><p>  }<br>}<br>其中要注意的是将前面定义的手势触发条件的delegate传给pda_popGestureRecognizer的delegate。</p>
-</li>
-</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)pda_pushViewController:(<span class="built_in">UIViewController</span> *)viewController animated:(<span class="built_in">BOOL</span>)animated</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span><span class="variable">.interactivePopGestureRecognizer</span><span class="variable">.view</span><span class="variable">.gestureRecognizers</span> containsObject:<span class="keyword">self</span><span class="variable">.pda_popGestureRecognizer</span>])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//  添加我们自己的侧滑返回手势</span></span><br><span class="line">        [<span class="keyword">self</span><span class="variable">.interactivePopGestureRecognizer</span><span class="variable">.view</span> addGestureRecognizer:<span class="keyword">self</span><span class="variable">.pda_popGestureRecognizer</span>];</span><br><span class="line">        <span class="comment">/*</span><br><span class="line">         新建一个UIPanGestureRecognizer，让它的触发和系统的这个手势相同，</span><br><span class="line">         这就需要利用runtime获取系统手势的target和action。</span><br><span class="line">         */</span></span><br><span class="line">        <span class="comment">//  用KVC取出target和action</span></span><br><span class="line">        <span class="built_in">NSArray</span> *internalTargets = [<span class="keyword">self</span><span class="variable">.interactivePopGestureRecognizer</span> valueForKey:<span class="string">@"targets"</span>];</span><br><span class="line">        <span class="keyword">id</span> internalTarget = [internalTargets<span class="variable">.firstObject</span> valueForKey:<span class="string">@"target"</span>];</span><br><span class="line">        SEL internalAction = <span class="built_in">NSSelectorFromString</span>(<span class="string">@"handleNavigationTransition:"</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//  将自定义的代理（手势执行条件）传给手势的delegate</span></span><br><span class="line">        <span class="keyword">self</span><span class="variable">.pda_popGestureRecognizer</span><span class="variable">.delegate</span> = <span class="keyword">self</span><span class="variable">.pda_popGestureRecognizerDelegate</span>;</span><br><span class="line">        <span class="comment">//  将target和action传给手势</span></span><br><span class="line">        [<span class="keyword">self</span><span class="variable">.pda_popGestureRecognizer</span> addTarget:internalTarget action:internalAction];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//  设置系统的为NO</span></span><br><span class="line">        <span class="keyword">self</span><span class="variable">.interactivePopGestureRecognizer</span><span class="variable">.enabled</span> = <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//  执行原本的方法</span></span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span><span class="variable">.viewControllers</span> containsObject:viewController]) &#123;</span><br><span class="line">        [<span class="keyword">self</span> pda_pushViewController:viewController animated:animated];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中要注意的是将前面定义的手势触发条件的delegate传给pda_popGestureRecognizer的delegate。</p>
 <p>最后补上pda_popGestureRecognizer的getter和pda_popGestureRecognizerDelegate的setter方法。</p>
-<ul>
-<li><p>(PDAFullscreenPopGestureRecognizerDelegate <em>)pda_popGestureRecognizerDelegate<br>{<br>  PDAFullscreenPopGestureRecognizerDelegate </em>delegate = objc_getAssociatedObject(self, _cmd);<br>  if (!delegate) {</p>
-<pre><code><span class="keyword">delegate</span> = [[PDAFullscreenPopGestureRecognizerDelegate alloc] init];
-<span class="keyword">delegate</span>.navigationController = <span class="keyword">self</span>;
-objc_setAssociatedObject(<span class="keyword">self</span>, _cmd, <span class="keyword">delegate</span>, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-</code></pre><p>  }<br>  return delegate;<br>}</p>
-</li>
-<li><p>(UIPanGestureRecognizer <em>)pda_fullscreenPopGestureRecognizer<br>{<br>  UIPanGestureRecognizer </em>panGestureRecognizer = objc_getAssociatedObject(self, _cmd);<br>  if (!panGestureRecognizer) {</p>
-<pre><code>panGestureRecognizer = [[UIPanGestureRecognizer alloc] init]<span class="comment">;</span>
-panGestureRecognizer.maximumNumberOfTouches = 1<span class="comment">;</span>
-objc_setAssociatedObject(self, _cmd, panGestureRecognizer, OBJC_ASSOCIATION_RETAIN_NONATOMIC)<span class="comment">;</span>
-</code></pre><p>  }<br>  return panGestureRecognizer;<br>}<br>后面UIViewController只需要给出pda_interactivePopMaxAllowedInitialDistanceToLeftEdge和pda_interactivePopDisabled的setter和getter即可。</p>
-</li>
-</ul>
-<p>后记</p>
-<p>大功告成，直接添加到工程里，不用额外代码即可为你的项目添加滑动返回效果，快去试试吧！</p>
-<p>参考链接</p>
-<p><a href="http://blog.devtang.com/blog/2013/10/15/objective-c-object-model/" target="_blank" rel="external">http://blog.devtang.com/blog/2013/10/15/objective-c-object-model/</a></p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">- <span class="list">(<span class="keyword">PDAFullscreenPopGestureRecognizerDelegate</span> <span class="variable">*)pda_popGestureRecognizerDelegate</span><br><span class="line">&#123;</span><br><span class="line">    PDAFullscreenPopGestureRecognizerDelegate *</span>delegate = objc_getAssociatedObject<span class="list">(<span class="keyword">self</span>, _cmd)</span><span class="comment">;</span></span><br><span class="line">    if <span class="list">(!delegate)</span> &#123;</span><br><span class="line">        delegate = [[PDAFullscreenPopGestureRecognizerDelegate alloc] init]<span class="comment">;</span></span><br><span class="line">        delegate.navigationController = self<span class="comment">;</span></span><br><span class="line">        objc_setAssociatedObject<span class="list">(<span class="keyword">self</span>, _cmd, delegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC)</span><span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">    return delegate<span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- <span class="list">(<span class="keyword">UIPanGestureRecognizer</span> <span class="variable">*)pda_fullscreenPopGestureRecognizer</span><br><span class="line">&#123;</span><br><span class="line">    UIPanGestureRecognizer *</span>panGestureRecognizer = objc_getAssociatedObject<span class="list">(<span class="keyword">self</span>, _cmd)</span><span class="comment">;</span></span><br><span class="line">    if <span class="list">(!panGestureRecognizer)</span> &#123;</span><br><span class="line">        panGestureRecognizer = [[UIPanGestureRecognizer alloc] init]<span class="comment">;</span></span><br><span class="line">        panGestureRecognizer.maximumNumberOfTouches = <span class="number">1</span><span class="comment">;</span></span><br><span class="line">        objc_setAssociatedObject<span class="list">(<span class="keyword">self</span>, _cmd, panGestureRecognizer, OBJC_ASSOCIATION_RETAIN_NONATOMIC)</span><span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">    return panGestureRecognizer<span class="comment">;</span></span><br><span class="line">&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>后面UIViewController只需要给出pda_interactivePopMaxAllowedInitialDistanceToLeftEdge和pda_interactivePopDisabled的setter和getter即可。</p>
+<h4 id="后记">后记</h4><p>大功告成，直接添加到工程里，不用额外代码即可为你的项目添加滑动返回效果，快去试试吧！</p>
+<h4 id="参考链接">参考链接</h4><p><a href="http://blog.devtang.com/blog/2013/10/15/objective-c-object-model/" target="_blank" rel="external">http://blog.devtang.com/blog/2013/10/15/objective-c-object-model/</a></p>
 <p><a href="http://blog.sina.com.cn/s/blog_65c178a80102v0f4.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_65c178a80102v0f4.html</a></p>
 <p><a href="http://www.cocoachina.com/ios/20150120/10959.html" target="_blank" rel="external">http://www.cocoachina.com/ios/20150120/10959.html</a></p>
 <p><a href="http://www.jianshu.com/p/d39f7d22db6c" target="_blank" rel="external">http://www.jianshu.com/p/d39f7d22db6c</a></p>
@@ -375,6 +303,12 @@ objc_setAssociatedObject(self, _cmd, panGestureRecognizer, OBJC_ASSOCIATION_RETA
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+        </div>
       
 
       
@@ -385,8 +319,8 @@ objc_setAssociatedObject(self, _cmd, panGestureRecognizer, OBJC_ASSOCIATION_RETA
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/27/iOS开发Tips/" rel="next">
-                iOS开发Tips <i class="fa fa-chevron-right"></i>
+              <a href="/2015/09/29/链式编程初探/" rel="next">
+                链式编程初探 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -477,7 +411,7 @@ objc_setAssociatedObject(self, _cmd, panGestureRecognizer, OBJC_ASSOCIATION_RETA
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -491,7 +425,7 @@ objc_setAssociatedObject(self, _cmd, panGestureRecognizer, OBJC_ASSOCIATION_RETA
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -553,7 +487,7 @@ objc_setAssociatedObject(self, _cmd, panGestureRecognizer, OBJC_ASSOCIATION_RETA
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前言-1"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置interactivePopGestureRecognizer"><span class="nav-number">3.</span> <span class="nav-text">设置interactivePopGestureRecognizer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最佳方案"><span class="nav-number">4.</span> <span class="nav-text">最佳方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">5.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后记"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接"><span class="nav-number">7.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
