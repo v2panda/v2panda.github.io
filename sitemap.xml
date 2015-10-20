@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://v2panda.com/2015/10/13/%E6%BB%91%E5%8A%A8%E8%BF%94%E5%9B%9E%E6%89%8B%E5%8A%BF%E6%8E%A2%E7%A9%B6/</loc>
+    <lastmod>2015-10-20T06:53:17.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://v2panda.com/about/index.html</loc>
     <lastmod>2015-10-19T11:28:02.000Z</lastmod>
   </url>
@@ -12,11 +17,6 @@
   </url>
   
   <url>
-    <loc>http://v2panda.com/2015/10/19/firstblog/</loc>
-    <lastmod>2015-10-19T02:55:41.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://v2panda.com/categories/index.html</loc>
     <lastmod>2015-10-19T02:29:06.000Z</lastmod>
   </url>
@@ -24,11 +24,6 @@
   <url>
     <loc>http://v2panda.com/tags/index.html</loc>
     <lastmod>2015-10-19T02:27:46.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://v2panda.com/2015/10/19/hello-world/</loc>
-    <lastmod>2015-10-19T00:49:22.000Z</lastmod>
   </url>
   
 </urlset>
