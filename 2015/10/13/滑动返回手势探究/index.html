@@ -59,7 +59,7 @@
 代码里的设置是：
 1self.navigationController.interactivePopGestureRecognizer.enabled = YES;（default is YES）
 可以看到苹果给navigationContr">
-<meta property="og:updated_time" content="2015-10-20T09:42:21.000Z">
+<meta property="og:updated_time" content="2015-10-26T03:50:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="滑动返回手势探究">
 <meta name="twitter:description" content="前言从iOS7开始，苹果增加了页面右滑返回的效果，具体的是以UINavigationController为容器的ViewController间右滑切换页面。
@@ -258,11 +258,6 @@
 <p>可以看到苹果给navigationController添加了一个手势（具体为UIScreenEdgePanGestureRecognizer（边缘手势，同样是ios7以后才有的）），就是利用这个手势实现的 iOS7的侧滑返回。</p>
 <p>但在日常开发中，我们大多会自定义返回按钮，此时系统的右滑返回就会失效。然而支持滑动返回已成为iOS上必须实现的交互，若没有那APP离被卸载就不远了。</p>
 <a id="more"></a>
-<h4 id="前言-1">前言</h4><p>从iOS7开始，苹果增加了页面右滑返回的效果，具体的是以UINavigationController为容器的ViewController间右滑切换页面。</p>
-<p>代码里的设置是：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.interactivePopGestureRecognizer</span><span class="variable">.enabled</span> = <span class="literal">YES</span>;（<span class="keyword">default</span> is <span class="literal">YES</span>）</span><br></pre></td></tr></table></figure>
-<p>可以看到苹果给navigationController添加了一个手势（具体为UIScreenEdgePanGestureRecognizer（边缘手势，同样是ios7以后才有的）），就是利用这个手势实现的 iOS7的侧滑返回。</p>
-<p>但在日常开发中，我们大多会自定义返回按钮，此时系统的右滑返回就会失效。然而支持滑动返回已成为iOS上必须实现的交互，若没有那APP离被卸载就不远了。</p>
 <h4 id="设置interactivePopGestureRecognizer">设置interactivePopGestureRecognizer</h4><p>对于这种失效的情况，考虑到interactivePopGestureRecognizer也有delegate属性，替换默认的self.navigationController.interactivePopGestureRecognizer.delegate来配置右滑返回的表现也是可行的。我们可以在主NavigationController中设置一下：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self<span class="class">.navigationController</span><span class="class">.interactivePopGestureRecognizer</span><span class="class">.delegate</span> =(id)self</span><br></pre></td></tr></table></figure>
 <p>然而这样又会出现很多问题，比如说在rootViewController的时候这个手势也可以响应，导致整个程序页面不响应；push了多层后，快速的触发两次手势，也会错乱。</p>
@@ -411,7 +406,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -425,7 +420,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -487,7 +482,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前言-1"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置interactivePopGestureRecognizer"><span class="nav-number">3.</span> <span class="nav-text">设置interactivePopGestureRecognizer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最佳方案"><span class="nav-number">4.</span> <span class="nav-text">最佳方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">5.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后记"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接"><span class="nav-number">7.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置interactivePopGestureRecognizer"><span class="nav-number">2.</span> <span class="nav-text">设置interactivePopGestureRecognizer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最佳方案"><span class="nav-number">3.</span> <span class="nav-text">最佳方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">4.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后记"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接"><span class="nav-number">6.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
