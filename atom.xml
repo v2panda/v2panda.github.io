@@ -16,8 +16,8 @@
   
   <entry>
     <title><![CDATA[滑动返回手势探究]]></title>
-    <link href="http://v2panda.com/2015/10/13/%E6%BB%91%E5%8A%A8%E8%BF%94%E5%9B%9E%E6%89%8B%E5%8A%BF%E6%8E%A2%E7%A9%B6/"/>
-    <id>http://v2panda.com/2015/10/13/滑动返回手势探究/</id>
+    <link href="http://v2panda.com/2015/10/13/research-slidingback-gesture/"/>
+    <id>http://v2panda.com/2015/10/13/research-slidingback-gesture/</id>
     <published>2015-10-13T08:44:49.000Z</published>
     <updated>2015-10-26T03:50:12.000Z</updated>
     <content type="html"><![CDATA[<h4 id="前言">前言</h4><p>从iOS7开始，苹果增加了页面右滑返回的效果，具体的是以UINavigationController为容器的ViewController间右滑切换页面。</p>
@@ -77,8 +77,8 @@
   
   <entry>
     <title><![CDATA[链式编程初探]]></title>
-    <link href="http://v2panda.com/2015/09/29/%E9%93%BE%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%88%9D%E6%8E%A2/"/>
-    <id>http://v2panda.com/2015/09/29/链式编程初探/</id>
+    <link href="http://v2panda.com/2015/09/29/chain-programming/"/>
+    <id>http://v2panda.com/2015/09/29/chain-programming/</id>
     <published>2015-09-29T08:44:49.000Z</published>
     <updated>2015-10-26T03:49:57.000Z</updated>
     <content type="html"><![CDATA[<h4 id="前言">前言</h4><p>最近用了下<a href="https://github.com/SnapKit/Masonry" target="_blank" rel="external">masonry</a>,看到许多如</p>
@@ -115,8 +115,8 @@
   
   <entry>
     <title><![CDATA[iOS开发Tips]]></title>
-    <link href="http://v2panda.com/2015/07/27/iOS%E5%BC%80%E5%8F%91Tips/"/>
-    <id>http://v2panda.com/2015/07/27/iOS开发Tips/</id>
+    <link href="http://v2panda.com/2015/07/27/iOS-develop-tips/"/>
+    <id>http://v2panda.com/2015/07/27/iOS-develop-tips/</id>
     <published>2015-07-27T08:44:49.000Z</published>
     <updated>2015-10-26T03:49:26.000Z</updated>
     <content type="html"><![CDATA[<h3 id="介绍">介绍</h3><p>随着开发的进行，用到的一些小技巧和插件工具也越来越多。在这里统一的总结一下，方便查阅，时时更新。</p>
@@ -194,8 +194,8 @@
   
   <entry>
     <title><![CDATA[iOS简单使用keychain存储密码]]></title>
-    <link href="http://v2panda.com/2015/04/07/iOS%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8keychain%E5%AD%98%E5%82%A8%E5%AF%86%E7%A0%81/"/>
-    <id>http://v2panda.com/2015/04/07/iOS简单使用keychain存储密码/</id>
+    <link href="http://v2panda.com/2015/04/07/iOS-keychain/"/>
+    <id>http://v2panda.com/2015/04/07/iOS-keychain/</id>
     <published>2015-04-07T09:54:07.000Z</published>
     <updated>2015-10-26T03:49:42.000Z</updated>
     <content type="html"><![CDATA[<p>Tips:在实习过程中，有次让我实现一个app七天免登陆功能。当时没细想，直接就用NSUserDefaults给做的，用NSDate判断时间，取七天的间隔判断登陆状态。直到现在了解了keychain，才知道用NSUserDefaults是非常不安全的。通常情况下，可以用NSUserDefaults存储数据信息，但是对于一些私密信息，比如账号、密码等等，就需要使用更为安全的keychain了。而Keychain的信息是存在于每个应用（app）的沙盒之外的，所以keychain里保存的信息不会因App被删除而丢失，在用户重新安装App后依然有效，数据还在。</p>
@@ -229,10 +229,10 @@
   
   <entry>
     <title><![CDATA[v2panda's blog的诞生]]></title>
-    <link href="http://v2panda.com/2014/12/26/v2panda-s-blog%E7%9A%84%E8%AF%9E%E7%94%9F/"/>
-    <id>http://v2panda.com/2014/12/26/v2panda-s-blog的诞生/</id>
+    <link href="http://v2panda.com/2014/12/26/the-blog's%20birth/"/>
+    <id>http://v2panda.com/2014/12/26/the-blog's birth/</id>
     <published>2014-12-26T03:28:11.000Z</published>
-    <updated>2015-10-26T05:35:18.000Z</updated>
+    <updated>2015-10-26T05:52:38.000Z</updated>
     <content type="html"><![CDATA[<h3 id="前言">前言</h3><p>这是本博客的第一篇文章，用来记录这个网站的诞生过程。</p>
 <a id="more"></a>
 <h3 id="环境">环境</h3><p>Required</p>
