@@ -57,8 +57,8 @@
 <meta property="og:description" content="前言最近用了下masonry,看到许多如
 1234make.top.equalTo(self.mas_topLayoutGuide); make.left.equalTo(self.view);make.right.equalTo(self.view);make.height.equalTo(@40);
 这样的代码，又通过几篇博客了解到这就是简单地链式编程，所以准备了解一下，并且在学习masonr">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/234048-193e56372a1f9b54.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2015-10-26T03:49:57.000Z">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/234048-193e56372a1f9b54.png">
+<meta property="og:updated_time" content="2015-11-26T06:47:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="链式编程初探">
 <meta name="twitter:description" content="前言最近用了下masonry,看到许多如
@@ -258,7 +258,7 @@
 <h4 id="链式编程特点">链式编程特点</h4><p>方法的返回值是block,block必须有返回值（本身对象），block参数（需要操作的值）</p>
 <h4 id="实战">实战</h4><p>模仿masonry，写一个加法计算器，练习链式编程。</p>
 <p>1.新建类。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/234048-193e56372a1f9b54.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2015-09-29 下午2.06.44.png"></p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/234048-193e56372a1f9b54.png" alt="a.png"></p>
 <p>2.在CaculatorMaker.h里定义四则运算</p>
 <figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">interface</span> <span class="type">CaculatorMaker</span> : <span class="type">NSObject</span></span><br><span class="line"></span><br><span class="line">@property (nonatomic, assign) <span class="type">int</span> <span class="literal">result</span>;</span><br><span class="line"></span><br><span class="line">- (<span class="type">CaculatorMaker</span> *(^)(<span class="type">int</span>))add;</span><br><span class="line">- (<span class="type">CaculatorMaker</span> *(^)(<span class="type">int</span>))sub;</span><br><span class="line">- (<span class="type">CaculatorMaker</span> *(^)(<span class="type">int</span>))multi;</span><br><span class="line">- (<span class="type">CaculatorMaker</span> *(^)(<span class="type">int</span>))divide;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>3.在CaculatorMaker.m里实现</p>

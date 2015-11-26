@@ -250,7 +250,7 @@
           <h4 id="前言">前言</h4><p>从iOS7开始，苹果增加了页面右滑返回的效果，具体的是以UINavigationController为容器的ViewController间右滑切换页面。</p>
 <p>代码里的设置是：</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.interactivePopGestureRecognizer</span><span class="variable">.enabled</span> = <span class="literal">YES</span>;（<span class="keyword">default</span> is <span class="literal">YES</span>）</span><br></pre></td></tr></table></figure>
-<p>可以看到苹果给navigationController添加了一个手势（具体为UIScreenEdgePanGestureRecognizer（边缘手势，同样是ios7以后才有的）），就是利用这个手势实现的 iOS7的侧滑返回。</p>
+<p>可以看到苹果给navigationController添加了一个手势（具体为<code>UIScreenEdgePanGestureRecognizer</code>（边缘手势，同样是ios7以后才有的）），就是利用这个手势实现的 iOS7的侧滑返回。</p>
 <p>但在日常开发中，我们大多会自定义返回按钮，此时系统的右滑返回就会失效。然而支持滑动返回已成为iOS上必须实现的交互，若没有那APP离被卸载就不远了。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/10/13/research-slidingback-gesture/#more" rel="contents">
