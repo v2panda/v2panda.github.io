@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="编程思想," />
+  <meta name="keywords" content="Shadowsocks," />
 
 
 
@@ -47,23 +47,70 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="前言最近用了下masonry,看到许多如
-1234make.top.equalTo(self.mas_topLayoutGuide); make.left.equalTo(self.view);make.right.equalTo(self.view);make.height.equalTo(@40);
-这样的代码，又通过几篇博客了解到这就是简单地链式编程，所以准备了解一下，并且在学习masonr">
+<meta name="description" content="#前言最近用的VPN越来越不稳定了，决定搭个小梯子自用。
+
+
+
+我的选择
+以前
+现在
+
+
+
+
+手机
+Hydro
+Surge
+
+
+PC
+VPN + Lantern
+Shadowsocks">
 <meta property="og:type" content="article">
-<meta property="og:title" content="链式编程初探">
-<meta property="og:url" content="http://v2panda.com/2015/09/29/chain-programming/index.html">
+<meta property="og:title" content="自建网络调试工具">
+<meta property="og:url" content="http://v2panda.com/2015/11/26/network-debugging-tools/index.html">
 <meta property="og:site_name" content="v2panda's blog">
-<meta property="og:description" content="前言最近用了下masonry,看到许多如
-1234make.top.equalTo(self.mas_topLayoutGuide); make.left.equalTo(self.view);make.right.equalTo(self.view);make.height.equalTo(@40);
-这样的代码，又通过几篇博客了解到这就是简单地链式编程，所以准备了解一下，并且在学习masonr">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/234048-193e56372a1f9b54.png">
-<meta property="og:updated_time" content="2015-11-26T06:47:25.000Z">
+<meta property="og:description" content="#前言最近用的VPN越来越不稳定了，决定搭个小梯子自用。
+
+
+
+我的选择
+以前
+现在
+
+
+
+
+手机
+Hydro
+Surge
+
+
+PC
+VPN + Lantern
+Shadowsocks">
+<meta property="og:updated_time" content="2015-11-29T09:35:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="链式编程初探">
-<meta name="twitter:description" content="前言最近用了下masonry,看到许多如
-1234make.top.equalTo(self.mas_topLayoutGuide); make.left.equalTo(self.view);make.right.equalTo(self.view);make.height.equalTo(@40);
-这样的代码，又通过几篇博客了解到这就是简单地链式编程，所以准备了解一下，并且在学习masonr">
+<meta name="twitter:title" content="自建网络调试工具">
+<meta name="twitter:description" content="#前言最近用的VPN越来越不稳定了，决定搭个小梯子自用。
+
+
+
+我的选择
+以前
+现在
+
+
+
+
+手机
+Hydro
+Surge
+
+
+PC
+VPN + Lantern
+Shadowsocks">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -75,7 +122,7 @@
 
 
 
-  <title> 链式编程初探 | v2panda's blog </title>
+  <title> 自建网络调试工具 | v2panda's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -210,7 +257,7 @@
             
             
               
-                链式编程初探
+                自建网络调试工具
               
             
           </h1>
@@ -219,8 +266,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-09-29T16:44:49+08:00" content="2015-09-29">
-              2015-09-29
+            <time itemprop="dateCreated" datetime="2015-11-26T15:30:51+08:00" content="2015-11-26">
+              2015-11-26
             </time>
           </span>
 
@@ -230,8 +277,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/09/29/chain-programming/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/29/chain-programming/" itemprop="commentsCount"></span>
+                <a href="/2015/11/26/network-debugging-tools/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/26/network-debugging-tools/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -250,26 +297,111 @@
       
 
       
-        <span itemprop="articleBody"><h4 id="前言">前言</h4><p>最近用了下<a href="https://github.com/SnapKit/Masonry" target="_blank" rel="external">masonry</a>,看到许多如</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">make</span><span class="class">.top</span><span class="class">.equalTo</span>(<span class="tag">self</span><span class="class">.mas_topLayoutGuide</span>); </span><br><span class="line"><span class="tag">make</span><span class="class">.left</span><span class="class">.equalTo</span>(<span class="tag">self</span><span class="class">.view</span>);</span><br><span class="line"><span class="tag">make</span><span class="class">.right</span><span class="class">.equalTo</span>(<span class="tag">self</span><span class="class">.view</span>);</span><br><span class="line"><span class="tag">make</span><span class="class">.height</span><span class="class">.equalTo</span>(<span class="at_rule">@<span class="keyword">40);</span></span></span><br></pre></td></tr></table></figure>
-<p>这样的代码，又通过几篇<a href="http://www.jianshu.com/p/87ef6720a096" target="_blank" rel="external">博客</a>了解到这就是简单地链式编程，所以准备了解一下，并且在学习masonry框架前，也可以学习它的编程思想。</p>
+        <span itemprop="articleBody"><p>#前言<br>最近用的VPN越来越不稳定了，决定搭个小梯子自用。</p>
+<table>
+<thead>
+<tr>
+<th>我的选择</th>
+<th style="text-align:center">以前</th>
+<th style="text-align:center">现在</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>手机</td>
+<td style="text-align:center">Hydro</td>
+<td style="text-align:center">Surge</td>
+</tr>
+<tr>
+<td>PC</td>
+<td style="text-align:center">VPN + Lantern</td>
+<td style="text-align:center">Shadowsocks</td>
+</tr>
+</tbody>
+</table>
 <a id="more"></a>
-<h4 id="链式编程思想">链式编程思想</h4><p>是将多个操作（多行代码）通过点号(.)链接在一起成为一句代码,使代码可读性好。如a(1).b(2).c(3)</p>
-<h4 id="链式编程特点">链式编程特点</h4><p>方法的返回值是block,block必须有返回值（本身对象），block参数（需要操作的值）</p>
-<h4 id="实战">实战</h4><p>模仿masonry，写一个加法计算器，练习链式编程。</p>
-<p>1.新建类。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/234048-193e56372a1f9b54.png" alt="a.png"></p>
-<p>2.在CaculatorMaker.h里定义四则运算</p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">interface</span> <span class="type">CaculatorMaker</span> : <span class="type">NSObject</span></span><br><span class="line"></span><br><span class="line">@property (nonatomic, assign) <span class="type">int</span> <span class="literal">result</span>;</span><br><span class="line"></span><br><span class="line">- (<span class="type">CaculatorMaker</span> *(^)(<span class="type">int</span>))add;</span><br><span class="line">- (<span class="type">CaculatorMaker</span> *(^)(<span class="type">int</span>))sub;</span><br><span class="line">- (<span class="type">CaculatorMaker</span> *(^)(<span class="type">int</span>))multi;</span><br><span class="line">- (<span class="type">CaculatorMaker</span> *(^)(<span class="type">int</span>))divide;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>3.在CaculatorMaker.m里实现</p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">CaculatorMaker</span> *(^)(<span class="type">int</span>))add</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> ^id(<span class="type">int</span> x) &#123;</span><br><span class="line">        self.<span class="literal">result</span> += x;</span><br><span class="line">        <span class="keyword">return</span> self;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>4.定义运算方法</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@class</span> <span class="title">CaculatorMaker</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> (<span class="title">Caculator</span>)</span></span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">int</span>)makeCaculators:(<span class="keyword">void</span>(^)(CaculatorMaker *maker))caculatorMaker;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<p>5.实现</p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="type">int</span>)makeCaculators:(<span class="type">void</span>(^)(<span class="type">CaculatorMaker</span> *maker))caculatorMaker</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">CaculatorMaker</span> *maker = [[<span class="type">CaculatorMaker</span> alloc]init];</span><br><span class="line">    caculatorMaker(maker);</span><br><span class="line">    <span class="keyword">return</span> maker.<span class="literal">result</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>6.最后就能随意调用了</p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="literal">result</span> = [<span class="type">NSObject</span> makeCaculators:^(<span class="type">CaculatorMaker</span> *maker) &#123;</span><br><span class="line">        maker.add(<span class="number">1</span>).add(<span class="number">1</span>).add(<span class="number">3</span>).multi(<span class="number">3</span>).sub(<span class="number">5</span>).divide(<span class="number">2</span>);</span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
-<h4 id="后记">后记</h4><p>非常简单的代码，初步的学习了下链式编程，感觉这种编程方式很爽，分享给大家。</p>
+<p>而在Surge上也是可以用Shadowsocks的，并且Shadowsocks有以下特点：</p>
+<ul>
+<li>省电，在电量查看里几乎看不到它的身影；</li>
+<li>支持开机自启动，且断网无影响，无需手动重连，方便网络不稳定或者3G&amp;Wi-Fi频繁切换的小伙伴；</li>
+<li>可使用自己的服务器，安全和速度的保证；</li>
+<li>支持区分国内外流量，传统VPN在翻出墙外后访问国内站点会变慢；</li>
+<li>可对应用设置单独代理，5.0之后的系统无需root。</li>
+</ul>
+<p>虽然由于<a href="http://www.freebuf.com/news/76451.html" target="_blank" rel="external">喝茶事件</a>，ss 的作者已经删除项目，不过目前还能用,所以搭建一个VPS安装Shadowsocks是我的最佳选择。</p>
+<p>#VPS<br>VPS有许许多多，但想要达到网络调试的目的还是得选择海外的服务器。<br>目前主流的VPS提供商有3个</p>
+<ul>
+<li>Banwagong</li>
+<li>DigitalOcean</li>
+<li>Linode</li>
+</ul>
+<p>若不知道如何选择，可以参考下表(比较的都是最低套餐)</p>
+<table>
+<thead>
+<tr>
+<th>VPS</th>
+<th style="text-align:center">架构</th>
+<th style="text-align:center">内存</th>
+<th style="text-align:center">硬盘</th>
+<th style="text-align:center">流量</th>
+<th style="text-align:center">费用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Banwagong</td>
+<td style="text-align:center">OpenVZ</td>
+<td style="text-align:center">256M</td>
+<td style="text-align:center">10G</td>
+<td style="text-align:center">500G/M</td>
+<td style="text-align:center">19.99 $/Y</td>
+</tr>
+<tr>
+<td>DigitalOcean</td>
+<td style="text-align:center">KVM</td>
+<td style="text-align:center">512M</td>
+<td style="text-align:center">20G</td>
+<td style="text-align:center">1T/M</td>
+<td style="text-align:center">5 $/M</td>
+</tr>
+<tr>
+<td>Linode</td>
+<td style="text-align:center">Xen</td>
+<td style="text-align:center">1G</td>
+<td style="text-align:center">24G</td>
+<td style="text-align:center">2T/M</td>
+<td style="text-align:center">10 $/M</td>
+</tr>
+</tbody>
+</table>
+<p>个人建议，对连接速度和稳定性尤其是网络延迟有极高要求的首选Linode，有较高要求的推荐DigitalOcean，对于普通用户来讲，搬瓦工就可以。<br>一般用 paypal 支付，因为用信用卡可能会要求你上传身份证明以及信用卡照片什么的，而且审核过程也需要等待，比较麻烦。注意要用国际 paypal 帐号，国内的是不能用外币付款的。</p>
+<p>#Shadowsocks<br>VPS选择完毕后，直接登录开始安装。</p>
+<p>Mac OS X 或 Linux 下直接在终端中 ssh root@your_vps_ip -p your_ssh_port   即可。</p>
+<p>Debian / Ubuntu:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get <span class="keyword">install</span> python-pip</span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure>
+<p>CentOS:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> python-setuptools &amp;&amp; easy_install pip</span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure>
+<p>配置</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">server</span>":<span class="value"><span class="string">"0.0.0.0"</span></span>,</span><br><span class="line">    "<span class="attribute">server_port</span>":<span class="value">yourport</span>,</span><br><span class="line">    "<span class="attribute">local_address</span>": <span class="value"><span class="string">"127.0.0.1"</span></span>,</span><br><span class="line">    "<span class="attribute">local_port</span>":<span class="value"><span class="number">1080</span></span>,</span><br><span class="line">    "<span class="attribute">password</span>":<span class="value"><span class="string">"yourpassword"</span></span>,</span><br><span class="line">    "<span class="attribute">timeout</span>":<span class="value"><span class="number">300</span></span>,</span><br><span class="line">    "<span class="attribute">method</span>":<span class="value"><span class="string">"aes-256-cfb"</span></span>,</span><br><span class="line">    "<span class="attribute">fast_open</span>": <span class="value"><span class="literal">false</span></span>,</span><br><span class="line">    "<span class="attribute">workers</span>": <span class="value"><span class="number">1</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p>使用</p>
+<p><code>ssserver -p 443 -k password -m rc4-md5</code></p>
+<p>后台运行：</p>
+<p><code>sudo ssserver -p 443 -k password -m rc4-md5 --user nobody -d start</code></p>
+<p>停止：</p>
+<p><code>sudo ssserver -d stop</code></p>
+<p>检查日志：</p>
+<p><code>sudo less /var/log/shadowsocks.log</code></p>
+<p>更具体的可以查看<a href="https://github.com/shadowsocks/shadowsocks/wiki/Shadowsocks-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E" target="_blank" rel="external">wiki</a>。</p>
+<p>#Surge<br>Surge 是基于 iOS 9 的新特性 <code>Network Extension</code> 开发的一款网络调试工具，工作原理是使用 Packet Tunnel Provider 给系统套上一个代理，Surge 有两个主要组件：Surge 代理服务器和 Surge TUN 接口。程序运行之后，Surge 会将自身设置为默认的 HTTP/HTTPS 代理服务器来处理所有的 HTTP/HTTPS 流量。针对一些不服从系统代理设置的应用程序 ，将由 Surge 的 TUN 接口来进行处理。</p>
+<p>Surge具体的使用可以查看<a href="http://surge.run/manual/" target="_blank" rel="external">manual</a>，这里我们主要配置Surge在iOS上使用Shadowsocks</p>
+<p>需要修改的proxy配置部分：</p>
+<p>如果需要使用shadowsocks，目前surge 通过module支持配置，具体配置规则类似下面的配置，具体的服务器、端口、加密方式、密码参照你自己的SS配置：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Proxy]</span><br><span class="line"></span><br><span class="line">Proxy = custom, IP, Port, <span class="function"><span class="keyword">Method</span>, <span class="title">password</span>, <span class="title">Module</span></span></span><br></pre></td></tr></table></figure>
+<p>Proxy类型必须是custom，如果改成其他名称会报错，剩下的地址按照服务商提供的来填，最后要加上SS module的地址，目前surge 的官网已经删掉了module文件，可以从<a href="https://www.dropbox.com/s/jfvicg5omhlgg6g/SSEncrypt.module?dl=0" target="_blank" rel="external">这里</a>下载，下载后上传到你自己的网址。</p>
+<p>#我的选择</p>
+<p>我个人的选择供大家参考：</p>
+<p>DigitalOcean，San Francisco节点，1TB流量。</p>
+<p>若有想用DigitalOcean可以使用<a href="https://www.digitalocean.com/?refcode=93cc79d1d49b" target="_blank" rel="external">此链接</a>注册,可以得到10$。</p>
 </span>
       
     </div>
@@ -278,7 +410,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/编程思想/" rel="tag">#编程思想</a>
+            <a href="/tags/Shadowsocks/" rel="tag">#Shadowsocks</a>
           
         </div>
       
@@ -287,16 +419,12 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/10/13/research-slidingback-gesture/" rel="prev">
-                <i class="fa fa-chevron-left"></i> 滑动返回手势探究
-              </a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/27/iOS-develop-tips/" rel="next">
-                iOS开发Tips <i class="fa fa-chevron-right"></i>
+              <a href="/2015/10/13/research-slidingback-gesture/" rel="next">
+                滑动返回手势探究 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -312,10 +440,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/09/29/chain-programming/"
-     data-title="链式编程初探"
+        <div class="ds-share flat" data-thread-key="2015/11/26/network-debugging-tools/"
+     data-title="自建网络调试工具"
      data-content=""
-     data-url="http://v2panda.com/2015/09/29/chain-programming/">
+     data-url="http://v2panda.com/2015/11/26/network-debugging-tools/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -345,8 +473,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/09/29/chain-programming/"
-                   data-title="链式编程初探" data-url="http://v2panda.com/2015/09/29/chain-programming/">
+              <div class="ds-thread" data-thread-key="2015/11/26/network-debugging-tools/"
+                   data-title="自建网络调试工具" data-url="http://v2panda.com/2015/11/26/network-debugging-tools/">
               </div>
             
           </div>
@@ -456,7 +584,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链式编程思想"><span class="nav-number">2.</span> <span class="nav-text">链式编程思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链式编程特点"><span class="nav-number">3.</span> <span class="nav-text">链式编程特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实战"><span class="nav-number">4.</span> <span class="nav-text">实战</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后记"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

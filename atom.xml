@@ -4,7 +4,7 @@
   <subtitle><![CDATA[subtitle]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://v2panda.com/"/>
-  <updated>2015-11-26T06:52:56.000Z</updated>
+  <updated>2015-11-29T09:35:11.000Z</updated>
   <id>http://v2panda.com/</id>
   
   <author>
@@ -13,6 +13,148 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[自建网络调试工具]]></title>
+    <link href="http://v2panda.com/2015/11/26/network-debugging-tools/"/>
+    <id>http://v2panda.com/2015/11/26/network-debugging-tools/</id>
+    <published>2015-11-26T07:30:51.000Z</published>
+    <updated>2015-11-29T09:35:11.000Z</updated>
+    <content type="html"><![CDATA[<p>#前言<br>最近用的VPN越来越不稳定了，决定搭个小梯子自用。</p>
+<table>
+<thead>
+<tr>
+<th>我的选择</th>
+<th style="text-align:center">以前</th>
+<th style="text-align:center">现在</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>手机</td>
+<td style="text-align:center">Hydro</td>
+<td style="text-align:center">Surge</td>
+</tr>
+<tr>
+<td>PC</td>
+<td style="text-align:center">VPN + Lantern</td>
+<td style="text-align:center">Shadowsocks</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<p>而在Surge上也是可以用Shadowsocks的，并且Shadowsocks有以下特点：</p>
+<ul>
+<li>省电，在电量查看里几乎看不到它的身影；</li>
+<li>支持开机自启动，且断网无影响，无需手动重连，方便网络不稳定或者3G&amp;Wi-Fi频繁切换的小伙伴；</li>
+<li>可使用自己的服务器，安全和速度的保证；</li>
+<li>支持区分国内外流量，传统VPN在翻出墙外后访问国内站点会变慢；</li>
+<li>可对应用设置单独代理，5.0之后的系统无需root。</li>
+</ul>
+<p>虽然由于<a href="http://www.freebuf.com/news/76451.html" target="_blank" rel="external">喝茶事件</a>，ss 的作者已经删除项目，不过目前还能用,所以搭建一个VPS安装Shadowsocks是我的最佳选择。</p>
+<p>#VPS<br>VPS有许许多多，但想要达到网络调试的目的还是得选择海外的服务器。<br>目前主流的VPS提供商有3个</p>
+<ul>
+<li>Banwagong</li>
+<li>DigitalOcean</li>
+<li>Linode</li>
+</ul>
+<p>若不知道如何选择，可以参考下表(比较的都是最低套餐)</p>
+<table>
+<thead>
+<tr>
+<th>VPS</th>
+<th style="text-align:center">架构</th>
+<th style="text-align:center">内存</th>
+<th style="text-align:center">硬盘</th>
+<th style="text-align:center">流量</th>
+<th style="text-align:center">费用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Banwagong</td>
+<td style="text-align:center">OpenVZ</td>
+<td style="text-align:center">256M</td>
+<td style="text-align:center">10G</td>
+<td style="text-align:center">500G/M</td>
+<td style="text-align:center">19.99 $/Y</td>
+</tr>
+<tr>
+<td>DigitalOcean</td>
+<td style="text-align:center">KVM</td>
+<td style="text-align:center">512M</td>
+<td style="text-align:center">20G</td>
+<td style="text-align:center">1T/M</td>
+<td style="text-align:center">5 $/M</td>
+</tr>
+<tr>
+<td>Linode</td>
+<td style="text-align:center">Xen</td>
+<td style="text-align:center">1G</td>
+<td style="text-align:center">24G</td>
+<td style="text-align:center">2T/M</td>
+<td style="text-align:center">10 $/M</td>
+</tr>
+</tbody>
+</table>
+<p>个人建议，对连接速度和稳定性尤其是网络延迟有极高要求的首选Linode，有较高要求的推荐DigitalOcean，对于普通用户来讲，搬瓦工就可以。<br>一般用 paypal 支付，因为用信用卡可能会要求你上传身份证明以及信用卡照片什么的，而且审核过程也需要等待，比较麻烦。注意要用国际 paypal 帐号，国内的是不能用外币付款的。</p>
+<p>#Shadowsocks<br>VPS选择完毕后，直接登录开始安装。</p>
+<p>Mac OS X 或 Linux 下直接在终端中 ssh root@your_vps_ip -p your_ssh_port   即可。</p>
+<p>Debian / Ubuntu:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get <span class="keyword">install</span> python-pip</span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure>
+<p>CentOS:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> python-setuptools &amp;&amp; easy_install pip</span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure>
+<p>配置</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">server</span>":<span class="value"><span class="string">"0.0.0.0"</span></span>,</span><br><span class="line">    "<span class="attribute">server_port</span>":<span class="value">yourport</span>,</span><br><span class="line">    "<span class="attribute">local_address</span>": <span class="value"><span class="string">"127.0.0.1"</span></span>,</span><br><span class="line">    "<span class="attribute">local_port</span>":<span class="value"><span class="number">1080</span></span>,</span><br><span class="line">    "<span class="attribute">password</span>":<span class="value"><span class="string">"yourpassword"</span></span>,</span><br><span class="line">    "<span class="attribute">timeout</span>":<span class="value"><span class="number">300</span></span>,</span><br><span class="line">    "<span class="attribute">method</span>":<span class="value"><span class="string">"aes-256-cfb"</span></span>,</span><br><span class="line">    "<span class="attribute">fast_open</span>": <span class="value"><span class="literal">false</span></span>,</span><br><span class="line">    "<span class="attribute">workers</span>": <span class="value"><span class="number">1</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p>使用</p>
+<p><code>ssserver -p 443 -k password -m rc4-md5</code></p>
+<p>后台运行：</p>
+<p><code>sudo ssserver -p 443 -k password -m rc4-md5 --user nobody -d start</code></p>
+<p>停止：</p>
+<p><code>sudo ssserver -d stop</code></p>
+<p>检查日志：</p>
+<p><code>sudo less /var/log/shadowsocks.log</code></p>
+<p>更具体的可以查看<a href="https://github.com/shadowsocks/shadowsocks/wiki/Shadowsocks-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E" target="_blank" rel="external">wiki</a>。</p>
+<p>#Surge<br>Surge 是基于 iOS 9 的新特性 <code>Network Extension</code> 开发的一款网络调试工具，工作原理是使用 Packet Tunnel Provider 给系统套上一个代理，Surge 有两个主要组件：Surge 代理服务器和 Surge TUN 接口。程序运行之后，Surge 会将自身设置为默认的 HTTP/HTTPS 代理服务器来处理所有的 HTTP/HTTPS 流量。针对一些不服从系统代理设置的应用程序 ，将由 Surge 的 TUN 接口来进行处理。</p>
+<p>Surge具体的使用可以查看<a href="http://surge.run/manual/" target="_blank" rel="external">manual</a>，这里我们主要配置Surge在iOS上使用Shadowsocks</p>
+<p>需要修改的proxy配置部分：</p>
+<p>如果需要使用shadowsocks，目前surge 通过module支持配置，具体配置规则类似下面的配置，具体的服务器、端口、加密方式、密码参照你自己的SS配置：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Proxy]</span><br><span class="line"></span><br><span class="line">Proxy = custom, IP, Port, <span class="function"><span class="keyword">Method</span>, <span class="title">password</span>, <span class="title">Module</span></span></span><br></pre></td></tr></table></figure>
+<p>Proxy类型必须是custom，如果改成其他名称会报错，剩下的地址按照服务商提供的来填，最后要加上SS module的地址，目前surge 的官网已经删掉了module文件，可以从<a href="https://www.dropbox.com/s/jfvicg5omhlgg6g/SSEncrypt.module?dl=0" target="_blank" rel="external">这里</a>下载，下载后上传到你自己的网址。</p>
+<p>#我的选择</p>
+<p>我个人的选择供大家参考：</p>
+<p>DigitalOcean，San Francisco节点，1TB流量。</p>
+<p>若有想用DigitalOcean可以使用<a href="https://www.digitalocean.com/?refcode=93cc79d1d49b" target="_blank" rel="external">此链接</a>注册,可以得到10$。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>#前言<br>最近用的VPN越来越不稳定了，决定搭个小梯子自用。</p>
+<table>
+<thead>
+<tr>
+<th>我的选择</th>
+<th style="text-align:center">以前</th>
+<th style="text-align:center">现在</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>手机</td>
+<td style="text-align:center">Hydro</td>
+<td style="text-align:center">Surge</td>
+</tr>
+<tr>
+<td>PC</td>
+<td style="text-align:center">VPN + Lantern</td>
+<td style="text-align:center">Shadowsocks</td>
+</tr>
+</tbody>
+</table>]]>
+    
+    </summary>
+    
+      <category term="Shadowsocks" scheme="http://v2panda.com/tags/Shadowsocks/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[滑动返回手势探究]]></title>
