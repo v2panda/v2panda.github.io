@@ -4,7 +4,7 @@
   <subtitle><![CDATA[subtitle]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://v2panda.com/"/>
-  <updated>2015-12-06T12:50:46.000Z</updated>
+  <updated>2015-12-06T13:18:45.000Z</updated>
   <id>http://v2panda.com/</id>
   
   <author>
@@ -15,11 +15,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[how-to-imitation-app]]></title>
+    <title><![CDATA[如何仿写一个App]]></title>
     <link href="http://v2panda.com/2015/12/06/how-to-imitation-app/"/>
     <id>http://v2panda.com/2015/12/06/how-to-imitation-app/</id>
     <published>2015-12-06T12:47:37.000Z</published>
-    <updated>2015-12-06T12:50:46.000Z</updated>
+    <updated>2015-12-06T13:18:45.000Z</updated>
     <content type="html"><![CDATA[<h1 id="前言">前言</h1><p>最近看到一篇文章<a href="http://www.infoq.com/cn/news/2015/11/ibireme-interview?utm_source=infoq&amp;utm_medium=popular_widget&amp;utm_campaign=popular_content_list&amp;utm_content=homepage" target="_blank" rel="external">专访YYKit作者郭曜源：开源大牛是怎样炼成的</a>,其中 <a href="http://weibo.com/239801242" target="_blank" rel="external">ibireme</a>提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高水平的上策，Talk is cheap, Show me the code!<br>这篇blog主要记录仿写一个App的准备工作,这里以美团为例。</p>
 <a id="more"></a>
 <h1 id="素材">素材</h1><p>首先到iTunes下载美团到本地<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.57.20.png" alt="在Finder中显示"></p>
@@ -27,7 +27,7 @@
 <h1 id="接口">接口</h1><ul>
 <li><a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a><br>这是一款在 Mac 下常用的网络封包截取工具，Charles 通过将自己设置成系统的网络访问代理服务器，使得所有的网络访问请求都通过它来完成,这里我们主要用它来截取网络封包来分析。</li>
 </ul>
-<p>这里我们主要截取iPhone上App的网络请求，所以使用 Charles 的第一步在菜单栏上选择 “Proxy”–&gt;“Proxy Settings”，填入代理端口 8888，并且勾上 “Enable transparent HTTP proxying” 就完成了在 Charles 上的设置。如下图所示:：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.11.png" alt="Proxy"><br>然后我们需要获取 Charles 运行所在电脑的 IP 地址，Charles 的顶部菜单的 “Help”–&gt;“Local IP Address”，即可在弹出的对话框中看到 IP 地址，如下图所示：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.53.png" alt="IP"></p>
+<p>这里我们主要截取iPhone上App的网络请求，所以使用 Charles 的第一步在菜单栏上选择 “Proxy”–&gt;“Proxy Settings”，填入代理端口 8888，并且勾上 “Enable transparent HTTP proxying” 就完成了在 Charles 上的设置。如下图所示:<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.11.png" alt="Proxy"><br>然后我们需要获取 Charles 运行所在电脑的 IP 地址，Charles 的顶部菜单的 “Help”–&gt;“Local IP Address”，即可在弹出的对话框中看到 IP 地址，如下图所示：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.53.png" alt="IP"></p>
 <p>最后在 iPhone 的「HTTP 代理」，将其切换成手动，然后填上 Charles 运行所在的电脑的 IP，以及端口号 8888，如下图所示：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appIMG_0391.PNG" alt="8888"></p>
 <p>接下来在手机上运行美团，就能再Charles上查看网络请求，如下所示：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.51.13.png" alt="flurry"><br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.52.48.png" alt="http"><br>这是美团启动是Charles的显示，可以看到<code>http://data.flurry.com</code>的请求，显而易见美团iOS是使用flurry统计数据的。关于Charles详细使用方法可以查看<a href="http://blog.devtang.com/blog/2015/11/14/charles-introduction/" target="_blank" rel="external">这篇博客</a>。</p>
 <h1 id="App结构">App结构</h1><p>这里使用Reaveal + iPhone(越狱)来分析App的UI视图结构。</p>
