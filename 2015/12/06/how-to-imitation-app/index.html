@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="hexo," />
+  <meta name="keywords" content="v2panda,panda,Hexo,next" />
 
 
 
@@ -47,19 +47,28 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="前言这是本博客的第一篇文章，用来记录这个网站的诞生过程。">
+<meta name="description" content="前言最近看到一篇文章专访YYKit作者郭曜源：开源大牛是怎样炼成的,其中 ibireme提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高水平的上策，Talk is cheap, Show me the code!这篇blog主要记录仿写一个App的准备工作,这里以美团为例。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="v2panda's blog的诞生">
-<meta property="og:url" content="http://v2panda.com/2014/12/26/the-blog's birth/index.html">
+<meta property="og:title" content="how-to-imitation-app">
+<meta property="og:url" content="http://v2panda.com/2015/12/06/how-to-imitation-app/index.html">
 <meta property="og:site_name" content="v2panda's blog">
-<meta property="og:description" content="前言这是本博客的第一篇文章，用来记录这个网站的诞生过程。">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-birth234048-0933cd8c83f7f7e5.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-birth234048-05f6dbe1c03be571.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-birth234048-4b0266fc39370f70.png">
-<meta property="og:updated_time" content="2015-11-26T06:45:14.000Z">
+<meta property="og:description" content="前言最近看到一篇文章专访YYKit作者郭曜源：开源大牛是怎样炼成的,其中 ibireme提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高水平的上策，Talk is cheap, Show me the code!这篇blog主要记录仿写一个App的准备工作,这里以美团为例。">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.57.20.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.53.53.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.54.07.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.54.26.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.11.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.53.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appIMG_0391.PNG">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.51.13.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.52.48.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appIMG_0028.PNG">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appIMG_0029.PNG">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.56.41.png">
+<meta property="og:updated_time" content="2015-12-06T12:50:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="v2panda's blog的诞生">
-<meta name="twitter:description" content="前言这是本博客的第一篇文章，用来记录这个网站的诞生过程。">
+<meta name="twitter:title" content="how-to-imitation-app">
+<meta name="twitter:description" content="前言最近看到一篇文章专访YYKit作者郭曜源：开源大牛是怎样炼成的,其中 ibireme提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高水平的上策，Talk is cheap, Show me the code!这篇blog主要记录仿写一个App的准备工作,这里以美团为例。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -71,7 +80,7 @@
 
 
 
-  <title> v2panda's blog的诞生 | v2panda's blog </title>
+  <title> how-to-imitation-app | v2panda's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -206,7 +215,7 @@
             
             
               
-                v2panda's blog的诞生
+                how-to-imitation-app
               
             
           </h1>
@@ -215,8 +224,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2014-12-26T11:28:11+08:00" content="2014-12-26">
-              2014-12-26
+            <time itemprop="dateCreated" datetime="2015-12-06T20:47:37+08:00" content="2015-12-06">
+              2015-12-06
             </time>
           </span>
 
@@ -226,8 +235,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/12/26/the-blog's birth/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/26/the-blog's birth/" itemprop="commentsCount"></span>
+                <a href="/2015/12/06/how-to-imitation-app/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/06/how-to-imitation-app/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -246,75 +255,38 @@
       
 
       
-        <span itemprop="articleBody"><h3 id="前言">前言</h3><p>这是本博客的第一篇文章，用来记录这个网站的诞生过程。</p>
+        <span itemprop="articleBody"><h1 id="前言">前言</h1><p>最近看到一篇文章<a href="http://www.infoq.com/cn/news/2015/11/ibireme-interview?utm_source=infoq&amp;utm_medium=popular_widget&amp;utm_campaign=popular_content_list&amp;utm_content=homepage" target="_blank" rel="external">专访YYKit作者郭曜源：开源大牛是怎样炼成的</a>,其中 <a href="http://weibo.com/239801242" target="_blank" rel="external">ibireme</a>提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高水平的上策，Talk is cheap, Show me the code!<br>这篇blog主要记录仿写一个App的准备工作,这里以美团为例。</p>
 <a id="more"></a>
-<h3 id="环境">环境</h3><p>Required</p>
-<ul>
-<li>OS X</li>
-<li>HomeBrew</li>
-<li>Node.js</li>
-<li>Git</li>
-<li>Hexo</li>
-<li>Github</li>
+<h1 id="素材">素材</h1><p>首先到iTunes下载美团到本地<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.57.20.png" alt="在Finder中显示"></p>
+<p>在Finder中显示,解压ipa文件<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.53.53.png" alt="解压ipa"><br>点击imeituan，显示包内容<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.54.07.png" alt="显示包内容"><br>就能随意查看imeituan的素材内容。<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.54.26.png" alt="素材"></p>
+<h1 id="接口">接口</h1><ul>
+<li><a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a><br>这是一款在 Mac 下常用的网络封包截取工具，Charles 通过将自己设置成系统的网络访问代理服务器，使得所有的网络访问请求都通过它来完成,这里我们主要用它来截取网络封包来分析。</li>
 </ul>
-<p>Optional</p>
-<ul>
-<li>百度统计账户</li>
-<li>域名</li>
-<li>DNSPod账户</li>
-</ul>
-<h3 id="配置基本环境">配置基本环境</h3><p>安装hexo前先配置好基本环境，有</p>
-<ul>
-<li>HomeBrew</li>
-<li>Git</li>
-<li>Node.js</li>
-</ul>
-<p>安装完后测试，打开<code>Terminal</code>或者<code>iTerm</code>，键入“npm”，出现</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Usage</span>: <span class="string">npm &lt;command&gt;</span></span><br></pre></td></tr></table></figure>
-<p>表示Node.js已安装成功。同理，键入“git”，来检测Git是否安装成功。</p>
-<h3 id="安装Hexo">安装Hexo</h3><p>直接输入</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> hexo-cli -<span class="keyword">g</span></span></span><br></pre></td></tr></table></figure>
-<p>Hexo使用-g参数安装到全局，npm前最好加上sudo，避免报权限错误。</p>
-<p>至此安装完毕，更多细节参照Hexo的<a href="https://hexo.io/" target="_blank" rel="external">官方文档</a>。</p>
-<h3 id="Hexo的建站与配置">Hexo的建站与配置</h3><p>Hexo的<a href="https://hexo.io/" target="_blank" rel="external">官方文档</a>。</p>
-<p>Hexo的<a href="https://hexo.io/themes/" target="_blank" rel="external">官方主题</a>。</p>
-<h4 id="部署到Github">部署到Github</h4><p>想要部署，首先你得有Github，这无需多言。</p>
-<p>部署到GitHub上其实也非常简单，打开站点配置文件_config.yml：</p>
-<figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: http://hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">    <span class="keyword">type</span>: github <span class="comment">#部署工具的类型 </span></span><br><span class="line">    repository:git<span class="macrocall">@github</span>.com:username/username.github.io.git <span class="comment">#SSH链接</span></span><br><span class="line">    branch: master <span class="comment">#分支</span></span><br></pre></td></tr></table></figure>
-<h4 id="绑定域名">绑定域名</h4><p>先上<a href="https://www.godaddy.com/" target="_blank" rel="external">狗爹</a>购买，输入你喜欢的域名，检测是否已被使用。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-birth234048-0933cd8c83f7f7e5.png" alt="firstIMG"></p>
-<p>选一个没被taken的域名，买下来。</p>
-<p>再设置DNS，用DNSpod，快，免费，稳定。</p>
-<p>注册<a href="https://www.dnspod.cn" target="_blank" rel="external">DNSpod</a>，添加域名，如下图设置。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-birth234048-05f6dbe1c03be571.png" alt="Paste_Image.png"></p>
-<p>最后在<a href="https://www.godaddy.com/" target="_blank" rel="external">狗爹</a>修改DNS地址，如图所示</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-birth234048-4b0266fc39370f70.png" alt="Paste_Image.png"></p>
-<p>然后静待DNS解析完毕，就可以通过你的域名来访问了。</p>
-<h4 id="搭建完成">搭建完成</h4><p>至此，就算搭建完成，如需进步一完善请参考Hexo<a href="https://hexo.io/" target="_blank" rel="external">官方文档</a>，文章整理难免有疏漏，如果有错误的地方请留言通知我更改，过程中有疑问的也可以留言，我看到了会尽快解决！</p>
+<p>这里我们主要截取iPhone上App的网络请求，所以使用 Charles 的第一步在菜单栏上选择 “Proxy”–&gt;“Proxy Settings”，填入代理端口 8888，并且勾上 “Enable transparent HTTP proxying” 就完成了在 Charles 上的设置。如下图所示:：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.11.png" alt="Proxy"><br>然后我们需要获取 Charles 运行所在电脑的 IP 地址，Charles 的顶部菜单的 “Help”–&gt;“Local IP Address”，即可在弹出的对话框中看到 IP 地址，如下图所示：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.53.png" alt="IP"></p>
+<p>最后在 iPhone 的「HTTP 代理」，将其切换成手动，然后填上 Charles 运行所在的电脑的 IP，以及端口号 8888，如下图所示：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appIMG_0391.PNG" alt="8888"></p>
+<p>接下来在手机上运行美团，就能再Charles上查看网络请求，如下所示：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.51.13.png" alt="flurry"><br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.52.48.png" alt="http"><br>这是美团启动是Charles的显示，可以看到<code>http://data.flurry.com</code>的请求，显而易见美团iOS是使用flurry统计数据的。关于Charles详细使用方法可以查看<a href="http://blog.devtang.com/blog/2015/11/14/charles-introduction/" target="_blank" rel="external">这篇博客</a>。</p>
+<h1 id="App结构">App结构</h1><p>这里使用Reaveal + iPhone(越狱)来分析App的UI视图结构。</p>
+<p>准备工作：<br>1.iPhone越狱。<br>2.越狱后iPhone上会自行安装上Cydia商店，打开Cydia，先在tabBar的“变更”页面刷新软件源。刷新成功后用Cydia搜索并安装Reveal loader ，安装完成后点击重启springboard。<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appIMG_0028.PNG" alt="Reveal loader"><br>3.在系统设置中找到Reveal，点击Reveal - Enabled Applications，将美团选为Enabled。<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appIMG_0029.PNG" alt="Enabled"><br>4.安装<a href="http://revealapp.com/" target="_blank" rel="external">Reveal</a>。<br>5.首先保证iPhone和Mac在同一局域网（WiFi）中，在iPhone中运行你要监视的app，如果app已经运行，需在后台杀死进程重新打开，保持app在前台，然后在Mac中打开Reveal，点击左上角的No Connection，然后选择即可。<br>6.Commend+5 切换3D模式。每当iPhone上的app页面切换后，需要点击Reveal窗口右上角刷新（Commend+R）。在局域网内负荷较大时，视图刷新会很慢，可以用iPhone共享热点给Mac解决。</p>
+<p>准备完毕后，就能在Reveal上随意查看App结构了，如下图所示:<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.56.41.png" alt="App结构"></p>
+<h1 id="后记">后记</h1><p>这篇blog主要记录仿写一个App的准备工作,包括获取素材，接口，以及查看App层级结构，关于如何仿写怎么仿写，就得自己去Coding了。</p>
 </span>
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/hexo/" rel="tag">#hexo</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/04/07/iOS-keychain/" rel="prev">
-                <i class="fa fa-chevron-left"></i> iOS简单使用keychain存储密码
-              </a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/25/network-debugging-tools/" rel="next">
+                自建网络调试工具 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -329,10 +301,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2014/12/26/the-blog's birth/"
-     data-title="v2panda's blog的诞生"
+        <div class="ds-share flat" data-thread-key="2015/12/06/how-to-imitation-app/"
+     data-title="how-to-imitation-app"
      data-content=""
-     data-url="http://v2panda.com/2014/12/26/the-blog's birth/">
+     data-url="http://v2panda.com/2015/12/06/how-to-imitation-app/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -362,8 +334,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2014/12/26/the-blog's birth/"
-                   data-title="v2panda's blog的诞生" data-url="http://v2panda.com/2014/12/26/the-blog's birth/">
+              <div class="ds-thread" data-thread-key="2015/12/06/how-to-imitation-app/"
+                   data-title="how-to-imitation-app" data-url="http://v2panda.com/2015/12/06/how-to-imitation-app/">
               </div>
             
           </div>
@@ -473,7 +445,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境"><span class="nav-number">2.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置基本环境"><span class="nav-number">3.</span> <span class="nav-text">配置基本环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Hexo"><span class="nav-number">4.</span> <span class="nav-text">安装Hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo的建站与配置"><span class="nav-number">5.</span> <span class="nav-text">Hexo的建站与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#部署到Github"><span class="nav-number">5.1.</span> <span class="nav-text">部署到Github</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绑定域名"><span class="nav-number">5.2.</span> <span class="nav-text">绑定域名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搭建完成"><span class="nav-number">5.3.</span> <span class="nav-text">搭建完成</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#素材"><span class="nav-number">2.</span> <span class="nav-text">素材</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口"><span class="nav-number">3.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#App结构"><span class="nav-number">4.</span> <span class="nav-text">App结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后记"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
