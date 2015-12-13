@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://v2panda.com/2015/10/13/research-slidingback-gesture/</loc>
+    <lastmod>2015-12-13T09:23:56.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://v2panda.com/2015/07/27/iOS-develop-tips/</loc>
     <lastmod>2015-12-13T08:04:35.000Z</lastmod>
   </url>
@@ -19,11 +24,6 @@
   <url>
     <loc>http://v2panda.com/about/index.html</loc>
     <lastmod>2015-11-26T07:18:56.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://v2panda.com/2015/10/13/research-slidingback-gesture/</loc>
-    <lastmod>2015-11-26T06:52:56.000Z</lastmod>
   </url>
   
   <url>
