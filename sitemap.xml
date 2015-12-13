@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://v2panda.com/2015/07/27/iOS-develop-tips/</loc>
+    <lastmod>2015-12-13T08:04:35.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://v2panda.com/2015/12/06/how-to-imitation-app/</loc>
-    <lastmod>2015-12-06T13:18:45.000Z</lastmod>
+    <lastmod>2015-12-13T08:00:18.000Z</lastmod>
   </url>
   
   <url>
@@ -34,11 +39,6 @@
   <url>
     <loc>http://v2panda.com/2015/04/07/iOS-keychain/</loc>
     <lastmod>2015-10-26T03:49:42.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://v2panda.com/2015/07/27/iOS-develop-tips/</loc>
-    <lastmod>2015-10-26T03:49:26.000Z</lastmod>
   </url>
   
   <url>
