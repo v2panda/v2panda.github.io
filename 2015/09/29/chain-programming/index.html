@@ -47,23 +47,23 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="前言最近用了下masonry,看到许多如
+<meta name="description" content="前言最近学习了下masonry的源码,看到有许多如
 1234make.top.equalTo(self.mas_topLayoutGuide); make.left.equalTo(self.view);make.right.equalTo(self.view);make.height.equalTo(@40);
-这样的代码，又通过几篇博客了解到这就是简单地链式编程，所以准备了解一下，并且在学习masonr">
+这样的代码，对这种链式的写法很感兴趣，所以准备研究一下，学习它的编程思想。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="链式编程初探">
 <meta property="og:url" content="http://v2panda.com/2015/09/29/chain-programming/index.html">
 <meta property="og:site_name" content="v2panda's blog">
-<meta property="og:description" content="前言最近用了下masonry,看到许多如
+<meta property="og:description" content="前言最近学习了下masonry的源码,看到有许多如
 1234make.top.equalTo(self.mas_topLayoutGuide); make.left.equalTo(self.view);make.right.equalTo(self.view);make.height.equalTo(@40);
-这样的代码，又通过几篇博客了解到这就是简单地链式编程，所以准备了解一下，并且在学习masonr">
+这样的代码，对这种链式的写法很感兴趣，所以准备研究一下，学习它的编程思想。">
 <meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/234048-193e56372a1f9b54.png">
-<meta property="og:updated_time" content="2015-11-26T06:47:25.000Z">
+<meta property="og:updated_time" content="2015-12-14T06:43:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="链式编程初探">
-<meta name="twitter:description" content="前言最近用了下masonry,看到许多如
+<meta name="twitter:description" content="前言最近学习了下masonry的源码,看到有许多如
 1234make.top.equalTo(self.mas_topLayoutGuide); make.left.equalTo(self.view);make.right.equalTo(self.view);make.height.equalTo(@40);
-这样的代码，又通过几篇博客了解到这就是简单地链式编程，所以准备了解一下，并且在学习masonr">
+这样的代码，对这种链式的写法很感兴趣，所以准备研究一下，学习它的编程思想。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -250,9 +250,9 @@
       
 
       
-        <span itemprop="articleBody"><h4 id="前言">前言</h4><p>最近用了下<a href="https://github.com/SnapKit/Masonry" target="_blank" rel="external">masonry</a>,看到许多如</p>
+        <span itemprop="articleBody"><h4 id="前言">前言</h4><p>最近学习了下<a href="https://github.com/SnapKit/Masonry" target="_blank" rel="external">masonry</a>的源码,看到有许多如</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">make</span><span class="class">.top</span><span class="class">.equalTo</span>(<span class="tag">self</span><span class="class">.mas_topLayoutGuide</span>); </span><br><span class="line"><span class="tag">make</span><span class="class">.left</span><span class="class">.equalTo</span>(<span class="tag">self</span><span class="class">.view</span>);</span><br><span class="line"><span class="tag">make</span><span class="class">.right</span><span class="class">.equalTo</span>(<span class="tag">self</span><span class="class">.view</span>);</span><br><span class="line"><span class="tag">make</span><span class="class">.height</span><span class="class">.equalTo</span>(<span class="at_rule">@<span class="keyword">40);</span></span></span><br></pre></td></tr></table></figure>
-<p>这样的代码，又通过几篇<a href="http://www.jianshu.com/p/87ef6720a096" target="_blank" rel="external">博客</a>了解到这就是简单地链式编程，所以准备了解一下，并且在学习masonry框架前，也可以学习它的编程思想。</p>
+<p>这样的代码，对这种链式的写法很感兴趣，所以准备研究一下，学习它的编程思想。</p>
 <a id="more"></a>
 <h4 id="链式编程思想">链式编程思想</h4><p>是将多个操作（多行代码）通过点号(.)链接在一起成为一句代码,使代码可读性好。如a(1).b(2).c(3)</p>
 <h4 id="链式编程特点">链式编程特点</h4><p>方法的返回值是block,block必须有返回值（本身对象），block参数（需要操作的值）</p>
@@ -269,7 +269,7 @@
 <figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="type">int</span>)makeCaculators:(<span class="type">void</span>(^)(<span class="type">CaculatorMaker</span> *maker))caculatorMaker</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">CaculatorMaker</span> *maker = [[<span class="type">CaculatorMaker</span> alloc]init];</span><br><span class="line">    caculatorMaker(maker);</span><br><span class="line">    <span class="keyword">return</span> maker.<span class="literal">result</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>6.最后就能随意调用了</p>
 <figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="literal">result</span> = [<span class="type">NSObject</span> makeCaculators:^(<span class="type">CaculatorMaker</span> *maker) &#123;</span><br><span class="line">        maker.add(<span class="number">1</span>).add(<span class="number">1</span>).add(<span class="number">3</span>).multi(<span class="number">3</span>).sub(<span class="number">5</span>).divide(<span class="number">2</span>);</span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
-<h4 id="后记">后记</h4><p>非常简单的代码，初步的学习了下链式编程，感觉这种编程方式很爽，分享给大家。</p>
+<h4 id="后记">后记</h4><p>非常简单的代码，初步的接触了下链式编程，感觉这种编程方式很爽，分享给大家。</p>
 </span>
       
     </div>
