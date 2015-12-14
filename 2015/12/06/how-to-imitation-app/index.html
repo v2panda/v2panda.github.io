@@ -47,12 +47,12 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="前言最近看到一篇文章专访YYKit作者郭曜源：开源大牛是怎样炼成的,其中 ibireme提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高水平的上策，Talk is cheap, Show me the code!这篇blog主要记录仿写一个App的准备工作,这里以美团为例。">
+<meta name="description" content="前言最近看到一篇文章专访YYKit作者郭曜源：开源大牛是怎样炼成的,其中 ibireme提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高姿势水平的上策，Talk is cheap, Show me the code!这篇blog主要记录仿写一个App的准备工作,这里以美团为例。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何仿写一个App">
 <meta property="og:url" content="http://v2panda.com/2015/12/06/how-to-imitation-app/index.html">
 <meta property="og:site_name" content="v2panda's blog">
-<meta property="og:description" content="前言最近看到一篇文章专访YYKit作者郭曜源：开源大牛是怎样炼成的,其中 ibireme提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高水平的上策，Talk is cheap, Show me the code!这篇blog主要记录仿写一个App的准备工作,这里以美团为例。">
+<meta property="og:description" content="前言最近看到一篇文章专访YYKit作者郭曜源：开源大牛是怎样炼成的,其中 ibireme提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高姿势水平的上策，Talk is cheap, Show me the code!这篇blog主要记录仿写一个App的准备工作,这里以美团为例。">
 <meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.57.20.png">
 <meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.53.53.png">
 <meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.54.07.png">
@@ -65,10 +65,10 @@
 <meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appUntitled.png">
 <meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appUntitled2.png">
 <meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.56.41.png">
-<meta property="og:updated_time" content="2015-12-13T08:00:18.000Z">
+<meta property="og:updated_time" content="2015-12-14T09:20:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何仿写一个App">
-<meta name="twitter:description" content="前言最近看到一篇文章专访YYKit作者郭曜源：开源大牛是怎样炼成的,其中 ibireme提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高水平的上策，Talk is cheap, Show me the code!这篇blog主要记录仿写一个App的准备工作,这里以美团为例。">
+<meta name="twitter:description" content="前言最近看到一篇文章专访YYKit作者郭曜源：开源大牛是怎样炼成的,其中 ibireme提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高姿势水平的上策，Talk is cheap, Show me the code!这篇blog主要记录仿写一个App的准备工作,这里以美团为例。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -255,7 +255,7 @@
       
 
       
-        <span itemprop="articleBody"><h1 id="前言">前言</h1><p>最近看到一篇文章<a href="http://www.infoq.com/cn/news/2015/11/ibireme-interview?utm_source=infoq&amp;utm_medium=popular_widget&amp;utm_campaign=popular_content_list&amp;utm_content=homepage" target="_blank" rel="external">专访YYKit作者郭曜源：开源大牛是怎样炼成的</a>,其中 <a href="http://weibo.com/239801242" target="_blank" rel="external">ibireme</a>提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高水平的上策，Talk is cheap, Show me the code!<br>这篇blog主要记录仿写一个App的准备工作,这里以美团为例。</p>
+        <span itemprop="articleBody"><h1 id="前言">前言</h1><p>最近看到一篇文章<a href="http://www.infoq.com/cn/news/2015/11/ibireme-interview?utm_source=infoq&amp;utm_medium=popular_widget&amp;utm_campaign=popular_content_list&amp;utm_content=homepage" target="_blank" rel="external">专访YYKit作者郭曜源：开源大牛是怎样炼成的</a>,其中 <a href="http://weibo.com/239801242" target="_blank" rel="external">ibireme</a>提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高姿势水平的上策，Talk is cheap, Show me the code!<br>这篇blog主要记录仿写一个App的准备工作,这里以美团为例。</p>
 <a id="more"></a>
 <h1 id="素材">素材</h1><p>首先到iTunes下载美团到本地<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.57.20.png" alt="在Finder中显示"></p>
 <p>在Finder中显示,解压ipa文件<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.53.53.png" alt="解压ipa"><br>点击imeituan，显示包内容<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.54.07.png" alt="显示包内容"><br>就能随意查看imeituan的素材内容。<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.54.26.png" alt="素材"></p>

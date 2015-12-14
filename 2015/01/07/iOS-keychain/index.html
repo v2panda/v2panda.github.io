@@ -47,16 +47,16 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="Tips:在实习过程中，有次让我实现一个app七天免登陆功能。当时没细想，直接就用NSUserDefaults给做的，用NSDate判断时间，取七天的间隔判断登陆状态。直到现在了解了keychain，才知道用NSUserDefaults是非常不安全的。通常情况下，可以用NSUserDefaults存储数据信息，但是对于一些私密信息，比如账号、密码等等，就需要使用更为安全的keychain了。而Ke">
+<meta name="description" content="Tips:在实习过程中，有个需求是实现App的七天免登陆。当时的想法是用NSUserDefaults存储，用NSDate判断时间，取七天的间隔判断登陆状态。现在想想用NSUserDefaults直接存储用户信息是非常不安全的。通常情况下，可以用NSUserDefaults存储数据信息，但是对于一些私密信息，比如账号、密码等等，就需要使用更为安全的KeyChain了。而KeyChain的信息是存在于">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS简单使用keychain存储密码">
-<meta property="og:url" content="http://v2panda.com/2015/04/07/iOS-keychain/index.html">
+<meta property="og:title" content="使用KeyChain存储密码">
+<meta property="og:url" content="http://v2panda.com/2015/01/07/iOS-keychain/index.html">
 <meta property="og:site_name" content="v2panda's blog">
-<meta property="og:description" content="Tips:在实习过程中，有次让我实现一个app七天免登陆功能。当时没细想，直接就用NSUserDefaults给做的，用NSDate判断时间，取七天的间隔判断登陆状态。直到现在了解了keychain，才知道用NSUserDefaults是非常不安全的。通常情况下，可以用NSUserDefaults存储数据信息，但是对于一些私密信息，比如账号、密码等等，就需要使用更为安全的keychain了。而Ke">
-<meta property="og:updated_time" content="2015-10-26T03:49:42.000Z">
+<meta property="og:description" content="Tips:在实习过程中，有个需求是实现App的七天免登陆。当时的想法是用NSUserDefaults存储，用NSDate判断时间，取七天的间隔判断登陆状态。现在想想用NSUserDefaults直接存储用户信息是非常不安全的。通常情况下，可以用NSUserDefaults存储数据信息，但是对于一些私密信息，比如账号、密码等等，就需要使用更为安全的KeyChain了。而KeyChain的信息是存在于">
+<meta property="og:updated_time" content="2015-12-14T09:21:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS简单使用keychain存储密码">
-<meta name="twitter:description" content="Tips:在实习过程中，有次让我实现一个app七天免登陆功能。当时没细想，直接就用NSUserDefaults给做的，用NSDate判断时间，取七天的间隔判断登陆状态。直到现在了解了keychain，才知道用NSUserDefaults是非常不安全的。通常情况下，可以用NSUserDefaults存储数据信息，但是对于一些私密信息，比如账号、密码等等，就需要使用更为安全的keychain了。而Ke">
+<meta name="twitter:title" content="使用KeyChain存储密码">
+<meta name="twitter:description" content="Tips:在实习过程中，有个需求是实现App的七天免登陆。当时的想法是用NSUserDefaults存储，用NSDate判断时间，取七天的间隔判断登陆状态。现在想想用NSUserDefaults直接存储用户信息是非常不安全的。通常情况下，可以用NSUserDefaults存储数据信息，但是对于一些私密信息，比如账号、密码等等，就需要使用更为安全的KeyChain了。而KeyChain的信息是存在于">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -68,7 +68,7 @@
 
 
 
-  <title> iOS简单使用keychain存储密码 | v2panda's blog </title>
+  <title> 使用KeyChain存储密码 | v2panda's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -203,7 +203,7 @@
             
             
               
-                iOS简单使用keychain存储密码
+                使用KeyChain存储密码
               
             
           </h1>
@@ -212,8 +212,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-04-07T17:54:07+08:00" content="2015-04-07">
-              2015-04-07
+            <time itemprop="dateCreated" datetime="2015-01-07T17:54:07+08:00" content="2015-01-07">
+              2015-01-07
             </time>
           </span>
 
@@ -223,8 +223,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/04/07/iOS-keychain/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/07/iOS-keychain/" itemprop="commentsCount"></span>
+                <a href="/2015/01/07/iOS-keychain/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/07/iOS-keychain/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -243,25 +243,25 @@
       
 
       
-        <span itemprop="articleBody"><p>Tips:在实习过程中，有次让我实现一个app七天免登陆功能。当时没细想，直接就用NSUserDefaults给做的，用NSDate判断时间，取七天的间隔判断登陆状态。直到现在了解了keychain，才知道用NSUserDefaults是非常不安全的。通常情况下，可以用NSUserDefaults存储数据信息，但是对于一些私密信息，比如账号、密码等等，就需要使用更为安全的keychain了。而Keychain的信息是存在于每个应用（app）的沙盒之外的，所以keychain里保存的信息不会因App被删除而丢失，在用户重新安装App后依然有效，数据还在。</p>
+        <span itemprop="articleBody"><p>Tips:在实习过程中，有个需求是实现App的七天免登陆。当时的想法是用NSUserDefaults存储，用NSDate判断时间，取七天的间隔判断登陆状态。现在想想用NSUserDefaults直接存储用户信息是非常不安全的。通常情况下，可以用NSUserDefaults存储数据信息，但是对于一些私密信息，比如账号、密码等等，就需要使用更为安全的KeyChain了。而KeyChain的信息是存在于每个应用（app）的沙盒之外的，所以KeyChain里保存的信息不会因App被删除而丢失，在用户重新安装App后依然有效，数据还在。</p>
  <a id="more"></a>
-<h3 id="KeyChain">KeyChain</h3><p>话不多说，咱们直接来看怎么快速集成keychain。</p>
+<h3 id="KeyChain">KeyChain</h3><p>话不多说，咱们直接来看怎么快速集成KeyChain。</p>
 <ol>
 <li>自定义一个类，取名XXXKeyChain，如下：</li>
 </ol>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">&lt;Security/Security.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#define KEY_PASSWORD  @<span class="title">"com.rry.app.password"</span></span></span><br><span class="line"><span class="preprocessor">#define KEY_USERNAME_PASSWORD  @<span class="title">"com.rry.app.usernamepassword"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">RRYKeyChain</span> : <span class="title">NSObject</span></span></span><br><span class="line">+ (<span class="keyword">void</span>)save:(<span class="built_in">NSString</span> *)service data:(<span class="keyword">id</span>)data;</span><br><span class="line">+ (<span class="keyword">id</span>)load:(<span class="built_in">NSString</span> *)service;</span><br><span class="line">+ (<span class="keyword">void</span>)delete:(<span class="built_in">NSString</span> *)service;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<p>以上代码自定义了三个方法，存、取、删。并且定义了几个字符串用来做key。当然，想使用keychain请不要忘记引入Security包，引入文件 #import <security security.h="">。 </security></p>
+<p>以上代码自定义了三个方法，存、取、删。并且定义了几个字符串用来做key。当然，想使用keychain请不要忘记引入Security包，引入文件 <code>#import&lt;Security/Security.h&gt;</code>。 </p>
 <ol>
 <li>再来看.m文件的具体实现</li>
 </ol>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">"RRYKeyChain.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">RRYKeyChain</span></span></span><br><span class="line">+ (<span class="built_in">NSMutableDictionary</span> *)getKeychainQuery:(<span class="built_in">NSString</span> *)service &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSMutableDictionary</span> dictionaryWithObjectsAndKeys:</span><br><span class="line">            (<span class="keyword">id</span>)kSecClassGenericPassword,(<span class="keyword">id</span>)kSecClass,</span><br><span class="line">            service, (<span class="keyword">id</span>)kSecAttrService,</span><br><span class="line">            service, (<span class="keyword">id</span>)kSecAttrAccount,</span><br><span class="line">            (<span class="keyword">id</span>)kSecAttrAccessibleAfterFirstUnlock,(<span class="keyword">id</span>)kSecAttrAccessible,</span><br><span class="line">            <span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)save:(<span class="built_in">NSString</span> *)service data:(<span class="keyword">id</span>)data &#123;</span><br><span class="line">    <span class="comment">//Get search dictionary</span></span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *keychainQuery = [<span class="keyword">self</span> getKeychainQuery:service];</span><br><span class="line">    <span class="comment">//Delete old item before add new item</span></span><br><span class="line">    SecItemDelete((<span class="built_in">CFDictionaryRef</span>)keychainQuery);</span><br><span class="line">    <span class="comment">//Add new object to search dictionary(Attention:the data format)</span></span><br><span class="line">    [keychainQuery setObject:[<span class="built_in">NSKeyedArchiver</span> archivedDataWithRootObject:data] forKey:(<span class="keyword">id</span>)kSecValueData];</span><br><span class="line">    <span class="comment">//Add item to keychain with the search dictionary</span></span><br><span class="line">    SecItemAdd((<span class="built_in">CFDictionaryRef</span>)keychainQuery, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">id</span>)load:(<span class="built_in">NSString</span> *)service &#123;</span><br><span class="line">    <span class="keyword">id</span> ret = <span class="literal">nil</span>;</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *keychainQuery = [<span class="keyword">self</span> getKeychainQuery:service];</span><br><span class="line">    <span class="comment">//Configure the search setting</span></span><br><span class="line">    <span class="comment">//Since in our simple case we are expecting only a single attribute to be returned (the password) we can set the attribute kSecReturnData to kCFBooleanTrue</span></span><br><span class="line">    [keychainQuery setObject:(<span class="keyword">id</span>)k<span class="built_in">CFBooleanTrue</span> forKey:(<span class="keyword">id</span>)kSecReturnData];</span><br><span class="line">    [keychainQuery setObject:(<span class="keyword">id</span>)kSecMatchLimitOne forKey:(<span class="keyword">id</span>)kSecMatchLimit];</span><br><span class="line">    <span class="built_in">CFDataRef</span> keyData = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">if</span> (SecItemCopyMatching((<span class="built_in">CFDictionaryRef</span>)keychainQuery, (<span class="built_in">CFTypeRef</span> *)&amp;keyData) == noErr) &#123;</span><br><span class="line">        <span class="keyword">@try</span> &#123;</span><br><span class="line">            ret = [<span class="built_in">NSKeyedUnarchiver</span> unarchiveObjectWithData:(<span class="built_in">NSData</span> *)keyData];</span><br><span class="line">        &#125; <span class="keyword">@catch</span> (<span class="built_in">NSException</span> *e) &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"Unarchive of %@ failed: %@"</span>, service, e);</span><br><span class="line">        &#125; <span class="keyword">@finally</span> &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (keyData)</span><br><span class="line">        <span class="built_in">CFRelease</span>(keyData);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)delete:(<span class="built_in">NSString</span> *)service &#123;</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *keychainQuery = [<span class="keyword">self</span> getKeychainQuery:service];</span><br><span class="line">    SecItemDelete((<span class="built_in">CFDictionaryRef</span>)keychainQuery);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后就是存，其中mmm是要存的密码字符串。</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSMutableDictionary *usernamepasswordKVPairs = [NSMutableDictionary dictionary];</span><br><span class="line">[usernamepasswordKVPairs <span class="string">setObject:</span>mmm <span class="string">forKey:</span>KEY_PASSWORD];</span><br><span class="line">[RRYKeyChain <span class="string">save:</span>KEY_USERNAME_PASSWORD <span class="string">data:</span>usernamepasswordKVPairs];</span><br></pre></td></tr></table></figure>
+<p>然后就是存，其中password是要存的密码字符串。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSMutableDictionary *usernamepasswordKVPairs = [NSMutableDictionary dictionary];</span><br><span class="line">[usernamepasswordKVPairs <span class="string">setObject:</span>password <span class="string">forKey:</span>KEY_PASSWORD];</span><br><span class="line">[RRYKeyChain <span class="string">save:</span>KEY_USERNAME_PASSWORD <span class="string">data:</span>usernamepasswordKVPairs];</span><br></pre></td></tr></table></figure>
 <p>取</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableDictionary</span> *usernamepasswordKVPairs = (<span class="built_in">NSMutableDictionary</span> *)[RRYKeyChain load:KEY_USERNAME_PASSWORD];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[usernamepasswordKVPairs objectForKey:KEY_PASSWORD]);</span><br></pre></td></tr></table></figure>
 <p>删</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[RRYKeyChain delete:KEY_USERNAME_PASSWORD]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
-<p>这样一个简单的使用keychain快速存储密码的功能就做好了。</p>
+<p>搞定收工，使用KeyChain快速存储密码。</p>
 </span>
       
     </div>
@@ -304,10 +304,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/04/07/iOS-keychain/"
-     data-title="iOS简单使用keychain存储密码"
+        <div class="ds-share flat" data-thread-key="2015/01/07/iOS-keychain/"
+     data-title="使用KeyChain存储密码"
      data-content=""
-     data-url="http://v2panda.com/2015/04/07/iOS-keychain/">
+     data-url="http://v2panda.com/2015/01/07/iOS-keychain/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -337,8 +337,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/04/07/iOS-keychain/"
-                   data-title="iOS简单使用keychain存储密码" data-url="http://v2panda.com/2015/04/07/iOS-keychain/">
+              <div class="ds-thread" data-thread-key="2015/01/07/iOS-keychain/"
+                   data-title="使用KeyChain存储密码" data-url="http://v2panda.com/2015/01/07/iOS-keychain/">
               </div>
             
           </div>
