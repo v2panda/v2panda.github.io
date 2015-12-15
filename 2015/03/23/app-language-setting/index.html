@@ -47,28 +47,20 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="前言最近看到一篇文章专访YYKit作者郭曜源：开源大牛是怎样炼成的,其中 ibireme提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高姿势水平的上策，Talk is cheap, Show me the code!这篇blog主要记录仿写一个App的准备工作,这里以美团为例。">
+<meta name="description" content="最近为自己写的一个应用，做了多语言支持(English&amp;amp;Chinese)，在这里记录下来。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何仿写一个App">
-<meta property="og:url" content="http://v2panda.com/2015/12/06/how-to-imitation-app/index.html">
+<meta property="og:title" content="iOS多语言设置">
+<meta property="og:url" content="http://v2panda.com/2015/03/23/app-language-setting/index.html">
 <meta property="og:site_name" content="v2panda's blog">
-<meta property="og:description" content="前言最近看到一篇文章专访YYKit作者郭曜源：开源大牛是怎样炼成的,其中 ibireme提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高姿势水平的上策，Talk is cheap, Show me the code!这篇blog主要记录仿写一个App的准备工作,这里以美团为例。">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.57.20.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.53.53.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.54.07.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.54.26.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.11.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.53.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appUntitled3.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.51.13.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.52.48.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appUntitled.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appUntitled2.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.56.41.png">
-<meta property="og:updated_time" content="2015-12-14T09:20:33.000Z">
+<meta property="og:description" content="最近为自己写的一个应用，做了多语言支持(English&amp;amp;Chinese)，在这里记录下来。">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/language1.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/language2.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/language3.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/language4.png">
+<meta property="og:updated_time" content="2015-12-15T06:05:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何仿写一个App">
-<meta name="twitter:description" content="前言最近看到一篇文章专访YYKit作者郭曜源：开源大牛是怎样炼成的,其中 ibireme提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高姿势水平的上策，Talk is cheap, Show me the code!这篇blog主要记录仿写一个App的准备工作,这里以美团为例。">
+<meta name="twitter:title" content="iOS多语言设置">
+<meta name="twitter:description" content="最近为自己写的一个应用，做了多语言支持(English&amp;amp;Chinese)，在这里记录下来。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -80,7 +72,7 @@
 
 
 
-  <title> 如何仿写一个App | v2panda's blog </title>
+  <title> iOS多语言设置 | v2panda's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -205,7 +197,7 @@
             
             
               
-                如何仿写一个App
+                iOS多语言设置
               
             
           </h1>
@@ -214,8 +206,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-06T20:47:37+08:00" content="2015-12-06">
-              2015-12-06
+            <time itemprop="dateCreated" datetime="2015-03-23T11:47:00+08:00" content="2015-03-23">
+              2015-03-23
             </time>
           </span>
 
@@ -225,8 +217,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/06/how-to-imitation-app/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/06/how-to-imitation-app/" itemprop="commentsCount"></span>
+                <a href="/2015/03/23/app-language-setting/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/23/app-language-setting/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -245,25 +237,34 @@
       
 
       
-        <span itemprop="articleBody"><h1 id="前言">前言</h1><p>最近看到一篇文章<a href="http://www.infoq.com/cn/news/2015/11/ibireme-interview?utm_source=infoq&amp;utm_medium=popular_widget&amp;utm_campaign=popular_content_list&amp;utm_content=homepage" target="_blank" rel="external">专访YYKit作者郭曜源：开源大牛是怎样炼成的</a>,其中 <a href="http://weibo.com/239801242" target="_blank" rel="external">ibireme</a>提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高姿势水平的上策，Talk is cheap, Show me the code!<br>这篇blog主要记录仿写一个App的准备工作,这里以美团为例。</p>
+        <span itemprop="articleBody"><p>最近为自己写的一个应用，做了多语言支持(English&amp;Chinese)，在这里记录下来。</p>
 <a id="more"></a>
-<h1 id="素材">素材</h1><p>首先到iTunes下载美团到本地<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.57.20.png" alt="在Finder中显示"></p>
-<p>在Finder中显示,解压ipa文件<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.53.53.png" alt="解压ipa"><br>点击imeituan，显示包内容<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.54.07.png" alt="显示包内容"><br>就能随意查看imeituan的素材内容。<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.54.26.png" alt="素材"></p>
-<h1 id="接口">接口</h1><ul>
-<li><a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a><br>这是一款在 Mac 下常用的网络封包截取工具，Charles 通过将自己设置成系统的网络访问代理服务器，使得所有的网络访问请求都通过它来完成,这里我们主要用它来截取网络封包来分析。</li>
-</ul>
-<p>这里我们主要截取iPhone上App的网络请求，所以使用 Charles 的第一步在菜单栏上选择 “Proxy”–&gt;“Proxy Settings”，填入代理端口 8888，并且勾上 “Enable transparent HTTP proxying” 就完成了在 Charles 上的设置。如下图所示:<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.11.png" alt="Proxy"><br>然后我们需要获取 Charles 运行所在电脑的 IP 地址，Charles 的顶部菜单的 “Help”–&gt;“Local IP Address”，即可在弹出的对话框中看到 IP 地址，如下图所示：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.53.png" alt="IP"></p>
-<p>最后在 iPhone 的「HTTP 代理」，将其切换成手动，然后填上 Charles 运行所在的电脑的 IP，以及端口号 8888，如下图所示：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appUntitled3.png" alt="8888"></p>
-<p>接下来在手机上运行美团，就能再Charles上查看网络请求，如下所示：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.51.13.png" alt="flurry"><br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.52.48.png" alt="http"><br>这是美团启动是Charles的显示，可以看到<code>http://data.flurry.com</code>的请求，显而易见美团iOS是使用flurry统计数据的。关于Charles详细使用方法可以查看<a href="http://blog.devtang.com/blog/2015/11/14/charles-introduction/" target="_blank" rel="external">这篇博客</a>。</p>
-<h1 id="App结构">App结构</h1><p>这里使用Reaveal + iPhone(越狱)来分析App的UI视图结构。</p>
-<p>准备工作：<br>1.iPhone越狱。<br>2.越狱后iPhone上会自行安装上Cydia商店，打开Cydia，先在tabBar的“变更”页面刷新软件源。刷新成功后用Cydia搜索并安装Reveal loader ，安装完成后点击重启springboard。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appUntitled.png" alt="Reveal loader"></p>
-<p>3.在系统设置中找到Reveal，点击Reveal - Enabled Applications，将美团选为Enabled。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appUntitled2.png" alt="Enabled"></p>
-<p>4.安装<a href="http://revealapp.com/" target="_blank" rel="external">Reveal</a>。<br>5.首先保证iPhone和Mac在同一局域网（WiFi）中，在iPhone中运行你要监视的app，如果app已经运行，需在后台杀死进程重新打开，保持app在前台，然后在Mac中打开Reveal，点击左上角的No Connection，然后选择即可。<br>6.Commend+5 切换3D模式。每当iPhone上的app页面切换后，需要点击Reveal窗口右上角刷新（Commend+R）。在局域网内负荷较大时，视图刷新会很慢，可以用iPhone共享热点给Mac解决。</p>
-<p>准备完毕后，就能在Reveal上随意查看App结构了，如下图所示:<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.56.41.png" alt="App结构"></p>
-<h1 id="后记">后记</h1><p>这篇blog主要记录仿写一个App的准备工作,包括获取素材，接口，以及查看App层级结构，关于如何仿写怎么仿写，就得自己去Coding了。</p>
-</span>
+<h3 id="基本设置">基本设置</h3><p>第一步：先在Project的info里添加所需要支持的语言，这里选择的是Chinese(Simplified)和English-Development Language。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language1.png" alt=""><br>第二步：创建Localizable.strings文件(注意:文件名最好不要随意更改)作为多语言对应的词典，存储多种语言。</p>
+<p>点击Localizable.strings文件右侧Localize…</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language2.png" alt="">         </p>
+<p>继续在Localization里添加所要支持的语言，将其勾选上。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language3.png" alt=""></p>
+<p>第三步:最后就可以在Localizable.strings里随意设置所需要支持的语言啦。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language4.png" alt=""></p>
+<h4 id="格式">格式</h4><p>Localizable.strings内设置格式:<br><code>&quot;testName&quot; = &quot;测试名称&quot;</code></p>
+<p>NSLocalizedString代替String:<br><code>NSLocalizedString(@&quot;testName&quot;,nil)</code></p>
+<h3 id="StoryBoard设置">StoryBoard设置</h3><p>storyboard同Localizable.strings类似。</p>
+<p>第一步：选中storyboard，选择ShowtheFileInspector，在Localization选择所需要支持的语言。</p>
+<p>第二步：在Main.strings(Chinese(Simplified))和Main.strings(English)里设置语言。</p>
+<h4 id="格式-1">格式</h4><p>Main.strings里的格式比较特殊，如下所示：</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span> Class = <span class="string">"UILabel"</span>; text = <span class="string">"testName"</span>; ObjectID = <span class="string">"pUp-yc-27W"</span>; <span class="keyword">*</span>/</span><br><span class="line"><span class="string">"pUp-yc-27W.text"</span> = <span class="string">"testName"</span>;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，不要直接改变自动生成的ObjectID，也不要复制和粘贴上边的代码行，因为标签的ObjectID可能已经跟上边展示的不一样了。</p>
+<h3 id="图片设置">图片设置</h3><p>图片设置也和Localizable.strings类似，图片资源存放在Images.xcassets里，使用时将不同语言的图片资源在Localizable.strings里一一对应设置，如下所示：</p>
+<p>Localizable.strings (English)</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"imageName"</span> = <span class="string">"pic-en"</span>;</span><br></pre></td></tr></table></figure>
+<p>Localizable.strings (Chinese(Simplified))</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"imageName"</span> = <span class="string">"pic-cn"</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="应用名设置">应用名设置</h3><p>Info.plist有一个特殊的文件（InfoPlist.strings），在里边用字符串覆盖其他语言,如下所示：</p>
+<p>InfoPlist.strings (English)</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"CFBundleDisplayName"</span> = <span class="string">"EnglishName"</span>;</span><br></pre></td></tr></table></figure>
+<p>InfoPlist.strings (Chinese(Simplified))</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"imageName"</span> = <span class="string">"中文名"</span>;</span><br></pre></td></tr></table></figure></span>
       
     </div>
 
@@ -274,12 +275,16 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2015/07/27/iOS-develop-tips/" rel="prev">
+                <i class="fa fa-chevron-left"></i> iOS开发Tips
+              </a>
+            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/25/network-debugging-tools/" rel="next">
-                自建网络调试工具 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/01/07/iOS-keychain/" rel="next">
+                使用KeyChain存储密码 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -295,10 +300,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/12/06/how-to-imitation-app/"
-     data-title="如何仿写一个App"
+        <div class="ds-share flat" data-thread-key="2015/03/23/app-language-setting/"
+     data-title="iOS多语言设置"
      data-content=""
-     data-url="http://v2panda.com/2015/12/06/how-to-imitation-app/">
+     data-url="http://v2panda.com/2015/03/23/app-language-setting/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -328,8 +333,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/12/06/how-to-imitation-app/"
-                   data-title="如何仿写一个App" data-url="http://v2panda.com/2015/12/06/how-to-imitation-app/">
+              <div class="ds-thread" data-thread-key="2015/03/23/app-language-setting/"
+                   data-title="iOS多语言设置" data-url="http://v2panda.com/2015/03/23/app-language-setting/">
               </div>
             
           </div>
@@ -439,7 +444,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#素材"><span class="nav-number">2.</span> <span class="nav-text">素材</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口"><span class="nav-number">3.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#App结构"><span class="nav-number">4.</span> <span class="nav-text">App结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后记"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本设置"><span class="nav-number">1.</span> <span class="nav-text">基本设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#格式"><span class="nav-number">1.1.</span> <span class="nav-text">格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StoryBoard设置"><span class="nav-number">2.</span> <span class="nav-text">StoryBoard设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#格式-1"><span class="nav-number">2.1.</span> <span class="nav-text">格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片设置"><span class="nav-number">3.</span> <span class="nav-text">图片设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用名设置"><span class="nav-number">4.</span> <span class="nav-text">应用名设置</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

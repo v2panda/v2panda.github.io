@@ -364,6 +364,47 @@
   </entry>
   
   <entry>
+    <title><![CDATA[iOS多语言设置]]></title>
+    <link href="http://v2panda.com/2015/03/23/app-language-setting/"/>
+    <id>http://v2panda.com/2015/03/23/app-language-setting/</id>
+    <published>2015-03-23T03:47:00.000Z</published>
+    <updated>2015-12-15T06:05:01.000Z</updated>
+    <content type="html"><![CDATA[<p>最近为自己写的一个应用，做了多语言支持(English&amp;Chinese)，在这里记录下来。</p>
+<a id="more"></a>
+<h3 id="基本设置">基本设置</h3><p>第一步：先在Project的info里添加所需要支持的语言，这里选择的是Chinese(Simplified)和English-Development Language。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language1.png" alt=""><br>第二步：创建Localizable.strings文件(注意:文件名最好不要随意更改)作为多语言对应的词典，存储多种语言。</p>
+<p>点击Localizable.strings文件右侧Localize…</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language2.png" alt="">         </p>
+<p>继续在Localization里添加所要支持的语言，将其勾选上。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language3.png" alt=""></p>
+<p>第三步:最后就可以在Localizable.strings里随意设置所需要支持的语言啦。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language4.png" alt=""></p>
+<h4 id="格式">格式</h4><p>Localizable.strings内设置格式:<br><code>&quot;testName&quot; = &quot;测试名称&quot;</code></p>
+<p>NSLocalizedString代替String:<br><code>NSLocalizedString(@&quot;testName&quot;,nil)</code></p>
+<h3 id="StoryBoard设置">StoryBoard设置</h3><p>storyboard同Localizable.strings类似。</p>
+<p>第一步：选中storyboard，选择ShowtheFileInspector，在Localization选择所需要支持的语言。</p>
+<p>第二步：在Main.strings(Chinese(Simplified))和Main.strings(English)里设置语言。</p>
+<h4 id="格式-1">格式</h4><p>Main.strings里的格式比较特殊，如下所示：</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span> Class = <span class="string">"UILabel"</span>; text = <span class="string">"testName"</span>; ObjectID = <span class="string">"pUp-yc-27W"</span>; <span class="keyword">*</span>/</span><br><span class="line"><span class="string">"pUp-yc-27W.text"</span> = <span class="string">"testName"</span>;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，不要直接改变自动生成的ObjectID，也不要复制和粘贴上边的代码行，因为标签的ObjectID可能已经跟上边展示的不一样了。</p>
+<h3 id="图片设置">图片设置</h3><p>图片设置也和Localizable.strings类似，图片资源存放在Images.xcassets里，使用时将不同语言的图片资源在Localizable.strings里一一对应设置，如下所示：</p>
+<p>Localizable.strings (English)</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"imageName"</span> = <span class="string">"pic-en"</span>;</span><br></pre></td></tr></table></figure>
+<p>Localizable.strings (Chinese(Simplified))</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"imageName"</span> = <span class="string">"pic-cn"</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="应用名设置">应用名设置</h3><p>Info.plist有一个特殊的文件（InfoPlist.strings），在里边用字符串覆盖其他语言,如下所示：</p>
+<p>InfoPlist.strings (English)</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"CFBundleDisplayName"</span> = <span class="string">"EnglishName"</span>;</span><br></pre></td></tr></table></figure>
+<p>InfoPlist.strings (Chinese(Simplified))</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"imageName"</span> = <span class="string">"中文名"</span>;</span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近为自己写的一个应用，做了多语言支持(English&amp;Chinese)，在这里记录下来。</p>]]>
+    
+    </summary>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[使用KeyChain存储密码]]></title>
     <link href="http://v2panda.com/2015/01/07/iOS-keychain/"/>
     <id>http://v2panda.com/2015/01/07/iOS-keychain/</id>
