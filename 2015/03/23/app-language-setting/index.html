@@ -57,7 +57,7 @@
 <meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/language2.png">
 <meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/language3.png">
 <meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/language4.png">
-<meta property="og:updated_time" content="2015-12-15T06:16:29.000Z">
+<meta property="og:updated_time" content="2015-12-15T07:16:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS多语言设置">
 <meta name="twitter:description" content="最近为自己写的一个应用，做了多语言支持(English&amp;amp;Chinese)，在这里记录下来。">
@@ -262,11 +262,14 @@
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"imageName"</span> = <span class="string">"pic-en"</span>;</span><br></pre></td></tr></table></figure>
 <p>Localizable.strings (Chinese(Simplified))</p>
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"imageName"</span> = <span class="string">"pic-cn"</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="货币值设置">货币值设置</h3><p>货币显示在不同的国家是有区别的，例如：10000可以写作”10,000”也能写作”10.000”。针对这种情况可以使用NSNumberFormatter格式化，例如：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSNumberFormatter</span> *numberFormatter = [[<span class="built_in">NSNumberFormatter</span> alloc] init]; </span><br><span class="line">[numberFormatter setNumberStyle:<span class="built_in">NSNumberFormatterDecimalStyle</span>]; </span><br><span class="line"><span class="built_in">NSString</span> *numberString = [numberFormatter stringFromNumber:@(<span class="number">10000</span>)]; </span><br><span class="line">testLabel<span class="variable">.text</span> = [<span class="built_in">NSString</span> stringWithFormat:<span class="built_in">NSLocalizedString</span>(<span class="string">@"testNum:%@"</span>, <span class="literal">nil</span>), numberString];</span><br></pre></td></tr></table></figure>
 <h3 id="应用名设置">应用名设置</h3><p>Info.plist有一个特殊的文件（InfoPlist.strings），在里边用字符串覆盖其他语言,如下所示：</p>
 <p>InfoPlist.strings (English)</p>
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"CFBundleDisplayName"</span> = <span class="string">"EnglishName"</span>;</span><br></pre></td></tr></table></figure>
 <p>InfoPlist.strings (Chinese(Simplified))</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"imageName"</span> = <span class="string">"中文名"</span>;</span><br></pre></td></tr></table></figure></span>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"imageName"</span> = <span class="string">"中文名"</span>;</span><br></pre></td></tr></table></figure>
+</span>
       
     </div>
 
@@ -446,7 +449,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本设置"><span class="nav-number">1.</span> <span class="nav-text">基本设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#格式"><span class="nav-number">1.1.</span> <span class="nav-text">格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StoryBoard设置"><span class="nav-number">2.</span> <span class="nav-text">StoryBoard设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#格式-1"><span class="nav-number">2.1.</span> <span class="nav-text">格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片设置"><span class="nav-number">3.</span> <span class="nav-text">图片设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用名设置"><span class="nav-number">4.</span> <span class="nav-text">应用名设置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本设置"><span class="nav-number">1.</span> <span class="nav-text">基本设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#格式"><span class="nav-number">1.1.</span> <span class="nav-text">格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StoryBoard设置"><span class="nav-number">2.</span> <span class="nav-text">StoryBoard设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#格式-1"><span class="nav-number">2.1.</span> <span class="nav-text">格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片设置"><span class="nav-number">3.</span> <span class="nav-text">图片设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#货币值设置"><span class="nav-number">4.</span> <span class="nav-text">货币值设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用名设置"><span class="nav-number">5.</span> <span class="nav-text">应用名设置</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
