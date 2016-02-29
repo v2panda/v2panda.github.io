@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="iOS," />
+  <meta name="keywords" content="v2panda,panda,Hexo,next" />
 
 
 
@@ -47,16 +47,27 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="Tips:在实习过程中，有个需求是实现App的七天免登陆。当时的想法是用NSUserDefaults存储，用NSDate判断时间，取七天的间隔判断登陆状态。现在想想用NSUserDefaults直接存储用户信息是非常不安全的。通常情况下，可以用NSUserDefaults存储数据信息，但是对于一些私密信息，比如账号、密码等等，就需要使用更为安全的KeyChain了。而KeyChain的信息是存在于">
+<meta name="description" content="前言 Continuous integrationCI 是敏捷开发的必备，简单说就是有这样一套工具，使得开发人员做好开发和单元测试再 push 代码后就不用管了，这套工具能自动地 check 代码的变化，自动 build， 自动做集成测试和场景测试等，自动部署到生产环境。
+本文为iOS下的自动化打包，搭建可持续集成环境，省去给测试安装新版本的时间，提高工作效率。这里选择的方案是Jenkins+ G">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用KeyChain存储密码">
-<meta property="og:url" content="http://v2panda.com/2015/01/07/iOS-keychain/index.html">
+<meta property="og:title" content="iOS搭建CI持续集成环境">
+<meta property="og:url" content="http://v2panda.com/2016/02/29/buildci/index.html">
 <meta property="og:site_name" content="v2panda's blog">
-<meta property="og:description" content="Tips:在实习过程中，有个需求是实现App的七天免登陆。当时的想法是用NSUserDefaults存储，用NSDate判断时间，取七天的间隔判断登陆状态。现在想想用NSUserDefaults直接存储用户信息是非常不安全的。通常情况下，可以用NSUserDefaults存储数据信息，但是对于一些私密信息，比如账号、密码等等，就需要使用更为安全的KeyChain了。而KeyChain的信息是存在于">
-<meta property="og:updated_time" content="2015-12-14T09:21:42.000Z">
+<meta property="og:description" content="前言 Continuous integrationCI 是敏捷开发的必备，简单说就是有这样一套工具，使得开发人员做好开发和单元测试再 push 代码后就不用管了，这套工具能自动地 check 代码的变化，自动 build， 自动做集成测试和场景测试等，自动部署到生产环境。
+本文为iOS下的自动化打包，搭建可持续集成环境，省去给测试安装新版本的时间，提高工作效率。这里选择的方案是Jenkins+ G">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blognewItem.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blogbasicInfo.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blogbuildWhen.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blogbuildPoll.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blogexecuteShell.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blogbuildHistory.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blogfirim.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blogdeviceslist.png">
+<meta property="og:updated_time" content="2016-02-29T16:51:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用KeyChain存储密码">
-<meta name="twitter:description" content="Tips:在实习过程中，有个需求是实现App的七天免登陆。当时的想法是用NSUserDefaults存储，用NSDate判断时间，取七天的间隔判断登陆状态。现在想想用NSUserDefaults直接存储用户信息是非常不安全的。通常情况下，可以用NSUserDefaults存储数据信息，但是对于一些私密信息，比如账号、密码等等，就需要使用更为安全的KeyChain了。而KeyChain的信息是存在于">
+<meta name="twitter:title" content="iOS搭建CI持续集成环境">
+<meta name="twitter:description" content="前言 Continuous integrationCI 是敏捷开发的必备，简单说就是有这样一套工具，使得开发人员做好开发和单元测试再 push 代码后就不用管了，这套工具能自动地 check 代码的变化，自动 build， 自动做集成测试和场景测试等，自动部署到生产环境。
+本文为iOS下的自动化打包，搭建可持续集成环境，省去给测试安装新版本的时间，提高工作效率。这里选择的方案是Jenkins+ G">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -68,7 +79,7 @@
 
 
 
-  <title> 使用KeyChain存储密码 | v2panda's blog </title>
+  <title> iOS搭建CI持续集成环境 | v2panda's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -193,7 +204,7 @@
             
             
               
-                使用KeyChain存储密码
+                iOS搭建CI持续集成环境
               
             
           </h1>
@@ -202,8 +213,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-01-07T17:54:07+08:00" content="2015-01-07">
-              2015-01-07
+            <time itemprop="dateCreated" datetime="2016-02-29T23:49:05+08:00" content="2016-02-29">
+              2016-02-29
             </time>
           </span>
 
@@ -213,8 +224,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/01/07/iOS-keychain/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/07/iOS-keychain/" itemprop="commentsCount"></span>
+                <a href="/2016/02/29/buildci/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/29/buildci/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -233,52 +244,60 @@
       
 
       
-        <span itemprop="articleBody"><p>Tips:在实习过程中，有个需求是实现App的七天免登陆。当时的想法是用NSUserDefaults存储，用NSDate判断时间，取七天的间隔判断登陆状态。现在想想用NSUserDefaults直接存储用户信息是非常不安全的。通常情况下，可以用NSUserDefaults存储数据信息，但是对于一些私密信息，比如账号、密码等等，就需要使用更为安全的KeyChain了。而KeyChain的信息是存在于每个应用（app）的沙盒之外的，所以KeyChain里保存的信息不会因App被删除而丢失，在用户重新安装App后依然有效，数据还在。</p>
- <a id="more"></a>
-<h3 id="KeyChain">KeyChain</h3><p>话不多说，咱们直接来看怎么快速集成KeyChain。</p>
-<ol>
-<li>自定义一个类，取名XXXKeyChain，如下：</li>
-</ol>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">&lt;Security/Security.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#define KEY_PASSWORD  @<span class="title">"com.rry.app.password"</span></span></span><br><span class="line"><span class="preprocessor">#define KEY_USERNAME_PASSWORD  @<span class="title">"com.rry.app.usernamepassword"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">RRYKeyChain</span> : <span class="title">NSObject</span></span></span><br><span class="line">+ (<span class="keyword">void</span>)save:(<span class="built_in">NSString</span> *)service data:(<span class="keyword">id</span>)data;</span><br><span class="line">+ (<span class="keyword">id</span>)load:(<span class="built_in">NSString</span> *)service;</span><br><span class="line">+ (<span class="keyword">void</span>)delete:(<span class="built_in">NSString</span> *)service;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<p>以上代码自定义了三个方法，存、取、删。并且定义了几个字符串用来做key。当然，想使用keychain请不要忘记引入Security包，引入文件 <code>#import&lt;Security/Security.h&gt;</code>。 </p>
-<ol>
-<li>再来看.m文件的具体实现</li>
-</ol>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">"RRYKeyChain.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">RRYKeyChain</span></span></span><br><span class="line">+ (<span class="built_in">NSMutableDictionary</span> *)getKeychainQuery:(<span class="built_in">NSString</span> *)service &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSMutableDictionary</span> dictionaryWithObjectsAndKeys:</span><br><span class="line">            (<span class="keyword">id</span>)kSecClassGenericPassword,(<span class="keyword">id</span>)kSecClass,</span><br><span class="line">            service, (<span class="keyword">id</span>)kSecAttrService,</span><br><span class="line">            service, (<span class="keyword">id</span>)kSecAttrAccount,</span><br><span class="line">            (<span class="keyword">id</span>)kSecAttrAccessibleAfterFirstUnlock,(<span class="keyword">id</span>)kSecAttrAccessible,</span><br><span class="line">            <span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)save:(<span class="built_in">NSString</span> *)service data:(<span class="keyword">id</span>)data &#123;</span><br><span class="line">    <span class="comment">//Get search dictionary</span></span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *keychainQuery = [<span class="keyword">self</span> getKeychainQuery:service];</span><br><span class="line">    <span class="comment">//Delete old item before add new item</span></span><br><span class="line">    SecItemDelete((<span class="built_in">CFDictionaryRef</span>)keychainQuery);</span><br><span class="line">    <span class="comment">//Add new object to search dictionary(Attention:the data format)</span></span><br><span class="line">    [keychainQuery setObject:[<span class="built_in">NSKeyedArchiver</span> archivedDataWithRootObject:data] forKey:(<span class="keyword">id</span>)kSecValueData];</span><br><span class="line">    <span class="comment">//Add item to keychain with the search dictionary</span></span><br><span class="line">    SecItemAdd((<span class="built_in">CFDictionaryRef</span>)keychainQuery, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">id</span>)load:(<span class="built_in">NSString</span> *)service &#123;</span><br><span class="line">    <span class="keyword">id</span> ret = <span class="literal">nil</span>;</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *keychainQuery = [<span class="keyword">self</span> getKeychainQuery:service];</span><br><span class="line">    <span class="comment">//Configure the search setting</span></span><br><span class="line">    <span class="comment">//Since in our simple case we are expecting only a single attribute to be returned (the password) we can set the attribute kSecReturnData to kCFBooleanTrue</span></span><br><span class="line">    [keychainQuery setObject:(<span class="keyword">id</span>)k<span class="built_in">CFBooleanTrue</span> forKey:(<span class="keyword">id</span>)kSecReturnData];</span><br><span class="line">    [keychainQuery setObject:(<span class="keyword">id</span>)kSecMatchLimitOne forKey:(<span class="keyword">id</span>)kSecMatchLimit];</span><br><span class="line">    <span class="built_in">CFDataRef</span> keyData = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">if</span> (SecItemCopyMatching((<span class="built_in">CFDictionaryRef</span>)keychainQuery, (<span class="built_in">CFTypeRef</span> *)&amp;keyData) == noErr) &#123;</span><br><span class="line">        <span class="keyword">@try</span> &#123;</span><br><span class="line">            ret = [<span class="built_in">NSKeyedUnarchiver</span> unarchiveObjectWithData:(<span class="built_in">NSData</span> *)keyData];</span><br><span class="line">        &#125; <span class="keyword">@catch</span> (<span class="built_in">NSException</span> *e) &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"Unarchive of %@ failed: %@"</span>, service, e);</span><br><span class="line">        &#125; <span class="keyword">@finally</span> &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (keyData)</span><br><span class="line">        <span class="built_in">CFRelease</span>(keyData);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)delete:(<span class="built_in">NSString</span> *)service &#123;</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *keychainQuery = [<span class="keyword">self</span> getKeychainQuery:service];</span><br><span class="line">    SecItemDelete((<span class="built_in">CFDictionaryRef</span>)keychainQuery);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后就是存，其中password是要存的密码字符串。</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSMutableDictionary *usernamepasswordKVPairs = [NSMutableDictionary dictionary];</span><br><span class="line">[usernamepasswordKVPairs <span class="string">setObject:</span>password <span class="string">forKey:</span>KEY_PASSWORD];</span><br><span class="line">[RRYKeyChain <span class="string">save:</span>KEY_USERNAME_PASSWORD <span class="string">data:</span>usernamepasswordKVPairs];</span><br></pre></td></tr></table></figure>
-<p>取</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableDictionary</span> *usernamepasswordKVPairs = (<span class="built_in">NSMutableDictionary</span> *)[RRYKeyChain load:KEY_USERNAME_PASSWORD];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[usernamepasswordKVPairs objectForKey:KEY_PASSWORD]);</span><br></pre></td></tr></table></figure>
-<p>删</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[RRYKeyChain delete:KEY_USERNAME_PASSWORD]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
-<p>搞定收工，使用KeyChain快速存储密码。</p>
+        <span itemprop="articleBody"><h3 id="前言_Continuous_integration">前言 Continuous integration</h3><p>CI 是敏捷开发的必备，简单说就是有这样一套工具，使得开发人员做好开发和单元测试再 push 代码后就不用管了，这套工具能自动地 check 代码的变化，自动 build， 自动做集成测试和场景测试等，自动部署到生产环境。</p>
+<p>本文为iOS下的自动化打包，搭建可持续集成环境，省去给测试安装新版本的时间，提高工作效率。这里选择的方案是Jenkins+ Gitlab/Github+Xcode+Fir。</p>
+<a id="more"></a>
+<h3 id="安装Jenkins">安装Jenkins</h3><p>先安装homebrew，安装过的跳过这步</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
+<p>然后</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">brew </span>install jenkins</span><br></pre></td></tr></table></figure>
+<p>若遇到</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">jenkins: Java 1.6+ is required to <span class="operator"><span class="keyword">install</span> this formula.</span><br><span class="line">You can <span class="keyword">install</span> <span class="keyword">with</span> Homebrew Cask:</span><br><span class="line">  brew <span class="keyword">install</span> Caskroom/cask/<span class="keyword">java</span></span><br><span class="line"></span><br><span class="line">You can download <span class="keyword">from</span>:</span><br><span class="line">  <span class="keyword">http</span>://www.<span class="keyword">oracle</span>.com/technetwork/<span class="keyword">java</span>/javase/downloads/<span class="keyword">index</span>.html</span><br><span class="line"><span class="keyword">Error</span>: An unsatisfied requirement <span class="keyword">failed</span> this <span class="keyword">build</span>.</span></span><br></pre></td></tr></table></figure>
+<p>按照提示安装java环境，推荐去<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="external">java官网</a>下载。</p>
+<p>安装完成后浏览器会自动打开Jenkins页面(<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>)<br>或输入</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>open /<span class="constant">Applications</span>/<span class="constant">Jenkins</span>/jenkins.war</span><br></pre></td></tr></table></figure>
+<p>若端口有冲突，则修改端口</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ defaults <span class="keyword">write</span> /<span class="keyword">Library</span>/Preferences/org.jenkins-ci httpPort yourport</span><br></pre></td></tr></table></figure>
+<p>再安装插件，在到jenkins页面，插件管理中安装以下插件</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GIT <span class="keyword">plugin</span></span><br><span class="line">GitHub <span class="keyword">plugin</span></span><br><span class="line">Gitlab <span class="keyword">plugin</span></span><br><span class="line"><span class="keyword">Post</span>-Build Script Plug-<span class="keyword">in</span></span><br><span class="line">Xcode integration</span><br></pre></td></tr></table></figure>
+<p>安装fir-cli,详细的参考<a href="https://github.com/FIRHQ/fir-cli/blob/master/README.md" target="_blank" rel="external">文档</a></p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gem install fir-<span class="keyword">cli</span></span><br></pre></td></tr></table></figure>
+<h3 id="新建项目">新建项目</h3><p>新建一个项目，选择自由风格的软件项目。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blognewItem.png" alt="newItem"><br>继续填写基本信息与源码管理,若选用Git则需注意填写Repositories地址与    Branches to build<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogbasicInfo.png" alt="basicInfo"></p>
+<h3 id="构建配置">构建配置</h3><p>添加构建触发器,这里就是告诉Jenkins什么时候自动构建。<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogbuildWhen.png" alt="buildWhen"><br>这里选择的是有push到github时构建，也可以选Poll SCM设置构建时间<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogbuildPoll.png" alt="buildPoll"><br>这里的配置为周一到周五每天8点到9点之间执行一次。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogexecuteShell.png" alt="executeShell"><br>选择构建配置为Execute Shell，填入</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">fir</span> build_ipa <span class="variable">$&#123;WORKSPACE1&#125;</span> -o <span class="variable">$&#123;WORKSPACE2&#125;</span>/TestJenkins.ipa -p -T <span class="comment">#API Token#</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>WORKSPACE1——–为项目路径</li>
+<li>WORKSPACE2——–ipa输出路径</li>
+<li>#API Token#————fir API Token</li>
+</ul>
+<p>然后保存退出。</p>
+<h3 id="构建">构建</h3><p>建议逐步构建，避免错误，构建历史如下<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogbuildHistory.png" alt=""></p>
+<p>蓝色的为构建成功，红色为失败，若遇到以下类似的错误</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">PluginLoading</span>: <span class="string">Required plug-in compatibility UUID F41BD31E-2683-44B8-</span></span><br><span class="line"></span><br><span class="line"><span class="dos">AE7F-<span class="number">5</span>F09E919790E <span class="flow">for</span> plug-<span class="flow">in</span> <span class="built_in">at</span> <span class="built_in">path</span> '~/Library/Application Support/</span><br><span class="line"></span><br><span class="line">Developer/Shared/Xcode/Plug-ins/KSImageNamed.xcplugin' <span class="flow">not</span> present <span class="flow">in</span> </span><br><span class="line"></span><br><span class="line">DVTPlugInCompatibilityUUIDs</span></span><br></pre></td></tr></table></figure>
+<p>可以参考<a href="http://stackoverflow.com/questions/20732327/xcode-5-required-plug-in-not-present-in-dvtplugincompatibilityuuids" target="_blank" rel="external">stackoverflow</a>。</p>
+<h3 id="发布">发布</h3><p>构建成功后就可以在fir上看到应用了，扫码或打开短链接下载应用。<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogfirim.png" alt="firim"></p>
+<p>注意这里只能安装开发者账号设备列表里的设备，个人开发者账号和企业账号有所区别</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogdeviceslist.png" alt="deviceslist"></p>
+<p>详情可以查看<a href="http://fir.im/support/articles/faq/ios_certificate" target="_blank" rel="external">fir support</a>。</p>
 </span>
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/03/23/app-language-setting/" rel="prev">
-                <i class="fa fa-chevron-left"></i> iOS多语言设置
-              </a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2014/12/26/the-blog's birth/" rel="next">
-                v2panda's blog的诞生 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/01/17/PDPullToRefresh/" rel="next">
+                PDPullToRefresh <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -294,10 +313,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/01/07/iOS-keychain/"
-     data-title="使用KeyChain存储密码"
+        <div class="ds-share flat" data-thread-key="2016/02/29/buildci/"
+     data-title="iOS搭建CI持续集成环境"
      data-content=""
-     data-url="http://v2panda.com/2015/01/07/iOS-keychain/">
+     data-url="http://v2panda.com/2016/02/29/buildci/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -327,8 +346,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/01/07/iOS-keychain/"
-                   data-title="使用KeyChain存储密码" data-url="http://v2panda.com/2015/01/07/iOS-keychain/">
+              <div class="ds-thread" data-thread-key="2016/02/29/buildci/"
+                   data-title="iOS搭建CI持续集成环境" data-url="http://v2panda.com/2016/02/29/buildci/">
               </div>
             
           </div>
@@ -438,7 +457,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#KeyChain"><span class="nav-number">1.</span> <span class="nav-text">KeyChain</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言_Continuous_integration"><span class="nav-number">1.</span> <span class="nav-text">前言 Continuous integration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Jenkins"><span class="nav-number">2.</span> <span class="nav-text">安装Jenkins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建项目"><span class="nav-number">3.</span> <span class="nav-text">新建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建配置"><span class="nav-number">4.</span> <span class="nav-text">构建配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建"><span class="nav-number">5.</span> <span class="nav-text">构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布"><span class="nav-number">6.</span> <span class="nav-text">发布</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

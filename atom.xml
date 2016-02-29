@@ -4,7 +4,7 @@
   <subtitle><![CDATA[subtitle]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://v2panda.com/"/>
-  <updated>2016-01-18T12:34:13.000Z</updated>
+  <updated>2016-02-29T16:51:22.000Z</updated>
   <id>http://v2panda.com/</id>
   
   <author>
@@ -13,6 +13,58 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[iOS搭建CI持续集成环境]]></title>
+    <link href="http://v2panda.com/2016/02/29/buildci/"/>
+    <id>http://v2panda.com/2016/02/29/buildci/</id>
+    <published>2016-02-29T15:49:05.000Z</published>
+    <updated>2016-02-29T16:51:22.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="前言_Continuous_integration">前言 Continuous integration</h3><p>CI 是敏捷开发的必备，简单说就是有这样一套工具，使得开发人员做好开发和单元测试再 push 代码后就不用管了，这套工具能自动地 check 代码的变化，自动 build， 自动做集成测试和场景测试等，自动部署到生产环境。</p>
+<p>本文为iOS下的自动化打包，搭建可持续集成环境，省去给测试安装新版本的时间，提高工作效率。这里选择的方案是Jenkins+ Gitlab/Github+Xcode+Fir。</p>
+<a id="more"></a>
+<h3 id="安装Jenkins">安装Jenkins</h3><p>先安装homebrew，安装过的跳过这步</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
+<p>然后</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">brew </span>install jenkins</span><br></pre></td></tr></table></figure>
+<p>若遇到</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">jenkins: Java 1.6+ is required to <span class="operator"><span class="keyword">install</span> this formula.</span><br><span class="line">You can <span class="keyword">install</span> <span class="keyword">with</span> Homebrew Cask:</span><br><span class="line">  brew <span class="keyword">install</span> Caskroom/cask/<span class="keyword">java</span></span><br><span class="line"></span><br><span class="line">You can download <span class="keyword">from</span>:</span><br><span class="line">  <span class="keyword">http</span>://www.<span class="keyword">oracle</span>.com/technetwork/<span class="keyword">java</span>/javase/downloads/<span class="keyword">index</span>.html</span><br><span class="line"><span class="keyword">Error</span>: An unsatisfied requirement <span class="keyword">failed</span> this <span class="keyword">build</span>.</span></span><br></pre></td></tr></table></figure>
+<p>按照提示安装java环境，推荐去<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="external">java官网</a>下载。</p>
+<p>安装完成后浏览器会自动打开Jenkins页面(<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>)<br>或输入</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>open /<span class="constant">Applications</span>/<span class="constant">Jenkins</span>/jenkins.war</span><br></pre></td></tr></table></figure>
+<p>若端口有冲突，则修改端口</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ defaults <span class="keyword">write</span> /<span class="keyword">Library</span>/Preferences/org.jenkins-ci httpPort yourport</span><br></pre></td></tr></table></figure>
+<p>再安装插件，在到jenkins页面，插件管理中安装以下插件</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GIT <span class="keyword">plugin</span></span><br><span class="line">GitHub <span class="keyword">plugin</span></span><br><span class="line">Gitlab <span class="keyword">plugin</span></span><br><span class="line"><span class="keyword">Post</span>-Build Script Plug-<span class="keyword">in</span></span><br><span class="line">Xcode integration</span><br></pre></td></tr></table></figure>
+<p>安装fir-cli,详细的参考<a href="https://github.com/FIRHQ/fir-cli/blob/master/README.md" target="_blank" rel="external">文档</a></p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gem install fir-<span class="keyword">cli</span></span><br></pre></td></tr></table></figure>
+<h3 id="新建项目">新建项目</h3><p>新建一个项目，选择自由风格的软件项目。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blognewItem.png" alt="newItem"><br>继续填写基本信息与源码管理,若选用Git则需注意填写Repositories地址与    Branches to build<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogbasicInfo.png" alt="basicInfo"></p>
+<h3 id="构建配置">构建配置</h3><p>添加构建触发器,这里就是告诉Jenkins什么时候自动构建。<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogbuildWhen.png" alt="buildWhen"><br>这里选择的是有push到github时构建，也可以选Poll SCM设置构建时间<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogbuildPoll.png" alt="buildPoll"><br>这里的配置为周一到周五每天8点到9点之间执行一次。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogexecuteShell.png" alt="executeShell"><br>选择构建配置为Execute Shell，填入</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">fir</span> build_ipa <span class="variable">$&#123;WORKSPACE1&#125;</span> -o <span class="variable">$&#123;WORKSPACE2&#125;</span>/TestJenkins.ipa -p -T <span class="comment">#API Token#</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>WORKSPACE1——–为项目路径</li>
+<li>WORKSPACE2——–ipa输出路径</li>
+<li>#API Token#————fir API Token</li>
+</ul>
+<p>然后保存退出。</p>
+<h3 id="构建">构建</h3><p>建议逐步构建，避免错误，构建历史如下<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogbuildHistory.png" alt=""></p>
+<p>蓝色的为构建成功，红色为失败，若遇到以下类似的错误</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">PluginLoading</span>: <span class="string">Required plug-in compatibility UUID F41BD31E-2683-44B8-</span></span><br><span class="line"></span><br><span class="line"><span class="dos">AE7F-<span class="number">5</span>F09E919790E <span class="flow">for</span> plug-<span class="flow">in</span> <span class="built_in">at</span> <span class="built_in">path</span> '~/Library/Application Support/</span><br><span class="line"></span><br><span class="line">Developer/Shared/Xcode/Plug-ins/KSImageNamed.xcplugin' <span class="flow">not</span> present <span class="flow">in</span> </span><br><span class="line"></span><br><span class="line">DVTPlugInCompatibilityUUIDs</span></span><br></pre></td></tr></table></figure>
+<p>可以参考<a href="http://stackoverflow.com/questions/20732327/xcode-5-required-plug-in-not-present-in-dvtplugincompatibilityuuids" target="_blank" rel="external">stackoverflow</a>。</p>
+<h3 id="发布">发布</h3><p>构建成功后就可以在fir上看到应用了，扫码或打开短链接下载应用。<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogfirim.png" alt="firim"></p>
+<p>注意这里只能安装开发者账号设备列表里的设备，个人开发者账号和企业账号有所区别</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogdeviceslist.png" alt="deviceslist"></p>
+<p>详情可以查看<a href="http://fir.im/support/articles/faq/ios_certificate" target="_blank" rel="external">fir support</a>。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="前言_Continuous_integration">前言 Continuous integration</h3><p>CI 是敏捷开发的必备，简单说就是有这样一套工具，使得开发人员做好开发和单元测试再 push 代码后就不用管了，这套工具能自动地 check 代码的变化，自动 build， 自动做集成测试和场景测试等，自动部署到生产环境。</p>
+<p>本文为iOS下的自动化打包，搭建可持续集成环境，省去给测试安装新版本的时间，提高工作效率。这里选择的方案是Jenkins+ Gitlab/Github+Xcode+Fir。</p>]]>
+    
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[PDPullToRefresh]]></title>

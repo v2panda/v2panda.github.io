@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://v2panda.com/2016/02/29/buildci/</loc>
+    <lastmod>2016-02-29T16:51:22.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://v2panda.com/2016/01/17/PDPullToRefresh/</loc>
     <lastmod>2016-01-18T12:34:13.000Z</lastmod>
   </url>
