@@ -194,6 +194,89 @@
             
             
               
+                <a class="post-title-link" href="/2015/01/07/iOS-keychain/" itemprop="url">
+                  使用KeyChain存储密码
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-01-07T17:54:07+08:00" content="2015-01-07">
+              2015-01-07
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/01/07/iOS-keychain/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/07/iOS-keychain/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>Tips:在实习过程中，有个需求是实现App的七天免登陆。当时的想法是用NSUserDefaults存储，用NSDate判断时间，取七天的间隔判断登陆状态。现在想想用NSUserDefaults直接存储用户信息是非常不安全的。通常情况下，可以用NSUserDefaults存储数据信息，但是对于一些私密信息，比如账号、密码等等，就需要使用更为安全的KeyChain了。而KeyChain的信息是存在于每个应用（app）的沙盒之外的，所以KeyChain里保存的信息不会因App被删除而丢失，在用户重新安装App后依然有效，数据还在。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/07/iOS-keychain/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
                 <a class="post-title-link" href="/2014/12/26/the-blog's birth/" itemprop="url">
                   v2panda's blog的诞生
                 </a>
@@ -301,7 +384,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -315,7 +398,7 @@
 
           <div class="site-state-item site-state-tags">
             
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">标签</span>
               
           </div>

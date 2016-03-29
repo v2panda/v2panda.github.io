@@ -4,7 +4,7 @@
   <subtitle><![CDATA[subtitle]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://v2panda.com/"/>
-  <updated>2016-02-29T16:51:22.000Z</updated>
+  <updated>2016-03-29T12:32:59.000Z</updated>
   <id>http://v2panda.com/</id>
   
   <author>
@@ -13,6 +13,43 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[基于JSPatch的在线更新]]></title>
+    <link href="http://v2panda.com/2016/03/29/hotfix-jspatch/"/>
+    <id>http://v2panda.com/2016/03/29/hotfix-jspatch/</id>
+    <published>2016-03-29T12:21:33.000Z</published>
+    <updated>2016-03-29T12:32:59.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="前言">前言</h3><p>限于AppStore的审核机制，苹果应用审核通常需要一段时间。这对某些应用开发迭代比较快的公司来说，往往上一版本还在AppStore审核，新一版本已经开发完毕了，相对于Android的当天发布来说，已经算是不能再慢了。要是正好遇上线上有bug，那么又得重新回到AppStore提交-审核-发布的流程中去，但若是十分紧要的bug，不修复会影响应用的正常使用，那么再走这个流程就显得非常慢了。以前面对这种问题往往是走加急审核，但加急审核也会有3天时间，那能不能不发布版本在线上修复bug呢？答案是有的，这里选择的方案是JSPatch。</p>
+<a id="more"></a>
+<h3 id="JSPatch简介">JSPatch简介</h3><p>JSPatch是由国人开发的开源项目(<a href="https://github.com/bang590/JSPatch" target="_blank" rel="external">Github链接</a>)只需要在项目里引入极小的引擎文件，就可以使用 JavaScript 调用任何 Objective-C 的原生接口，替换任意 Objective-C 原生方法。目前主要用于下发 JS 脚本替换原生 Objective-C 代码，实时修复线上 bug。<br>关于JSPatch的实现原理可以参考<a href="http://blog.cnbang.net/archives/" target="_blank" rel="external">作者的博客</a>。</p>
+<h3 id="语法">语法</h3><p>JSPatch使用简单明了，但需要注意的是JSPatch的语法，将OC语言转为JSPatch，例如：</p>
+<ul>
+<li>OC</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@implementation</span> SampleClass</span><br><span class="line">- (<span class="typename">void</span>)<span class="string">requestUrl:</span>(NSString *)url <span class="string">param:</span>(NSDictionary *)dict <span class="string">callback:</span>(JPCallback)callback &#123;</span><br><span class="line">    [<span class="keyword">super</span> <span class="string">requestUrl:</span>url <span class="string">param:</span>dict <span class="string">callback:</span>callback];</span><br><span class="line">    JPRequest *obj = [[JPRequest alloc] <span class="string">initWithUrl:</span>url <span class="string">param:</span>dict];</span><br><span class="line">    obj.successBlock = ^(id data, NSError *err) &#123;</span><br><span class="line">        NSString *content = [JPParser <span class="string">parseData:</span>data];</span><br><span class="line">        <span class="keyword">if</span> (callback) callback(@&#123;</span><br><span class="line">            @<span class="string">"content"</span>: content</span><br><span class="line">        &#125;, err);</span><br><span class="line">        [self.dataSource refresh];</span><br><span class="line">        self.handleRequestSuccess(data);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="annotation">@end</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>JSPatch</li>
+</ul>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">require<span class="list">(<span class="quoted">'JPRequest</span>,JPParser')</span><span class="comment">;</span></span><br><span class="line">defineClass<span class="list">(<span class="quoted">'SampleClass</span>', &#123;</span><br><span class="line">    requestUrl_param_callback: function<span class="list">(<span class="keyword">url</span>, dict, callback)</span> &#123;</span><br><span class="line">        self.super<span class="list">()</span>.requestUrl_param_callback<span class="list">(<span class="keyword">url</span>, dict, callback)</span><span class="comment">;</span></span><br><span class="line">        var obj = JPRequest.alloc<span class="list">()</span>.initWithUrl_param<span class="list">(<span class="keyword">url</span>, dict)</span><span class="comment">;</span></span><br><span class="line">        obj.setSuccessBlock<span class="list">(<span class="keyword">block</span><span class="list">(<span class="quoted">'id</span>,NSError*', function<span class="list">(<span class="keyword">data</span>, err)</span> &#123;</span><br><span class="line">            var content = JPParser.parseData<span class="list">(<span class="keyword">data</span>)</span><span class="comment">;</span></span><br><span class="line">            if <span class="list">(<span class="keyword">callback</span>)</span> callback<span class="list">(&#123;</span><br><span class="line">                <span class="string">"content"</span>: content</span><br><span class="line">            &#125;, err)</span><span class="comment">;</span></span><br><span class="line">            self.dataSource<span class="list">()</span>.refresh<span class="list">()</span><span class="comment">;</span></span><br><span class="line">            self.handleRequestSuccess<span class="list">()</span><span class="list">(<span class="keyword">data</span>)</span><span class="comment">;</span></span><br><span class="line">        &#125;)</span>)</span><span class="comment">;</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>作者提供了一个<a href="http://bang590.github.io/JSPatchConvertor/" target="_blank" rel="external">JSPatchConvertor</a>简单粗暴，能满足一些简单的转换，比较复杂的就得人工修改了，更多语法上的可以参考<a href="https://github.com/bang590/JSPatch/wiki/JSPatch-%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95" target="_blank" rel="external">JSPatchWiki</a>。</p>
+<h3 id="安全">安全</h3><p>使用 JSPatch 有两个安全问题：</p>
+<ul>
+<li>传输安全：JS 脚本可以调用任意 OC 方法，权限非常大，若被中间人攻击替换代码，会造成较大的危害。</li>
+<li>执行安全：下发的 JS 脚本灵活度大，相当于一次小型更新，若未进行充分测试，可能会出现 crash 等情况对 APP 稳定性造成影响。</li>
+</ul>
+<p>作者推荐的一种方案如图所示:<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/JSPatchSecurity.png" alt="JSPatchSecurity"><br>1.服务端计算出脚本文件的 MD5 值，作为这个文件的数字签名。<br>2.服务端通过私钥加密第 1 步算出的 MD5 值，得到一个加密后的 MD5 值。<br>3.把脚本文件和加密后的 MD5 值一起下发给客户端。<br>4.客户端拿到加密后的 MD5 值，通过保存在客户端的公钥解密。<br>5.客户端计算脚本文件的 MD5 值。<br>6.对比第 4/5 步的两个 MD5 值（分别是客户端和服务端计算出来的 MD5 值），若相等则通过校验。<br>对于JSPatch若有更多安全上的顾虑可以参考作者的<a href="http://blog.cnbang.net/internet/2990/" target="_blank" rel="external">回应一下 JSPatch 安全问题</a>。</p>
+<h3 id="使用">使用</h3><p>目前有两种使用方法，一种是使用作者提供的<a href="http://jspatch.com/" target="_blank" rel="external">JSPatch Platform</a>平台，集成JSPatch的SDK，按请求次数收费，目前免费额度为 100w次请求/月，超出的部分会另行收费。<br>还有一种是自己造轮子，毕竟JSPatch是开源的，从前端逻辑到后台安全策略，都可以根据公司的业务需求自由定制。</p>
+<h3 id="后记">后记</h3><p>总体来说还是十分好用的，需要注意的是每次版本用JSPatch解决的线上Bug后，下个版本必须得将代码写入项目中。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="前言">前言</h3><p>限于AppStore的审核机制，苹果应用审核通常需要一段时间。这对某些应用开发迭代比较快的公司来说，往往上一版本还在AppStore审核，新一版本已经开发完毕了，相对于Android的当天发布来说，已经算是不能再慢了。要是正好遇上线上有bug，那么又得重新回到AppStore提交-审核-发布的流程中去，但若是十分紧要的bug，不修复会影响应用的正常使用，那么再走这个流程就显得非常慢了。以前面对这种问题往往是走加急审核，但加急审核也会有3天时间，那能不能不发布版本在线上修复bug呢？答案是有的，这里选择的方案是JSPatch。</p>]]>
+    
+    </summary>
+    
+      <category term="hotfix" scheme="http://v2panda.com/tags/hotfix/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[iOS搭建CI持续集成环境]]></title>
