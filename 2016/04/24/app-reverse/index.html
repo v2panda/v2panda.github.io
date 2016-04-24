@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="hotfix," />
+  <meta name="keywords" content="v2panda,panda,Hexo,next" />
 
 
 
@@ -47,17 +47,35 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="前言限于AppStore的审核机制，苹果应用审核通常需要一段时间。这对某些应用开发迭代比较快的公司来说，往往上一版本还在AppStore审核，新一版本已经开发完毕了，相对于Android的当天发布来说，已经算是不能再慢了。要是正好遇上线上有bug，那么又得重新回到AppStore提交-审核-发布的流程中去，但若是十分紧要的bug，不修复会影响应用的正常使用，那么再走这个流程就显得非常慢了。以前面对">
+<meta name="description" content="工具
+class-dump
+dumpdecrypted
+一部越狱手机
+OpenSSH(Cydia)
+Cycript(Cydia)
+adv-cmds(Cydia)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于JSPatch的在线更新">
-<meta property="og:url" content="http://v2panda.com/2016/03/29/hotfix-jspatch/index.html">
+<meta property="og:title" content="APP砸壳">
+<meta property="og:url" content="http://v2panda.com/2016/04/24/app-reverse/index.html">
 <meta property="og:site_name" content="v2panda's blog">
-<meta property="og:description" content="前言限于AppStore的审核机制，苹果应用审核通常需要一段时间。这对某些应用开发迭代比较快的公司来说，往往上一版本还在AppStore审核，新一版本已经开发完毕了，相对于Android的当天发布来说，已经算是不能再慢了。要是正好遇上线上有bug，那么又得重新回到AppStore提交-审核-发布的流程中去，但若是十分紧要的bug，不修复会影响应用的正常使用，那么再走这个流程就显得非常慢了。以前面对">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/JSPatchSecurity.png">
-<meta property="og:updated_time" content="2016-03-29T12:32:59.000Z">
+<meta property="og:description" content="工具
+class-dump
+dumpdecrypted
+一部越狱手机
+OpenSSH(Cydia)
+Cycript(Cydia)
+adv-cmds(Cydia)">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/app-reverse.jpeg">
+<meta property="og:updated_time" content="2016-04-24T06:11:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="基于JSPatch的在线更新">
-<meta name="twitter:description" content="前言限于AppStore的审核机制，苹果应用审核通常需要一段时间。这对某些应用开发迭代比较快的公司来说，往往上一版本还在AppStore审核，新一版本已经开发完毕了，相对于Android的当天发布来说，已经算是不能再慢了。要是正好遇上线上有bug，那么又得重新回到AppStore提交-审核-发布的流程中去，但若是十分紧要的bug，不修复会影响应用的正常使用，那么再走这个流程就显得非常慢了。以前面对">
+<meta name="twitter:title" content="APP砸壳">
+<meta name="twitter:description" content="工具
+class-dump
+dumpdecrypted
+一部越狱手机
+OpenSSH(Cydia)
+Cycript(Cydia)
+adv-cmds(Cydia)">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -69,7 +87,7 @@
 
 
 
-  <title> 基于JSPatch的在线更新 | v2panda's blog </title>
+  <title> APP砸壳 | v2panda's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -194,7 +212,7 @@
             
             
               
-                基于JSPatch的在线更新
+                APP砸壳
               
             
           </h1>
@@ -203,8 +221,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-03-29T20:21:33+08:00" content="2016-03-29">
-              2016-03-29
+            <time itemprop="dateCreated" datetime="2016-04-24T14:06:55+08:00" content="2016-04-24">
+              2016-04-24
             </time>
           </span>
 
@@ -214,8 +232,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/29/hotfix-jspatch/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/29/hotfix-jspatch/" itemprop="commentsCount"></span>
+                <a href="/2016/04/24/app-reverse/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/24/app-reverse/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -234,54 +252,55 @@
       
 
       
-        <span itemprop="articleBody"><h3 id="前言">前言</h3><p>限于AppStore的审核机制，苹果应用审核通常需要一段时间。这对某些应用开发迭代比较快的公司来说，往往上一版本还在AppStore审核，新一版本已经开发完毕了，相对于Android的当天发布来说，已经算是不能再慢了。要是正好遇上线上有bug，那么又得重新回到AppStore提交-审核-发布的流程中去，但若是十分紧要的bug，不修复会影响应用的正常使用，那么再走这个流程就显得非常慢了。以前面对这种问题往往是走加急审核，但加急审核也会有3天时间，那能不能不发布版本在线上修复bug呢？答案是有的，这里选择的方案是JSPatch。</p>
+        <span itemprop="articleBody"><h3 id="工具">工具</h3><ul>
+<li><a href="http://stevenygard.com/projects/*class-dump*/" target="_blank" rel="external">class-dump</a></li>
+<li><a href="https://github.com/stefanesser/dumpdecrypted" target="_blank" rel="external">dumpdecrypted</a></li>
+<li>一部越狱手机</li>
+<li>OpenSSH(Cydia)</li>
+<li>Cycript(Cydia)</li>
+<li>adv-cmds(Cydia)</li>
+</ul>
 <a id="more"></a>
-<h3 id="JSPatch简介">JSPatch简介</h3><p>JSPatch是由国人开发的开源项目(<a href="https://github.com/bang590/JSPatch" target="_blank" rel="external">Github链接</a>)只需要在项目里引入极小的引擎文件，就可以使用 JavaScript 调用任何 Objective-C 的原生接口，替换任意 Objective-C 原生方法。目前主要用于下发 JS 脚本替换原生 Objective-C 代码，实时修复线上 bug。<br>关于JSPatch的实现原理可以参考<a href="http://blog.cnbang.net/archives/" target="_blank" rel="external">作者的博客</a>。</p>
-<h3 id="语法">语法</h3><p>JSPatch使用简单明了，但需要注意的是JSPatch的语法，将OC语言转为JSPatch，例如：</p>
-<ul>
-<li>OC</li>
-</ul>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@implementation</span> SampleClass</span><br><span class="line">- (<span class="typename">void</span>)<span class="string">requestUrl:</span>(NSString *)url <span class="string">param:</span>(NSDictionary *)dict <span class="string">callback:</span>(JPCallback)callback &#123;</span><br><span class="line">    [<span class="keyword">super</span> <span class="string">requestUrl:</span>url <span class="string">param:</span>dict <span class="string">callback:</span>callback];</span><br><span class="line">    JPRequest *obj = [[JPRequest alloc] <span class="string">initWithUrl:</span>url <span class="string">param:</span>dict];</span><br><span class="line">    obj.successBlock = ^(id data, NSError *err) &#123;</span><br><span class="line">        NSString *content = [JPParser <span class="string">parseData:</span>data];</span><br><span class="line">        <span class="keyword">if</span> (callback) callback(@&#123;</span><br><span class="line">            @<span class="string">"content"</span>: content</span><br><span class="line">        &#125;, err);</span><br><span class="line">        [self.dataSource refresh];</span><br><span class="line">        self.handleRequestSuccess(data);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="annotation">@end</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>JSPatch</li>
-</ul>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">require<span class="list">(<span class="quoted">'JPRequest</span>,JPParser')</span><span class="comment">;</span></span><br><span class="line">defineClass<span class="list">(<span class="quoted">'SampleClass</span>', &#123;</span><br><span class="line">    requestUrl_param_callback: function<span class="list">(<span class="keyword">url</span>, dict, callback)</span> &#123;</span><br><span class="line">        self.super<span class="list">()</span>.requestUrl_param_callback<span class="list">(<span class="keyword">url</span>, dict, callback)</span><span class="comment">;</span></span><br><span class="line">        var obj = JPRequest.alloc<span class="list">()</span>.initWithUrl_param<span class="list">(<span class="keyword">url</span>, dict)</span><span class="comment">;</span></span><br><span class="line">        obj.setSuccessBlock<span class="list">(<span class="keyword">block</span><span class="list">(<span class="quoted">'id</span>,NSError*', function<span class="list">(<span class="keyword">data</span>, err)</span> &#123;</span><br><span class="line">            var content = JPParser.parseData<span class="list">(<span class="keyword">data</span>)</span><span class="comment">;</span></span><br><span class="line">            if <span class="list">(<span class="keyword">callback</span>)</span> callback<span class="list">(&#123;</span><br><span class="line">                <span class="string">"content"</span>: content</span><br><span class="line">            &#125;, err)</span><span class="comment">;</span></span><br><span class="line">            self.dataSource<span class="list">()</span>.refresh<span class="list">()</span><span class="comment">;</span></span><br><span class="line">            self.handleRequestSuccess<span class="list">()</span><span class="list">(<span class="keyword">data</span>)</span><span class="comment">;</span></span><br><span class="line">        &#125;)</span>)</span><span class="comment">;</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
-<p>作者提供了一个<a href="http://bang590.github.io/JSPatchConvertor/" target="_blank" rel="external">JSPatchConvertor</a>简单粗暴，能满足一些简单的转换，比较复杂的就得人工修改了，更多语法上的可以参考<a href="https://github.com/bang590/JSPatch/wiki/JSPatch-%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95" target="_blank" rel="external">JSPatchWiki</a>。</p>
-<h3 id="安全">安全</h3><p>使用 JSPatch 有两个安全问题：</p>
-<ul>
-<li>传输安全：JS 脚本可以调用任意 OC 方法，权限非常大，若被中间人攻击替换代码，会造成较大的危害。</li>
-<li>执行安全：下发的 JS 脚本灵活度大，相当于一次小型更新，若未进行充分测试，可能会出现 crash 等情况对 APP 稳定性造成影响。</li>
-</ul>
-<p>作者推荐的一种方案如图所示:<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/JSPatchSecurity.png" alt="JSPatchSecurity"><br>1.服务端计算出脚本文件的 MD5 值，作为这个文件的数字签名。<br>2.服务端通过私钥加密第 1 步算出的 MD5 值，得到一个加密后的 MD5 值。<br>3.把脚本文件和加密后的 MD5 值一起下发给客户端。<br>4.客户端拿到加密后的 MD5 值，通过保存在客户端的公钥解密。<br>5.客户端计算脚本文件的 MD5 值。<br>6.对比第 4/5 步的两个 MD5 值（分别是客户端和服务端计算出来的 MD5 值），若相等则通过校验。<br>对于JSPatch若有更多安全上的顾虑可以参考作者的<a href="http://blog.cnbang.net/internet/2990/" target="_blank" rel="external">回应一下 JSPatch 安全问题</a>。</p>
-<h3 id="使用">使用</h3><p>目前有两种使用方法，一种是使用作者提供的<a href="http://jspatch.com/" target="_blank" rel="external">JSPatch Platform</a>平台，集成JSPatch的SDK，按请求次数收费，目前免费额度为 100w次请求/月，超出的部分会另行收费。<br>还有一种是自己造轮子，毕竟JSPatch是开源的，从前端逻辑到后台安全策略，都可以根据公司的业务需求自由定制。</p>
-<h3 id="后记">后记</h3><p>总体来说还是十分好用的，需要注意的是每次版本用JSPatch解决的线上Bug后，下个版本必须得将代码写入项目中。</p>
+<h3 id="步骤">步骤</h3><p>1.用ssh进入连上的iPhone<strong>(确保iPhone和Mac在同一个网段)</strong>。OpenSSH的root密码默认为<em>alpine</em>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@<span class="number">192.168</span><span class="number">.2</span><span class="number">.10</span></span><br></pre></td></tr></table></figure>
+<p>2.关闭所有后台app，仅保持需要破解的app在后台，输入命令<code>ps -e</code>，找到app的bundle地址,如6429行所示</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">6408</span> ??         <span class="number">0</span>:<span class="number">00.40</span> /usr/libexec/ptpd -t usb</span><br><span class="line"><span class="number">6429</span> ??         <span class="number">0</span>:<span class="number">01.44</span> /var/mobile/Containers/Bundle/Application/<span class="number">79909146</span>-D31F-<span class="number">4225</span>-B18E-<span class="number">8</span>D08D5599FFA/XXX.app/XXX</span><br><span class="line"><span class="number">6448</span> ??         <span class="number">0</span>:<span class="number">00.28</span> sshd: root@ttys000</span><br><span class="line"><span class="number">6450</span> ttys000    <span class="number">0</span>:<span class="number">00.05</span> -sh</span><br><span class="line"><span class="number">6487</span> ttys000    <span class="number">0</span>:<span class="number">00.01</span> ps -e</span><br></pre></td></tr></table></figure>
+<p>3.使用cycript命令，找到目标app的Documents路径，输入<code>cycript -p XXX</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v2panda-iPhone-<span class="number">5</span>s:~ root<span class="preprocessor"># cycript -p XXX</span></span><br><span class="line">cy<span class="preprocessor">#</span></span><br></pre></td></tr></table></figure>
+<p>在cy#后键入</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="link_label">[NSFileManager defaultManager</span>] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]</span><br></pre></td></tr></table></figure>
+<p>如图，记录下Documents地址，ctrl+z退出</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">v2panda-iPhone-5s:~ root# cycript -p XXX</span><br><span class="line">cy# [<span class="link_label">[NSFileManager defaultManager</span>] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]</span><br><span class="line"><span class="header">#"file:///var/mobile/Containers/Data/Application/9491960B-BAE6-439A-B210-3B183AB657EF/Documents/"</span></span><br><span class="line">cy#</span><br></pre></td></tr></table></figure>
+<p>4.将生成的将dumpdecrypted.dylib拷贝到Documents目录下</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scp dumpdecrypted.dylib root<span class="variable">@192</span>.<span class="number">168.2</span>.<span class="number">10</span><span class="symbol">:/var/mobile/Containers/Data/Application/</span><span class="number">9491960</span>B-<span class="constant">BAE6</span>-<span class="number">439</span>A-<span class="constant">B210</span>-<span class="number">3</span>B183AB657EF/<span class="constant">Documents</span>/</span><br><span class="line">root<span class="variable">@192</span>.<span class="number">168.2</span>.<span class="number">10</span><span class="string">'s password:</span><br><span class="line">dumpdecrypted.dylib                                                                                          100%  193KB 192.9KB/s   00:00</span></span><br></pre></td></tr></table></figure>
+<p>5.开始砸壳，使用以下命令，会在当前目录下生成XXX.decrypted砸壳后的文件。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">DYLD_INSERT_LIBRARIES</span>=<span class="regexp">/path/to</span><span class="regexp">/dumpdecrypted.dylib /path</span><span class="regexp">/to/executable</span></span><br></pre></td></tr></table></figure>
+<p>具体的为</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">v2panda-iPhone-<span class="number">5</span>s:~ root<span class="preprocessor"># DYLD_INSERT_LIBRARIES=/var/mobile/Containers/Data/Application/<span class="number">9491960</span>B-BAE6-<span class="number">439</span>A-B210-<span class="number">3</span>B183AB657EF/Documents/dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/<span class="number">79909146</span>-D31F-<span class="number">4225</span>-B18E-<span class="number">8</span>D08D5599FFA/XXX.app/XXX</span></span><br><span class="line">mach-o decryption dumper</span><br><span class="line"></span><br><span class="line">DISCLAIMER: This tool is only meant <span class="keyword">for</span> security research purposes, not <span class="keyword">for</span> application crackers.</span><br><span class="line"></span><br><span class="line">[+] detected <span class="number">64</span>bit ARM binary in memory.</span><br><span class="line">[+] offset to cryptid found: @<span class="number">0x10003cb68</span>(from <span class="number">0x10003c000</span>) = b68</span><br><span class="line">[+] Found encrypted data at address <span class="number">00004000</span> of length <span class="number">180224</span> bytes - type <span class="number">1.</span></span><br><span class="line">[+] Opening /<span class="keyword">private</span>/var/mobile/Containers/Bundle/Application/<span class="number">79909146</span>-D31F-<span class="number">4225</span>-B18E-<span class="number">8</span>D08D5599FFA/XXX.app/XXX <span class="keyword">for</span> reading.</span><br><span class="line">[+] Reading header</span><br><span class="line">[+] Detecting header type</span><br><span class="line">[+] Executable is a FAT image - searching <span class="keyword">for</span> right architecture</span><br><span class="line">[+] Correct arch is at offset <span class="number">245760</span> in the file</span><br><span class="line">[+] Opening SimpleNote.decrypted <span class="keyword">for</span> writing.</span><br><span class="line">[+] Copying the not encrypted start of the file</span><br><span class="line">[+] Dumping the decrypted data into the file</span><br><span class="line">[+] Copying the not encrypted remainder of the file</span><br><span class="line">[+] Setting the LC_ENCRYPTION_INFO-&gt;cryptid to <span class="number">0</span> at offset <span class="number">3</span>cb68</span><br><span class="line">[+] Closing original file</span><br><span class="line">[+] Closing dump file</span><br><span class="line">v2panda-iPhone-<span class="number">5</span>s:~ root<span class="preprocessor">#</span></span><br></pre></td></tr></table></figure>
+<p>6.将砸壳后的XXX.decrypted文件拷贝到电脑上。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scp root<span class="variable">@192</span>.<span class="number">168.2</span>.<span class="number">10</span><span class="symbol">:/var/root/XXX</span>.decrypted /<span class="constant">Users</span>/v2panda/<span class="constant">Apps</span></span><br><span class="line">root<span class="variable">@192</span>.<span class="number">168.2</span>.<span class="number">10</span><span class="string">'s password:</span><br><span class="line">XXX.decrypted                                                                                         100%  507KB 253.7KB/s   00:02</span></span><br></pre></td></tr></table></figure>
+<p>7.classdump之</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./<span class="class"><span class="keyword">class</span>-<span class="title">dump</span> -<span class="title">s</span> -<span class="title">S</span> -<span class="title">H</span> ./<span class="title">XXX</span>.<span class="title">decrypted</span> -<span class="title">o</span> ./<span class="title">sn</span></span></span><br></pre></td></tr></table></figure>
+<p>这里以微信为例，7000+的文件。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/app-reverse.jpeg" alt="WeChat.png"></p>
+<h3 id="后记">后记</h3><p>这里简单记录下App砸壳的有关步骤,更多详细内容以及后续开发可到<a href="http://bbs.iosre.com/" target="_blank" rel="external">iOSRE</a>查看。</p>
 </span>
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/hotfix/" rel="tag">#hotfix</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/24/app-reverse/" rel="prev">
-                <i class="fa fa-chevron-left"></i> APP砸壳
-              </a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/02/29/buildci/" rel="next">
-                iOS搭建CI持续集成环境 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/03/29/hotfix-jspatch/" rel="next">
+                基于JSPatch的在线更新 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -297,10 +316,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/03/29/hotfix-jspatch/"
-     data-title="基于JSPatch的在线更新"
+        <div class="ds-share flat" data-thread-key="2016/04/24/app-reverse/"
+     data-title="APP砸壳"
      data-content=""
-     data-url="http://v2panda.com/2016/03/29/hotfix-jspatch/">
+     data-url="http://v2panda.com/2016/04/24/app-reverse/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -330,8 +349,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2016/03/29/hotfix-jspatch/"
-                   data-title="基于JSPatch的在线更新" data-url="http://v2panda.com/2016/03/29/hotfix-jspatch/">
+              <div class="ds-thread" data-thread-key="2016/04/24/app-reverse/"
+                   data-title="APP砸壳" data-url="http://v2panda.com/2016/04/24/app-reverse/">
               </div>
             
           </div>
@@ -441,7 +460,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSPatch简介"><span class="nav-number">2.</span> <span class="nav-text">JSPatch简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">3.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全"><span class="nav-number">4.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">5.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后记"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#工具"><span class="nav-number">1.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后记"><span class="nav-number">3.</span> <span class="nav-text">后记</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

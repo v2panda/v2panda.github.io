@@ -4,7 +4,7 @@
   <subtitle><![CDATA[subtitle]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://v2panda.com/"/>
-  <updated>2016-03-29T12:32:59.000Z</updated>
+  <updated>2016-04-24T06:11:24.000Z</updated>
   <id>http://v2panda.com/</id>
   
   <author>
@@ -13,6 +13,59 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[APP砸壳]]></title>
+    <link href="http://v2panda.com/2016/04/24/app-reverse/"/>
+    <id>http://v2panda.com/2016/04/24/app-reverse/</id>
+    <published>2016-04-24T06:06:55.000Z</published>
+    <updated>2016-04-24T06:11:24.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="工具">工具</h3><ul>
+<li><a href="http://stevenygard.com/projects/*class-dump*/" target="_blank" rel="external">class-dump</a></li>
+<li><a href="https://github.com/stefanesser/dumpdecrypted" target="_blank" rel="external">dumpdecrypted</a></li>
+<li>一部越狱手机</li>
+<li>OpenSSH(Cydia)</li>
+<li>Cycript(Cydia)</li>
+<li>adv-cmds(Cydia)</li>
+</ul>
+<a id="more"></a>
+<h3 id="步骤">步骤</h3><p>1.用ssh进入连上的iPhone<strong>(确保iPhone和Mac在同一个网段)</strong>。OpenSSH的root密码默认为<em>alpine</em>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@<span class="number">192.168</span><span class="number">.2</span><span class="number">.10</span></span><br></pre></td></tr></table></figure>
+<p>2.关闭所有后台app，仅保持需要破解的app在后台，输入命令<code>ps -e</code>，找到app的bundle地址,如6429行所示</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">6408</span> ??         <span class="number">0</span>:<span class="number">00.40</span> /usr/libexec/ptpd -t usb</span><br><span class="line"><span class="number">6429</span> ??         <span class="number">0</span>:<span class="number">01.44</span> /var/mobile/Containers/Bundle/Application/<span class="number">79909146</span>-D31F-<span class="number">4225</span>-B18E-<span class="number">8</span>D08D5599FFA/XXX.app/XXX</span><br><span class="line"><span class="number">6448</span> ??         <span class="number">0</span>:<span class="number">00.28</span> sshd: root@ttys000</span><br><span class="line"><span class="number">6450</span> ttys000    <span class="number">0</span>:<span class="number">00.05</span> -sh</span><br><span class="line"><span class="number">6487</span> ttys000    <span class="number">0</span>:<span class="number">00.01</span> ps -e</span><br></pre></td></tr></table></figure>
+<p>3.使用cycript命令，找到目标app的Documents路径，输入<code>cycript -p XXX</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v2panda-iPhone-<span class="number">5</span>s:~ root<span class="preprocessor"># cycript -p XXX</span></span><br><span class="line">cy<span class="preprocessor">#</span></span><br></pre></td></tr></table></figure>
+<p>在cy#后键入</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="link_label">[NSFileManager defaultManager</span>] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]</span><br></pre></td></tr></table></figure>
+<p>如图，记录下Documents地址，ctrl+z退出</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">v2panda-iPhone-5s:~ root# cycript -p XXX</span><br><span class="line">cy# [<span class="link_label">[NSFileManager defaultManager</span>] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]</span><br><span class="line"><span class="header">#"file:///var/mobile/Containers/Data/Application/9491960B-BAE6-439A-B210-3B183AB657EF/Documents/"</span></span><br><span class="line">cy#</span><br></pre></td></tr></table></figure>
+<p>4.将生成的将dumpdecrypted.dylib拷贝到Documents目录下</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scp dumpdecrypted.dylib root<span class="variable">@192</span>.<span class="number">168.2</span>.<span class="number">10</span><span class="symbol">:/var/mobile/Containers/Data/Application/</span><span class="number">9491960</span>B-<span class="constant">BAE6</span>-<span class="number">439</span>A-<span class="constant">B210</span>-<span class="number">3</span>B183AB657EF/<span class="constant">Documents</span>/</span><br><span class="line">root<span class="variable">@192</span>.<span class="number">168.2</span>.<span class="number">10</span><span class="string">'s password:</span><br><span class="line">dumpdecrypted.dylib                                                                                          100%  193KB 192.9KB/s   00:00</span></span><br></pre></td></tr></table></figure>
+<p>5.开始砸壳，使用以下命令，会在当前目录下生成XXX.decrypted砸壳后的文件。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">DYLD_INSERT_LIBRARIES</span>=<span class="regexp">/path/to</span><span class="regexp">/dumpdecrypted.dylib /path</span><span class="regexp">/to/executable</span></span><br></pre></td></tr></table></figure>
+<p>具体的为</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">v2panda-iPhone-<span class="number">5</span>s:~ root<span class="preprocessor"># DYLD_INSERT_LIBRARIES=/var/mobile/Containers/Data/Application/<span class="number">9491960</span>B-BAE6-<span class="number">439</span>A-B210-<span class="number">3</span>B183AB657EF/Documents/dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/<span class="number">79909146</span>-D31F-<span class="number">4225</span>-B18E-<span class="number">8</span>D08D5599FFA/XXX.app/XXX</span></span><br><span class="line">mach-o decryption dumper</span><br><span class="line"></span><br><span class="line">DISCLAIMER: This tool is only meant <span class="keyword">for</span> security research purposes, not <span class="keyword">for</span> application crackers.</span><br><span class="line"></span><br><span class="line">[+] detected <span class="number">64</span>bit ARM binary in memory.</span><br><span class="line">[+] offset to cryptid found: @<span class="number">0x10003cb68</span>(from <span class="number">0x10003c000</span>) = b68</span><br><span class="line">[+] Found encrypted data at address <span class="number">00004000</span> of length <span class="number">180224</span> bytes - type <span class="number">1.</span></span><br><span class="line">[+] Opening /<span class="keyword">private</span>/var/mobile/Containers/Bundle/Application/<span class="number">79909146</span>-D31F-<span class="number">4225</span>-B18E-<span class="number">8</span>D08D5599FFA/XXX.app/XXX <span class="keyword">for</span> reading.</span><br><span class="line">[+] Reading header</span><br><span class="line">[+] Detecting header type</span><br><span class="line">[+] Executable is a FAT image - searching <span class="keyword">for</span> right architecture</span><br><span class="line">[+] Correct arch is at offset <span class="number">245760</span> in the file</span><br><span class="line">[+] Opening SimpleNote.decrypted <span class="keyword">for</span> writing.</span><br><span class="line">[+] Copying the not encrypted start of the file</span><br><span class="line">[+] Dumping the decrypted data into the file</span><br><span class="line">[+] Copying the not encrypted remainder of the file</span><br><span class="line">[+] Setting the LC_ENCRYPTION_INFO-&gt;cryptid to <span class="number">0</span> at offset <span class="number">3</span>cb68</span><br><span class="line">[+] Closing original file</span><br><span class="line">[+] Closing dump file</span><br><span class="line">v2panda-iPhone-<span class="number">5</span>s:~ root<span class="preprocessor">#</span></span><br></pre></td></tr></table></figure>
+<p>6.将砸壳后的XXX.decrypted文件拷贝到电脑上。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scp root<span class="variable">@192</span>.<span class="number">168.2</span>.<span class="number">10</span><span class="symbol">:/var/root/XXX</span>.decrypted /<span class="constant">Users</span>/v2panda/<span class="constant">Apps</span></span><br><span class="line">root<span class="variable">@192</span>.<span class="number">168.2</span>.<span class="number">10</span><span class="string">'s password:</span><br><span class="line">XXX.decrypted                                                                                         100%  507KB 253.7KB/s   00:02</span></span><br></pre></td></tr></table></figure>
+<p>7.classdump之</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./<span class="class"><span class="keyword">class</span>-<span class="title">dump</span> -<span class="title">s</span> -<span class="title">S</span> -<span class="title">H</span> ./<span class="title">XXX</span>.<span class="title">decrypted</span> -<span class="title">o</span> ./<span class="title">sn</span></span></span><br></pre></td></tr></table></figure>
+<p>这里以微信为例，7000+的文件。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/app-reverse.jpeg" alt="WeChat.png"></p>
+<h3 id="后记">后记</h3><p>这里简单记录下App砸壳的有关步骤,更多详细内容以及后续开发可到<a href="http://bbs.iosre.com/" target="_blank" rel="external">iOSRE</a>查看。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="工具">工具</h3><ul>
+<li><a href="http://stevenygard.com/projects/*class-dump*/">class-dump</a></li>
+<li><a href="https://github.com/stefanesser/dumpdecrypted">dumpdecrypted</a></li>
+<li>一部越狱手机</li>
+<li>OpenSSH(Cydia)</li>
+<li>Cycript(Cydia)</li>
+<li>adv-cmds(Cydia)</li>
+</ul>]]>
+    
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[基于JSPatch的在线更新]]></title>
