@@ -4,7 +4,7 @@
   <subtitle><![CDATA[subtitle]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://v2panda.com/"/>
-  <updated>2016-04-24T06:11:24.000Z</updated>
+  <updated>2016-05-28T10:32:19.000Z</updated>
   <id>http://v2panda.com/</id>
   
   <author>
@@ -13,6 +13,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[SimpleNote 2.0 - 用心记录文字]]></title>
+    <link href="http://v2panda.com/2016/05/28/simplenote/"/>
+    <id>http://v2panda.com/2016/05/28/simplenote/</id>
+    <published>2016-05-28T10:30:57.000Z</published>
+    <updated>2016-05-28T10:32:19.000Z</updated>
+    <content type="html"><![CDATA[<p>SimpleNote是一个记录你自己的笔记应用，温暖、简约，用心记录文字，感受书写的本质。</p>
+<p>地址：<a href="https://github.com/v2panda/SimpleNote" target="_blank" rel="external">https://github.com/v2panda/SimpleNote</a></p>
+<p>SimpleNote是大四实习时写的一个App，但现在看看以前的代码，各种问题、漏洞百出，无法忍受。就决定重构出2.0版本，于是在业余时间里断断续续做这个App，算是重构了一遍吧，这次也放弃写UI的方式，使用StoryBoard+xib的方式布局。</p>
+<a id="more"></a>
+<h3 id="为什么要重构？">为什么要重构？</h3><ul>
+<li>觉得以前写的代码太烂</li>
+<li>充实业余时间，要是一段时间我什么东西都没折腾出来，我会感到很不安</li>
+<li>重构可以帮我整理自己的思路，优化以前的烂代码</li>
+<li>找回按自己意愿编程的感觉(这跟工作上的编程是完全不同的)</li>
+</ul>
+<h3 id="结果反思">结果反思</h3><p>目前做App对我来说最大的困难就是设计了，这里不光是UI上的设计，还有产品上的，这都是我的短板。前期在设计上花了挺多时间，中间也有各种新的想法，新的功能添加，这导致我在写代码时走了不少弯路，很多页面和功能实现出来后觉得不好看或者不满意，又都删掉了。在这删删改改的过程中，感受到了一个好产品经理的重要性。更体会到从有个好Idea，到真正去实现这个Idea中间还有好多路要走。</p>
+<h3 id="感谢开源">感谢开源</h3><ul>
+<li>本地存储：<a href="https://realm.io/" target="_blank" rel="external">Realm</a></li>
+<li>后台：<a href="https://leancloud.cn/" target="_blank" rel="external">LeanCloud</a></li>
+<li>图文混排：<a href="https://github.com/ibireme/YYText" target="_blank" rel="external">YYText</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>SimpleNote是一个记录你自己的笔记应用，温暖、简约，用心记录文字，感受书写的本质。</p>
+<p>地址：<a href="https://github.com/v2panda/SimpleNote">https://github.com/v2panda/SimpleNote</a></p>
+<p>SimpleNote是大四实习时写的一个App，但现在看看以前的代码，各种问题、漏洞百出，无法忍受。就决定重构出2.0版本，于是在业余时间里断断续续做这个App，算是重构了一遍吧，这次也放弃写UI的方式，使用StoryBoard+xib的方式布局。</p>]]>
+    
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[APP砸壳]]></title>

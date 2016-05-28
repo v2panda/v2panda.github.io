@@ -47,20 +47,22 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="最近为自己写的一个应用，做了多语言支持(English&amp;amp;Chinese)，在这里记录下来。">
+<meta name="description" content="SimpleNote是一个记录你自己的笔记应用，温暖、简约，用心记录文字，感受书写的本质。
+地址：https://github.com/v2panda/SimpleNote
+SimpleNote是大四实习时写的一个App，但现在看看以前的代码，各种问题、漏洞百出，无法忍受。就决定重构出2.0版本，于是在业余时间里断断续续做这个App，算是重构了一遍吧，这次也放弃写UI的方式，使用StoryBoar">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS多语言设置">
-<meta property="og:url" content="http://v2panda.com/2015/03/23/app-language-setting/index.html">
+<meta property="og:title" content="SimpleNote 2.0 - 用心记录文字">
+<meta property="og:url" content="http://v2panda.com/2016/05/28/simplenote/index.html">
 <meta property="og:site_name" content="v2panda's blog">
-<meta property="og:description" content="最近为自己写的一个应用，做了多语言支持(English&amp;amp;Chinese)，在这里记录下来。">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/language1.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/language2.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/language3.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/language4.png">
-<meta property="og:updated_time" content="2015-12-15T07:16:35.000Z">
+<meta property="og:description" content="SimpleNote是一个记录你自己的笔记应用，温暖、简约，用心记录文字，感受书写的本质。
+地址：https://github.com/v2panda/SimpleNote
+SimpleNote是大四实习时写的一个App，但现在看看以前的代码，各种问题、漏洞百出，无法忍受。就决定重构出2.0版本，于是在业余时间里断断续续做这个App，算是重构了一遍吧，这次也放弃写UI的方式，使用StoryBoar">
+<meta property="og:updated_time" content="2016-05-28T10:32:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS多语言设置">
-<meta name="twitter:description" content="最近为自己写的一个应用，做了多语言支持(English&amp;amp;Chinese)，在这里记录下来。">
+<meta name="twitter:title" content="SimpleNote 2.0 - 用心记录文字">
+<meta name="twitter:description" content="SimpleNote是一个记录你自己的笔记应用，温暖、简约，用心记录文字，感受书写的本质。
+地址：https://github.com/v2panda/SimpleNote
+SimpleNote是大四实习时写的一个App，但现在看看以前的代码，各种问题、漏洞百出，无法忍受。就决定重构出2.0版本，于是在业余时间里断断续续做这个App，算是重构了一遍吧，这次也放弃写UI的方式，使用StoryBoar">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -72,7 +74,7 @@
 
 
 
-  <title> iOS多语言设置 | v2panda's blog </title>
+  <title> SimpleNote 2.0 - 用心记录文字 | v2panda's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -197,7 +199,7 @@
             
             
               
-                iOS多语言设置
+                SimpleNote 2.0 - 用心记录文字
               
             
           </h1>
@@ -206,8 +208,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-03-23T11:47:00+08:00" content="2015-03-23">
-              2015-03-23
+            <time itemprop="dateCreated" datetime="2016-05-28T18:30:57+08:00" content="2016-05-28">
+              2016-05-28
             </time>
           </span>
 
@@ -217,8 +219,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/03/23/app-language-setting/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/23/app-language-setting/" itemprop="commentsCount"></span>
+                <a href="/2016/05/28/simplenote/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/28/simplenote/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -237,38 +239,22 @@
       
 
       
-        <span itemprop="articleBody"><p>最近为自己写的一个应用，做了多语言支持(English&amp;Chinese)，在这里记录下来。</p>
+        <span itemprop="articleBody"><p>SimpleNote是一个记录你自己的笔记应用，温暖、简约，用心记录文字，感受书写的本质。</p>
+<p>地址：<a href="https://github.com/v2panda/SimpleNote" target="_blank" rel="external">https://github.com/v2panda/SimpleNote</a></p>
+<p>SimpleNote是大四实习时写的一个App，但现在看看以前的代码，各种问题、漏洞百出，无法忍受。就决定重构出2.0版本，于是在业余时间里断断续续做这个App，算是重构了一遍吧，这次也放弃写UI的方式，使用StoryBoard+xib的方式布局。</p>
 <a id="more"></a>
-<h3 id="基本设置">基本设置</h3><p>第一步：先在Project的info里添加所需要支持的语言，这里选择的是Chinese(Simplified)和English-Development Language。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language1.png" alt=""><br>第二步：创建Localizable.strings文件(注意:文件名最好不要随意更改)作为多语言对应的词典，存储多种语言。</p>
-<p>点击Localizable.strings文件右侧Localize…</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language2.png" alt="">         </p>
-<p>继续在Localization里添加所要支持的语言，将其勾选上。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language3.png" alt=""></p>
-<p>第三步:最后就可以在Localizable.strings里随意设置所需要支持的语言啦。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language4.png" alt=""></p>
-<h4 id="格式">格式</h4><p>Localizable.strings内设置格式: </p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"testName"</span> = <span class="string">"测试名称"</span></span><br></pre></td></tr></table></figure>
-<p>NSLocalizedString代替String:</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">NSLocalizedString</span><span class="params">(@<span class="string">"testName"</span>,nil)</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="StoryBoard设置">StoryBoard设置</h3><p>storyboard同Localizable.strings类似。</p>
-<p>第一步：选中storyboard，选择ShowtheFileInspector，在Localization选择所需要支持的语言。</p>
-<p>第二步：在Main.strings(Chinese(Simplified))和Main.strings(English)里设置语言。</p>
-<h4 id="格式-1">格式</h4><p>Main.strings里的格式比较特殊，如下所示：</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span> Class = <span class="string">"UILabel"</span>; text = <span class="string">"testName"</span>; ObjectID = <span class="string">"pUp-yc-27W"</span>; <span class="keyword">*</span>/</span><br><span class="line"><span class="string">"pUp-yc-27W.text"</span> = <span class="string">"testName"</span>;</span><br></pre></td></tr></table></figure>
-<p>需要注意的是，不要直接改变自动生成的ObjectID，也不要复制和粘贴上边的代码行，因为标签的ObjectID可能已经跟上边展示的不一样了。</p>
-<h3 id="图片设置">图片设置</h3><p>图片设置也和Localizable.strings类似，图片资源存放在Images.xcassets里，使用时将不同语言的图片资源在Localizable.strings里一一对应设置，如下所示：</p>
-<p>Localizable.strings (English)</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"imageName"</span> = <span class="string">"pic-en"</span>;</span><br></pre></td></tr></table></figure>
-<p>Localizable.strings (Chinese(Simplified))</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"imageName"</span> = <span class="string">"pic-cn"</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="货币值设置">货币值设置</h3><p>货币显示在不同的国家是有区别的，例如：10000可以写作”10,000”也能写作”10.000”。针对这种情况可以使用NSNumberFormatter格式化，例如：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSNumberFormatter</span> *numberFormatter = [[<span class="built_in">NSNumberFormatter</span> alloc] init]; </span><br><span class="line">[numberFormatter setNumberStyle:<span class="built_in">NSNumberFormatterDecimalStyle</span>]; </span><br><span class="line"><span class="built_in">NSString</span> *numberString = [numberFormatter stringFromNumber:@(<span class="number">10000</span>)]; </span><br><span class="line">testLabel<span class="variable">.text</span> = [<span class="built_in">NSString</span> stringWithFormat:<span class="built_in">NSLocalizedString</span>(<span class="string">@"testNum:%@"</span>, <span class="literal">nil</span>), numberString];</span><br></pre></td></tr></table></figure>
-<h3 id="应用名设置">应用名设置</h3><p>Info.plist有一个特殊的文件（InfoPlist.strings），在里边用字符串覆盖其他语言,如下所示：</p>
-<p>InfoPlist.strings (English)</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"CFBundleDisplayName"</span> = <span class="string">"EnglishName"</span>;</span><br></pre></td></tr></table></figure>
-<p>InfoPlist.strings (Chinese(Simplified))</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"imageName"</span> = <span class="string">"中文名"</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="为什么要重构？">为什么要重构？</h3><ul>
+<li>觉得以前写的代码太烂</li>
+<li>充实业余时间，要是一段时间我什么东西都没折腾出来，我会感到很不安</li>
+<li>重构可以帮我整理自己的思路，优化以前的烂代码</li>
+<li>找回按自己意愿编程的感觉(这跟工作上的编程是完全不同的)</li>
+</ul>
+<h3 id="结果反思">结果反思</h3><p>目前做App对我来说最大的困难就是设计了，这里不光是UI上的设计，还有产品上的，这都是我的短板。前期在设计上花了挺多时间，中间也有各种新的想法，新的功能添加，这导致我在写代码时走了不少弯路，很多页面和功能实现出来后觉得不好看或者不满意，又都删掉了。在这删删改改的过程中，感受到了一个好产品经理的重要性。更体会到从有个好Idea，到真正去实现这个Idea中间还有好多路要走。</p>
+<h3 id="感谢开源">感谢开源</h3><ul>
+<li>本地存储：<a href="https://realm.io/" target="_blank" rel="external">Realm</a></li>
+<li>后台：<a href="https://leancloud.cn/" target="_blank" rel="external">LeanCloud</a></li>
+<li>图文混排：<a href="https://github.com/ibireme/YYText" target="_blank" rel="external">YYText</a></li>
+</ul>
 </span>
       
     </div>
@@ -280,16 +266,12 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/27/iOS-develop-tips/" rel="prev">
-                <i class="fa fa-chevron-left"></i> iOS开发Tips
-              </a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/01/07/iOS-keychain/" rel="next">
-                使用KeyChain存储密码 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/04/24/app-reverse/" rel="next">
+                APP砸壳 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -305,10 +287,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/03/23/app-language-setting/"
-     data-title="iOS多语言设置"
+        <div class="ds-share flat" data-thread-key="2016/05/28/simplenote/"
+     data-title="SimpleNote 2.0 - 用心记录文字"
      data-content=""
-     data-url="http://v2panda.com/2015/03/23/app-language-setting/">
+     data-url="http://v2panda.com/2016/05/28/simplenote/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -338,8 +320,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/03/23/app-language-setting/"
-                   data-title="iOS多语言设置" data-url="http://v2panda.com/2015/03/23/app-language-setting/">
+              <div class="ds-thread" data-thread-key="2016/05/28/simplenote/"
+                   data-title="SimpleNote 2.0 - 用心记录文字" data-url="http://v2panda.com/2016/05/28/simplenote/">
               </div>
             
           </div>
@@ -449,7 +431,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本设置"><span class="nav-number">1.</span> <span class="nav-text">基本设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#格式"><span class="nav-number">1.1.</span> <span class="nav-text">格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StoryBoard设置"><span class="nav-number">2.</span> <span class="nav-text">StoryBoard设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#格式-1"><span class="nav-number">2.1.</span> <span class="nav-text">格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片设置"><span class="nav-number">3.</span> <span class="nav-text">图片设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#货币值设置"><span class="nav-number">4.</span> <span class="nav-text">货币值设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用名设置"><span class="nav-number">5.</span> <span class="nav-text">应用名设置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要重构？"><span class="nav-number">1.</span> <span class="nav-text">为什么要重构？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果反思"><span class="nav-number">2.</span> <span class="nav-text">结果反思</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#感谢开源"><span class="nav-number">3.</span> <span class="nav-text">感谢开源</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
