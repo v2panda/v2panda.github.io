@@ -194,6 +194,93 @@
             
             
               
+                <a class="post-title-link" href="/2015/10/13/research-slidingback-gesture/" itemprop="url">
+                  滑动返回手势探究
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-10-13T16:44:49+08:00" content="2015-10-13">
+              2015-10-13
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/10/13/research-slidingback-gesture/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/13/research-slidingback-gesture/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h4 id="前言">前言</h4><p>从iOS7开始，苹果增加了页面右滑返回的效果，具体的是以UINavigationController为容器的ViewController间右滑切换页面。</p>
+<p>代码里的设置是：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.interactivePopGestureRecognizer</span><span class="variable">.enabled</span> = <span class="literal">YES</span>;（<span class="keyword">default</span> is <span class="literal">YES</span>）</span><br></pre></td></tr></table></figure>
+<p>可以看到苹果给navigationController添加了一个手势（具体为<code>UIScreenEdgePanGestureRecognizer</code>（边缘手势，同样是ios7以后才有的）），就是利用这个手势实现的 iOS7的侧滑返回。</p>
+<p>但在日常开发中，我们大多会自定义返回按钮，此时系统的右滑返回就会失效。然而支持滑动返回已成为iOS上必须实现的交互，若没有那APP离被卸载就不远了。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/10/13/research-slidingback-gesture/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
                 <a class="post-title-link" href="/2015/09/29/chain-programming/" itemprop="url">
                   链式编程初探
                 </a>
@@ -635,7 +722,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
