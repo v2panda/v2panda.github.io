@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="Shadowsocks," />
+  <meta name="keywords" content="v2panda,panda,Hexo,next" />
 
 
 
@@ -47,70 +47,34 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="前言最近用的VPN越来越不稳定了，决定搭个小梯子自用。
+<meta name="description" content="作为软件开发人员,我们常常会花大量时间去阅读代码。 Robert C. Martin 在他的Clean Code中说道:
 
-
-
-My Choice
-Before
-Now
-
-
-
-
-Phone
-Hydro
-Surge
-
-
-PC
-VPN + Lantern
-Shadowsocks">
+Indeed, the ratio of time spent reading versus writing is well over 10 to 1. We are constantly reading old code as part of the effort to w">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自建网络调试工具">
-<meta property="og:url" content="http://v2panda.com/2015/11/25/network-debugging-tools/index.html">
+<meta property="og:title" content="【译】Xcode Search the Hidden Gems">
+<meta property="og:url" content="http://v2panda.com/2016/08/15/xcodesearch/index.html">
 <meta property="og:site_name" content="v2panda's blog">
-<meta property="og:description" content="前言最近用的VPN越来越不稳定了，决定搭个小梯子自用。
+<meta property="og:description" content="作为软件开发人员,我们常常会花大量时间去阅读代码。 Robert C. Martin 在他的Clean Code中说道:
 
-
-
-My Choice
-Before
-Now
-
-
-
-
-Phone
-Hydro
-Surge
-
-
-PC
-VPN + Lantern
-Shadowsocks">
-<meta property="og:updated_time" content="2015-12-14T09:19:48.000Z">
+Indeed, the ratio of time spent reading versus writing is well over 10 to 1. We are constantly reading old code as part of the effort to w">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_0.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_1.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_2.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_3.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_4.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_5.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_6.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_7.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_8.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_9.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_10.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_11.png">
+<meta property="og:updated_time" content="2016-08-15T13:00:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自建网络调试工具">
-<meta name="twitter:description" content="前言最近用的VPN越来越不稳定了，决定搭个小梯子自用。
+<meta name="twitter:title" content="【译】Xcode Search the Hidden Gems">
+<meta name="twitter:description" content="作为软件开发人员,我们常常会花大量时间去阅读代码。 Robert C. Martin 在他的Clean Code中说道:
 
-
-
-My Choice
-Before
-Now
-
-
-
-
-Phone
-Hydro
-Surge
-
-
-PC
-VPN + Lantern
-Shadowsocks">
+Indeed, the ratio of time spent reading versus writing is well over 10 to 1. We are constantly reading old code as part of the effort to w">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -122,7 +86,7 @@ Shadowsocks">
 
 
 
-  <title> 自建网络调试工具 | v2panda's blog </title>
+  <title> 【译】Xcode Search the Hidden Gems | v2panda's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -247,7 +211,7 @@ Shadowsocks">
             
             
               
-                自建网络调试工具
+                【译】Xcode Search the Hidden Gems
               
             
           </h1>
@@ -256,8 +220,8 @@ Shadowsocks">
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-11-25T15:30:51+08:00" content="2015-11-25">
-              2015-11-25
+            <time itemprop="dateCreated" datetime="2016-08-15T20:44:08+08:00" content="2016-08-15">
+              2016-08-15
             </time>
           </span>
 
@@ -267,8 +231,8 @@ Shadowsocks">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/11/25/network-debugging-tools/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/25/network-debugging-tools/" itemprop="commentsCount"></span>
+                <a href="/2016/08/15/xcodesearch/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/15/xcodesearch/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -287,136 +251,62 @@ Shadowsocks">
       
 
       
-        <span itemprop="articleBody"><h1 id="前言">前言</h1><p>最近用的VPN越来越不稳定了，决定搭个小梯子自用。</p>
-<table>
-<thead>
-<tr>
-<th>My Choice</th>
-<th style="text-align:center">Before</th>
-<th style="text-align:center">Now</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Phone</td>
-<td style="text-align:center">Hydro</td>
-<td style="text-align:center">Surge</td>
-</tr>
-<tr>
-<td>PC</td>
-<td style="text-align:center">VPN + Lantern</td>
-<td style="text-align:center">Shadowsocks</td>
-</tr>
-</tbody>
-</table>
+        <span itemprop="articleBody"><p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_0.png" alt=""></p>
+<p>作为软件开发人员,我们常常会花大量时间去阅读代码。 <a href="https://twitter.com/unclebobmartin" target="_blank" rel="external">Robert C. Martin</a> 在他的<a href="http://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882" target="_blank" rel="external">Clean Code</a>中说道:</p>
+<blockquote>
+<p>Indeed, the ratio of time spent reading versus writing is well over 10 to 1. We are constantly reading old code as part of the effort to write new code.</p>
+</blockquote>
+<p>然而直接阅读整个代码库是不实际的，当你加入一个新项目，浏览一些开源库或着为一个大型代码库提交代码。搜索就会成为一个非常有用的工具，在这里我们将去深入了解隐藏在 Xcode 的导航器里的搜索。</p>
 <a id="more"></a>
-<p>而在Surge上也是可以用Shadowsocks的，并且Shadowsocks有以下特点：</p>
-<ul>
-<li>省电，在电量查看里几乎看不到它的身影；</li>
-<li>支持开机自启动，且断网无影响，无需手动重连，方便网络不稳定或者3G&amp;Wi-Fi频繁切换的小伙伴；</li>
-<li>可使用自己的服务器，安全和速度的保证；</li>
-<li>支持区分国内外流量，传统VPN在翻出墙外后访问国内站点会变慢；</li>
-<li>可对应用设置单独代理，5.0之后的系统无需root。</li>
-</ul>
-<p>虽然由于<a href="http://www.freebuf.com/news/76451.html" target="_blank" rel="external">喝茶事件</a>，ss 的作者已经删除项目，不过目前还能用,所以搭建一个VPS安装Shadowsocks是我的最佳选择。</p>
-<h1 id="VPS">VPS</h1><p>VPS有许许多多，但想要达到网络调试的目的还是得选择海外的服务器。<br>目前主流的VPS提供商有3个</p>
-<ul>
-<li>Banwagong</li>
-<li>DigitalOcean</li>
-<li>Linode</li>
-</ul>
-<p>若不知道如何选择，可以参考下表(比较的都是最低套餐)</p>
-<table>
-<thead>
-<tr>
-<th>VPS</th>
-<th style="text-align:center">架构</th>
-<th style="text-align:center">内存</th>
-<th style="text-align:center">硬盘</th>
-<th style="text-align:center">流量</th>
-<th style="text-align:center">费用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Banwagong</td>
-<td style="text-align:center">OpenVZ</td>
-<td style="text-align:center">256M</td>
-<td style="text-align:center">10G</td>
-<td style="text-align:center">500G/M</td>
-<td style="text-align:center">19.99 $/Y</td>
-</tr>
-<tr>
-<td>DigitalOcean</td>
-<td style="text-align:center">KVM</td>
-<td style="text-align:center">512M</td>
-<td style="text-align:center">20G</td>
-<td style="text-align:center">1T/M</td>
-<td style="text-align:center">5 $/M</td>
-</tr>
-<tr>
-<td>Linode</td>
-<td style="text-align:center">Xen</td>
-<td style="text-align:center">1G</td>
-<td style="text-align:center">24G</td>
-<td style="text-align:center">2T/M</td>
-<td style="text-align:center">10 $/M</td>
-</tr>
-</tbody>
-</table>
-<p>个人建议，对连接速度和稳定性尤其是网络延迟有极高要求的首选Linode，有较高要求的推荐DigitalOcean，对于普通用户来讲，搬瓦工就可以。<br>一般用 paypal 支付，因为用信用卡可能会要求你上传身份证明以及信用卡照片什么的，而且审核过程也需要等待，比较麻烦。注意要用国际 paypal 帐号，国内的是不能用外币付款的。</p>
-<h1 id="Shadowsocks">Shadowsocks</h1><p>VPS选择完毕后，直接登录开始安装。</p>
-<p>Mac OS X 或 Linux 下直接在终端中 ssh root@your_vps_ip -p your_ssh_port   即可。</p>
-<p>Debian / Ubuntu:</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get <span class="keyword">install</span> python-pip</span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure>
-<p>CentOS:</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> python-setuptools &amp;&amp; easy_install pip</span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure>
-<p>配置</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">server</span>":<span class="value"><span class="string">"0.0.0.0"</span></span>,</span><br><span class="line">    "<span class="attribute">server_port</span>":<span class="value">yourport</span>,</span><br><span class="line">    "<span class="attribute">local_address</span>": <span class="value"><span class="string">"127.0.0.1"</span></span>,</span><br><span class="line">    "<span class="attribute">local_port</span>":<span class="value"><span class="number">1080</span></span>,</span><br><span class="line">    "<span class="attribute">password</span>":<span class="value"><span class="string">"yourpassword"</span></span>,</span><br><span class="line">    "<span class="attribute">timeout</span>":<span class="value"><span class="number">300</span></span>,</span><br><span class="line">    "<span class="attribute">method</span>":<span class="value"><span class="string">"aes-256-cfb"</span></span>,</span><br><span class="line">    "<span class="attribute">fast_open</span>": <span class="value"><span class="literal">false</span></span>,</span><br><span class="line">    "<span class="attribute">workers</span>": <span class="value"><span class="number">1</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-<p>使用</p>
-<p><code>ssserver -p 443 -k password -m rc4-md5</code></p>
-<p>后台运行：</p>
-<p><code>sudo ssserver -p 443 -k password -m rc4-md5 --user nobody -d start</code></p>
-<p>停止：</p>
-<p><code>sudo ssserver -d stop</code></p>
-<p>检查日志：</p>
-<p><code>sudo less /var/log/shadowsocks.log</code></p>
-<p>更具体的可以查看<a href="https://github.com/shadowsocks/shadowsocks/wiki/Shadowsocks-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E" target="_blank" rel="external">wiki</a>。</p>
-<h1 id="Surge">Surge</h1><p>Surge 是基于 iOS 9 的新特性 <code>Network Extension</code> 开发的一款网络调试工具，工作原理是使用 Packet Tunnel Provider 给系统套上一个代理，Surge 有两个主要组件：Surge 代理服务器和 Surge TUN 接口。程序运行之后，Surge 会将自身设置为默认的 HTTP/HTTPS 代理服务器来处理所有的 HTTP/HTTPS 流量。针对一些不服从系统代理设置的应用程序 ，将由 Surge 的 TUN 接口来进行处理。</p>
-<p>Surge具体的使用可以查看<a href="http://surge.run/manual/" target="_blank" rel="external">manual</a>，这里我们主要配置Surge在iOS上使用Shadowsocks。</p>
-<p>如果需要使用shadowsocks，目前surge 通过module支持配置，具体配置规则类似下面的配置，具体的服务器、端口、加密方式、密码参照你自己的SS配置：</p>
-<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Proxy]</span><br><span class="line"></span><br><span class="line">Proxy = custom, IP, Port, <span class="function"><span class="keyword">Method</span>, <span class="title">password</span>, <span class="title">Module</span></span></span><br></pre></td></tr></table></figure>
-<p>Proxy类型必须是custom，如果改成其他名称会报错，剩下的地址按照服务商提供的来填，最后要加上SS module的地址，目前surge 的官网已经删掉了module文件，可以从<a href="https://www.dropbox.com/s/jfvicg5omhlgg6g/SSEncrypt.module?dl=0" target="_blank" rel="external">这里</a>下载，下载后上传到你自己的网址。</p>
-<h1 id="我的选择">我的选择</h1><p>我个人的选择供大家参考：</p>
-<p>DigitalOcean，San Francisco节点，1TB流量。</p>
-<p>若有想用DigitalOcean可以使用<a href="https://www.digitalocean.com/?refcode=93cc79d1d49b" target="_blank" rel="external">此链接</a>注册,可以得到10$。</p>
+<h3 id="1_:_Patterns">1 : Patterns</h3><p>直接在 Xcode 搜索文本是非常容易的，按下 Command-Shift-F 输入你想搜索的文本就可以了。而仅仅这样是不够的，当我们想要一个更高级的搜索，比如想要搜索一个包含 URLs 的字符串。这是很常见的需求，苹果也帮我们实现了这个功能即 – 通配符模式。</p>
+<p>首先单击放大镜按钮旁边的下拉按钮，如下图：</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_1.png" alt="Search Options"></p>
+<p>然后会看到一个下拉选择列表：</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_2.png" alt="List of Available Patterns"></p>
+<p>点击列表中的 URL 模式搜索字段，就会得到想要的结果：</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_3.png" alt="Strings Representing URLs"></p>
+<h3 id="2_:_Definitions">2 : Definitions</h3><p>Xcode 还提供了搜索选项来帮助我们理解项目代码结构。比方说，想搜索到项目中所有带 shared 的定义，而且假设项目中所有的单例也是以 <code>shared</code> 开头，类似 <code>shared*</code>。</p>
+<p>如果仅仅搜索 <code>shared</code>，会得到很多结果：</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_4.png" alt="Default Search Results"></p>
+<p>这当然不是我们想要的，点击 Text 切换选择到 Definitions 来缩小搜索结果：</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_5.png" alt="Definitions Option
+"></p>
+<p>就像这样：</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_6.png" alt="Search Results Narrowed to Definitions"></p>
+<p>得到了我们想要的结果，当然也可以使用这个去过滤结构体、枚举、枚举选项等等。</p>
+<h3 id="3:_Search_Scopes">3: Search Scopes</h3><p>选择一个经常要搜索的项目:</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_7.png" alt="Scopes Menu"></p>
+<p>让我们想象一下，假如我们的项目是 Objective-C/Swift 代码混合的代码库。(它不是很难想象,对吧?😉)。这时我们想在 Swift 文件里搜索些东西，我们可以很容易的自定义搜索范围。点击 <em>New Scope</em> 按钮，选择搜索结果的过滤：<em>Location, Name, Path, Path Extension and Type</em>。Type 似乎是一个非常合适的选择，但不幸的是，这里没有 Swift :</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_8.png" alt="No Swift here ¯\_(ツ)_/¯"></p>
+<p>所以，我们用 <em>Path Extension</em> 来替代，如：</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_9.png" alt="Scope Filtering .swift Files"></p>
+<h3 id="4:_Call_Hierarchy">4: Call Hierarchy</h3><p>Xcode 7中增加了一个新功能，可以直接搜索调用的层次结构。通过它，我们可以更直观的查看或使用方法和函数。我不经常使用它，但是当我用到它时会节省很多时间。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_10.png" alt="Call Hierarchy Search Example"></p>
+<h3 id="When_Not_to_Search">When Not to Search</h3><p>在Xcode中 Find navigator 非常强大，它不仅仅只有搜索功能。当我们要找东西时，搜索并不总是最好的解决方法。例如，当我们要查看一些属性的定义时，最好的方法是将鼠标移动到属性上并按下 Command-Control-J 查看，这样比直接搜索它的定义要好得多。或者当我们想看看某些方法的调用情况，我们可以直接按下(Control-1)菜单来查看。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_11.png" alt="Related Items Menu"></p>
+<h3 id="Conclusion">Conclusion</h3><p>搜索在 Xcode 中变得越来越强大，它帮助我们更容易的阅读自己的代码或第三方代码。正如所有其他工具(或任何生活中)一样，它也带有一些权衡，但是我们可以选择使用最好的工具来工作。</p>
+<blockquote>
+<p>作者:Arkadiusz Holko</p>
+<p>原文链接:<a href="http://holko.pl/2016/04/26/xcode-search/" target="_blank" rel="external">http://holko.pl/2016/04/26/xcode-search/</a></p>
+<p>原文日期:26 Apr 2016</p>
+</blockquote>
 </span>
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Shadowsocks/" rel="tag">#Shadowsocks</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/06/how-to-imitation-app/" rel="prev">
-                <i class="fa fa-chevron-left"></i> 如何仿写一个App
-              </a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/10/13/research-slidingback-gesture/" rel="next">
-                滑动返回手势探究 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/07/31/unit-tests/" rel="next">
+                iOS单元测试 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -432,10 +322,10 @@ Shadowsocks">
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/11/25/network-debugging-tools/"
-     data-title="自建网络调试工具"
+        <div class="ds-share flat" data-thread-key="2016/08/15/xcodesearch/"
+     data-title="【译】Xcode Search the Hidden Gems"
      data-content=""
-     data-url="http://v2panda.com/2015/11/25/network-debugging-tools/">
+     data-url="http://v2panda.com/2016/08/15/xcodesearch/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -465,8 +355,8 @@ Shadowsocks">
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/11/25/network-debugging-tools/"
-                   data-title="自建网络调试工具" data-url="http://v2panda.com/2015/11/25/network-debugging-tools/">
+              <div class="ds-thread" data-thread-key="2016/08/15/xcodesearch/"
+                   data-title="【译】Xcode Search the Hidden Gems" data-url="http://v2panda.com/2016/08/15/xcodesearch/">
               </div>
             
           </div>
@@ -576,7 +466,7 @@ Shadowsocks">
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VPS"><span class="nav-number">2.</span> <span class="nav-text">VPS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shadowsocks"><span class="nav-number">3.</span> <span class="nav-text">Shadowsocks</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Surge"><span class="nav-number">4.</span> <span class="nav-text">Surge</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我的选择"><span class="nav-number">5.</span> <span class="nav-text">我的选择</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1_:_Patterns"><span class="nav-number">1.</span> <span class="nav-text">1 : Patterns</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2_:_Definitions"><span class="nav-number">2.</span> <span class="nav-text">2 : Definitions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3:_Search_Scopes"><span class="nav-number">3.</span> <span class="nav-text">3: Search Scopes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4:_Call_Hierarchy"><span class="nav-number">4.</span> <span class="nav-text">4: Call Hierarchy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#When_Not_to_Search"><span class="nav-number">5.</span> <span class="nav-text">When Not to Search</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conclusion"><span class="nav-number">6.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
