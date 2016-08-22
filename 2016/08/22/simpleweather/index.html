@@ -47,28 +47,23 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="前言最近看到一篇文章专访YYKit作者郭曜源：开源大牛是怎样炼成的,其中 ibireme提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高姿势水平的上策，Talk is cheap, Show me the code!这篇blog主要记录仿写一个App的准备工作,这里以美团为例。">
+<meta name="description" content="SimpleWeather 一个简单的天气应用。
+地址：https://github.com/v2panda/SimpleWeather
+SimpleWeather 是我写的第一个 App，算是学 iOS 开发的第一次实践，但现在看看以前的代码，各种问题、漏洞百出，无法忍受。于是决定重构出2.0版本，这次采用 React Native 开发，算是整个重构了一遍。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何仿写一个App">
-<meta property="og:url" content="http://v2panda.com/2015/12/06/how-to-imitation-app/index.html">
+<meta property="og:title" content="SimpleWeather 2.0 - 基于React Native的重构">
+<meta property="og:url" content="http://v2panda.com/2016/08/22/simpleweather/index.html">
 <meta property="og:site_name" content="v2panda's blog">
-<meta property="og:description" content="前言最近看到一篇文章专访YYKit作者郭曜源：开源大牛是怎样炼成的,其中 ibireme提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高姿势水平的上策，Talk is cheap, Show me the code!这篇blog主要记录仿写一个App的准备工作,这里以美团为例。">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.57.20.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.53.53.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.54.07.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.54.26.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.11.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.53.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appUntitled3.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.51.13.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.52.48.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appUntitled.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appUntitled2.png">
-<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.56.41.png">
-<meta property="og:updated_time" content="2015-12-14T09:20:33.000Z">
+<meta property="og:description" content="SimpleWeather 一个简单的天气应用。
+地址：https://github.com/v2panda/SimpleWeather
+SimpleWeather 是我写的第一个 App，算是学 iOS 开发的第一次实践，但现在看看以前的代码，各种问题、漏洞百出，无法忍受。于是决定重构出2.0版本，这次采用 React Native 开发，算是整个重构了一遍。">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/haizi.jpeg">
+<meta property="og:updated_time" content="2016-08-22T12:42:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何仿写一个App">
-<meta name="twitter:description" content="前言最近看到一篇文章专访YYKit作者郭曜源：开源大牛是怎样炼成的,其中 ibireme提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高姿势水平的上策，Talk is cheap, Show me the code!这篇blog主要记录仿写一个App的准备工作,这里以美团为例。">
+<meta name="twitter:title" content="SimpleWeather 2.0 - 基于React Native的重构">
+<meta name="twitter:description" content="SimpleWeather 一个简单的天气应用。
+地址：https://github.com/v2panda/SimpleWeather
+SimpleWeather 是我写的第一个 App，算是学 iOS 开发的第一次实践，但现在看看以前的代码，各种问题、漏洞百出，无法忍受。于是决定重构出2.0版本，这次采用 React Native 开发，算是整个重构了一遍。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -80,7 +75,7 @@
 
 
 
-  <title> 如何仿写一个App | v2panda's blog </title>
+  <title> SimpleWeather 2.0 - 基于React Native的重构 | v2panda's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -205,7 +200,7 @@
             
             
               
-                如何仿写一个App
+                SimpleWeather 2.0 - 基于React Native的重构
               
             
           </h1>
@@ -214,8 +209,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-06T20:47:37+08:00" content="2015-12-06">
-              2015-12-06
+            <time itemprop="dateCreated" datetime="2016-08-22T20:37:57+08:00" content="2016-08-22">
+              2016-08-22
             </time>
           </span>
 
@@ -225,8 +220,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/06/how-to-imitation-app/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/06/how-to-imitation-app/" itemprop="commentsCount"></span>
+                <a href="/2016/08/22/simpleweather/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/22/simpleweather/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -245,24 +240,23 @@
       
 
       
-        <span itemprop="articleBody"><h1 id="前言">前言</h1><p>最近看到一篇文章<a href="http://www.infoq.com/cn/news/2015/11/ibireme-interview?utm_source=infoq&amp;utm_medium=popular_widget&amp;utm_campaign=popular_content_list&amp;utm_content=homepage" target="_blank" rel="external">专访YYKit作者郭曜源：开源大牛是怎样炼成的</a>,其中 <a href="http://weibo.com/239801242" target="_blank" rel="external">ibireme</a>提到了他的学习方法，一个就是大量地阅读优秀项目的源代码，另一个就是自己动手实践来尝试。这非常值得学习，对我来说，沉下心来好好写代码才是提高姿势水平的上策，Talk is cheap, Show me the code!<br>这篇blog主要记录仿写一个App的准备工作,这里以美团为例。</p>
+        <span itemprop="articleBody"><p>SimpleWeather 一个简单的天气应用。</p>
+<p>地址：<a href="https://github.com/v2panda/SimpleWeather" target="_blank" rel="external">https://github.com/v2panda/SimpleWeather</a></p>
+<p>SimpleWeather 是我写的第一个 App，算是学 iOS 开发的第一次实践，但现在看看以前的代码，各种问题、漏洞百出，无法忍受。于是决定重构出2.0版本，这次采用 React Native 开发，算是整个重构了一遍。</p>
 <a id="more"></a>
-<h1 id="素材">素材</h1><p>首先到iTunes下载美团到本地<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.57.20.png" alt="在Finder中显示"></p>
-<p>在Finder中显示,解压ipa文件<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.53.53.png" alt="解压ipa"><br>点击imeituan，显示包内容<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.54.07.png" alt="显示包内容"><br>就能随意查看imeituan的素材内容。<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.54.26.png" alt="素材"></p>
-<h1 id="接口">接口</h1><ul>
-<li><a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a><br>这是一款在 Mac 下常用的网络封包截取工具，Charles 通过将自己设置成系统的网络访问代理服务器，使得所有的网络访问请求都通过它来完成,这里我们主要用它来截取网络封包来分析。</li>
+<h3 id="前言">前言</h3><p>当然在实践之前还得先学习 React Native 相关知识，在这之前我没用过 React 更没学过 React Native，所以这块算是从零开始。不过我认为学东西，结合实际去学效率更高，否则学过之后还是需要吃回头草，与其如此浪费时间，还不如让学习直接融入到开发中去。</p>
+<p>当然说是这么说，但该有的基础知识和基本概念还是得有的。这里我看了一本书《React Native 入门与实战》，这本书在买时，京东React Native 相关排第一，一些朋友也都推荐这本书。看完后觉得书写的确实不错，作为 React Native 入门读物算是够了。但不幸的是 React Native 和 Swift 一样，都是出来时间不长，语法、API 还在飞速发展阶段，所以有种说法叫 《React Native/Swift 从入门到再入门》，尤其是这本书 React Native 版本是 v0.14的，而现在的 React Native 版本是 v0.31，这之间有将近20个版本的差距。而改动最大的是从0.18版本开始，React Native 已经全面转向 ES6 ，于是我就悲剧的上官网重新入门了一次。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/haizi.jpeg" alt=""></p>
+<p>所以如果有朋友想学习 React Native，不再建议看《React Native 入门与实战》或者任何实体书籍，直接上官网学习即可。</p>
+<h3 id="为什么要重构？">为什么要重构？</h3><ul>
+<li>觉得以前写的代码太烂</li>
+<li>充实业余时间，要是一段时间我什么东西都没折腾出来，我会感到很不安</li>
+<li>重构可以帮我整理自己的思路，优化以前的烂代码</li>
+<li>找回按自己意愿编程的感觉(这跟工作上的编程是完全不同的)</li>
 </ul>
-<p>这里我们主要截取iPhone上App的网络请求，所以使用 Charles 的第一步在菜单栏上选择 “Proxy”–&gt;“Proxy Settings”，填入代理端口 8888，并且勾上 “Enable transparent HTTP proxying” 就完成了在 Charles 上的设置。如下图所示:<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.11.png" alt="Proxy"><br>然后我们需要获取 Charles 运行所在电脑的 IP 地址，Charles 的顶部菜单的 “Help”–&gt;“Local IP Address”，即可在弹出的对话框中看到 IP 地址，如下图所示：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.36.53.png" alt="IP"></p>
-<p>最后在 iPhone 的「HTTP 代理」，将其切换成手动，然后填上 Charles 运行所在的电脑的 IP，以及端口号 8888，如下图所示：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appUntitled3.png" alt="8888"></p>
-<p>接下来在手机上运行美团，就能再Charles上查看网络请求，如下所示：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.51.13.png" alt="flurry"><br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.52.48.png" alt="http"><br>这是美团启动是Charles的显示，可以看到<code>http://data.flurry.com</code>的请求，显而易见美团iOS是使用flurry统计数据的。关于Charles详细使用方法可以查看<a href="http://blog.devtang.com/blog/2015/11/14/charles-introduction/" target="_blank" rel="external">这篇博客</a>。</p>
-<h1 id="App结构">App结构</h1><p>这里使用Reaveal + iPhone(越狱)来分析App的UI视图结构。</p>
-<p>准备工作：<br>1.iPhone越狱。<br>2.越狱后iPhone上会自行安装上Cydia商店，打开Cydia，先在tabBar的“变更”页面刷新软件源。刷新成功后用Cydia搜索并安装Reveal loader ，安装完成后点击重启springboard。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appUntitled.png" alt="Reveal loader"></p>
-<p>3.在系统设置中找到Reveal，点击Reveal - Enabled Applications，将美团选为Enabled。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-appUntitled2.png" alt="Enabled"></p>
-<p>4.安装<a href="http://revealapp.com/" target="_blank" rel="external">Reveal</a>。<br>5.首先保证iPhone和Mac在同一局域网（WiFi）中，在iPhone中运行你要监视的app，如果app已经运行，需在后台杀死进程重新打开，保持app在前台，然后在Mac中打开Reveal，点击左上角的No Connection，然后选择即可。<br>6.Commend+5 切换3D模式。每当iPhone上的app页面切换后，需要点击Reveal窗口右上角刷新（Commend+R）。在局域网内负荷较大时，视图刷新会很慢，可以用iPhone共享热点给Mac解决。</p>
-<p>准备完毕后，就能在Reveal上随意查看App结构了，如下图所示:<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blog-how-to-imitation-app屏幕快照%202015-12-01%20下午5.56.41.png" alt="App结构"></p>
-<h1 id="后记">后记</h1><p>这篇blog主要记录仿写一个App的准备工作,包括获取素材，接口，以及查看App层级结构，关于如何仿写怎么仿写，就得自己去Coding了。</p>
+<p>又回到了这个老问题，当然这次除了以上原因以外，一个主要因素就是学习 React Native，尝试用 JS 的语法编写原生 App。对于一个传统的客户端开发码农来说，React Native 重新让我认识了客户端开发。</p>
+<h3 id="总结">总结</h3><p>SimpleWeather 这个 App 页面少，功能简单，这次也没有加新功能，总体来说重构的难度不大，于是大多的时间花在了 React Native 语法和 Flex 布局上，总的来说这是学习 React Native 的一次简单实践。</p>
+<p>关于 React Native 与 Native 之间的优缺点，有很多文章已经总结过了，这里我也不总结，而在 React Native 上我还是个 newbie ，还有很多东西需要学习，当然这些需要结合实际去学。学东西我认为直接融入到开发中去是最好的，虽然学习和使用的过程可能会变得更加艰难，但是这样学习知识效果更好而且该踩的坑都会踩到，所以计划以后有时间用 React Native 写一个更复杂的App。</p>
 </span>
       
     </div>
@@ -274,16 +268,12 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/26/2015-summary/" rel="prev">
-                <i class="fa fa-chevron-left"></i> 2015 - 开端
-              </a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/25/network-debugging-tools/" rel="next">
-                自建网络调试工具 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/15/xcodesearch/" rel="next">
+                【译】Xcode Search the Hidden Gems <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -299,10 +289,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/12/06/how-to-imitation-app/"
-     data-title="如何仿写一个App"
+        <div class="ds-share flat" data-thread-key="2016/08/22/simpleweather/"
+     data-title="SimpleWeather 2.0 - 基于React Native的重构"
      data-content=""
-     data-url="http://v2panda.com/2015/12/06/how-to-imitation-app/">
+     data-url="http://v2panda.com/2016/08/22/simpleweather/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -332,8 +322,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/12/06/how-to-imitation-app/"
-                   data-title="如何仿写一个App" data-url="http://v2panda.com/2015/12/06/how-to-imitation-app/">
+              <div class="ds-thread" data-thread-key="2016/08/22/simpleweather/"
+                   data-title="SimpleWeather 2.0 - 基于React Native的重构" data-url="http://v2panda.com/2016/08/22/simpleweather/">
               </div>
             
           </div>
@@ -443,7 +433,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#素材"><span class="nav-number">2.</span> <span class="nav-text">素材</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口"><span class="nav-number">3.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#App结构"><span class="nav-number">4.</span> <span class="nav-text">App结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后记"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要重构？"><span class="nav-number">2.</span> <span class="nav-text">为什么要重构？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[subtitle]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://v2panda.com/"/>
-  <updated>2016-08-15T13:00:53.000Z</updated>
+  <updated>2016-08-22T12:42:07.000Z</updated>
   <id>http://v2panda.com/</id>
   
   <author>
@@ -15,11 +15,44 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[SimpleWeather 2.0 - 基于React Native的重构]]></title>
+    <link href="http://v2panda.com/2016/08/22/simpleweather/"/>
+    <id>http://v2panda.com/2016/08/22/simpleweather/</id>
+    <published>2016-08-22T12:37:57.000Z</published>
+    <updated>2016-08-22T12:42:07.000Z</updated>
+    <content type="html"><![CDATA[<p>SimpleWeather 一个简单的天气应用。</p>
+<p>地址：<a href="https://github.com/v2panda/SimpleWeather" target="_blank" rel="external">https://github.com/v2panda/SimpleWeather</a></p>
+<p>SimpleWeather 是我写的第一个 App，算是学 iOS 开发的第一次实践，但现在看看以前的代码，各种问题、漏洞百出，无法忍受。于是决定重构出2.0版本，这次采用 React Native 开发，算是整个重构了一遍。</p>
+<a id="more"></a>
+<h3 id="前言">前言</h3><p>当然在实践之前还得先学习 React Native 相关知识，在这之前我没用过 React 更没学过 React Native，所以这块算是从零开始。不过我认为学东西，结合实际去学效率更高，否则学过之后还是需要吃回头草，与其如此浪费时间，还不如让学习直接融入到开发中去。</p>
+<p>当然说是这么说，但该有的基础知识和基本概念还是得有的。这里我看了一本书《React Native 入门与实战》，这本书在买时，京东React Native 相关排第一，一些朋友也都推荐这本书。看完后觉得书写的确实不错，作为 React Native 入门读物算是够了。但不幸的是 React Native 和 Swift 一样，都是出来时间不长，语法、API 还在飞速发展阶段，所以有种说法叫 《React Native/Swift 从入门到再入门》，尤其是这本书 React Native 版本是 v0.14的，而现在的 React Native 版本是 v0.31，这之间有将近20个版本的差距。而改动最大的是从0.18版本开始，React Native 已经全面转向 ES6 ，于是我就悲剧的上官网重新入门了一次。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/haizi.jpeg" alt=""></p>
+<p>所以如果有朋友想学习 React Native，不再建议看《React Native 入门与实战》或者任何实体书籍，直接上官网学习即可。</p>
+<h3 id="为什么要重构？">为什么要重构？</h3><ul>
+<li>觉得以前写的代码太烂</li>
+<li>充实业余时间，要是一段时间我什么东西都没折腾出来，我会感到很不安</li>
+<li>重构可以帮我整理自己的思路，优化以前的烂代码</li>
+<li>找回按自己意愿编程的感觉(这跟工作上的编程是完全不同的)</li>
+</ul>
+<p>又回到了这个老问题，当然这次除了以上原因以外，一个主要因素就是学习 React Native，尝试用 JS 的语法编写原生 App。对于一个传统的客户端开发码农来说，React Native 重新让我认识了客户端开发。</p>
+<h3 id="总结">总结</h3><p>SimpleWeather 这个 App 页面少，功能简单，这次也没有加新功能，总体来说重构的难度不大，于是大多的时间花在了 React Native 语法和 Flex 布局上，总的来说这是学习 React Native 的一次简单实践。</p>
+<p>关于 React Native 与 Native 之间的优缺点，有很多文章已经总结过了，这里我也不总结，而在 React Native 上我还是个 newbie ，还有很多东西需要学习，当然这些需要结合实际去学。学东西我认为直接融入到开发中去是最好的，虽然学习和使用的过程可能会变得更加艰难，但是这样学习知识效果更好而且该踩的坑都会踩到，所以计划以后有时间用 React Native 写一个更复杂的App。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>SimpleWeather 一个简单的天气应用。</p>
+<p>地址：<a href="https://github.com/v2panda/SimpleWeather">https://github.com/v2panda/SimpleWeather</a></p>
+<p>SimpleWeather 是我写的第一个 App，算是学 iOS 开发的第一次实践，但现在看看以前的代码，各种问题、漏洞百出，无法忍受。于是决定重构出2.0版本，这次采用 React Native 开发，算是整个重构了一遍。</p>]]>
+    
+    </summary>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[【译】Xcode Search the Hidden Gems]]></title>
     <link href="http://v2panda.com/2016/08/15/xcodesearch/"/>
     <id>http://v2panda.com/2016/08/15/xcodesearch/</id>
     <published>2016-08-15T12:44:08.000Z</published>
-    <updated>2016-08-15T13:00:53.000Z</updated>
+    <updated>2016-08-22T12:49:06.000Z</updated>
     <content type="html"><![CDATA[<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_0.png" alt=""></p>
 <p>作为软件开发人员,我们常常会花大量时间去阅读代码。 <a href="https://twitter.com/unclebobmartin" target="_blank" rel="external">Robert C. Martin</a> 在他的<a href="http://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882" target="_blank" rel="external">Clean Code</a>中说道:</p>
 <blockquote>
