@@ -1,0 +1,760 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  
+    <link href='//fonts.useso.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+
+
+<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" />
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
+
+
+    <meta name="description" content="先做，再说" />
+
+
+
+  <meta name="keywords" content="v2panda,panda,Hexo,next" />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="v2panda's blog" type="application/atom+xml" />
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
+
+
+<meta name="description" content="AFNetworking 是 Objective-C 中用于网络请求的第三方框架，我们一般使用它来封装网络请求，这篇文章记录了阅读 AFNetworking(Version 3.1.0) 源码的笔记，简单的研究了它的实现细节。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AFNetworking 源码阅读笔记（一）">
+<meta property="og:url" content="http://v2panda.com/2016/09/26/afnetworking-1/index.html">
+<meta property="og:site_name" content="v2panda's blog">
+<meta property="og:description" content="AFNetworking 是 Objective-C 中用于网络请求的第三方框架，我们一般使用它来封装网络请求，这篇文章记录了阅读 AFNetworking(Version 3.1.0) 源码的笔记，简单的研究了它的实现细节。">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/afnetworking-logo.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/afnetworking-arch.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/Get+%E6%96%B9%E6%B3%95.png">
+<meta property="og:updated_time" content="2016-09-26T12:49:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AFNetworking 源码阅读笔记（一）">
+<meta name="twitter:description" content="AFNetworking 是 Objective-C 中用于网络请求的第三方框架，我们一般使用它来封装网络请求，这篇文章记录了阅读 AFNetworking(Version 3.1.0) 源码的笔记，简单的研究了它的实现细节。">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'always'
+  };
+</script>
+
+
+
+  <title> AFNetworking 源码阅读笔记（一） | v2panda's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?ad0f846553fb2ad6f12577fc83605cb1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">v2panda's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">subtitle</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                AFNetworking 源码阅读笔记（一）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-09-26T20:45:41+08:00" content="2016-09-26">
+              2016-09-26
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/26/afnetworking-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/26/afnetworking-1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/afnetworking-logo.png" alt="AFNetworking"><br><a href="https://github.com/AFNetworking/AFNetworking/" target="_blank" rel="external">AFNetworking</a> 是 Objective-C 中用于网络请求的第三方框架，我们一般使用它来封装网络请求，这篇文章记录了阅读 AFNetworking(Version 3.1.0) 源码的笔记，简单的研究了它的实现细节。</p>
+<a id="more"></a>
+<h3 id="前言">前言</h3><p>这里引用 <a href="https://github.com/Draveness" target="_blank" rel="external">@draveness</a> 的一张图来展示 AFNetworking 的整个架构：</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/afnetworking-arch.png" alt=""></p>
+<p>本系列以此架构为依据，随后的文章会逐一分析 AFNetworking 的实现原理。</p>
+<h3 id="流程">流程</h3><p>首先以<a href="https://github.com/AFNetworking/AFNetworking/" target="_blank" rel="external">官方 Demo</a> 中的一个 Get 方法为例，来探究 AFNetworking 网络请求的大致流程。</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/Get+%E6%96%B9%E6%B3%95.png" alt=""></p>
+<ul>
+<li>1.Get 请求入口 </li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSURLSessionDataTask</span> *)GET:(<span class="built_in">NSString</span> *)URLString</span><br><span class="line">                   parameters:(<span class="keyword">id</span>)parameters</span><br><span class="line">                      success:(<span class="keyword">void</span> (^)(<span class="built_in">NSURLSessionDataTask</span> *task, <span class="keyword">id</span> responseObject))success</span><br><span class="line">                      failure:(<span class="keyword">void</span> (^)(<span class="built_in">NSURLSessionDataTask</span> *task, <span class="built_in">NSError</span> *error))failure</span><br></pre></td></tr></table></figure>
+<ul>
+<li>2.创建 NSURLSessionDataTask </li>
+</ul>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">NSURLSessionDataTask</span> *)dataTaskWithHTTPMethod:(<span class="type">NSString</span> *)<span class="keyword">method</span></span><br><span class="line">                                       <span class="type">URLString</span>:(<span class="type">NSString</span> *)<span class="type">URLString</span></span><br><span class="line">                                      parameters:(id)parameters</span><br><span class="line">                                  uploadProgress:(nullable <span class="type">void</span> (^)(<span class="type">NSProgress</span> *uploadProgress)) uploadProgress</span><br><span class="line">                                downloadProgress:(nullable <span class="type">void</span> (^)(<span class="type">NSProgress</span> *downloadProgress)) downloadProgress</span><br><span class="line">                                         success:(<span class="type">void</span> (^)(<span class="type">NSURLSessionDataTask</span> *, id))success</span><br><span class="line">                                         failure:(<span class="type">void</span> (^)(<span class="type">NSURLSessionDataTask</span> *, <span class="type">NSError</span> *))failure</span><br></pre></td></tr></table></figure>
+<ul>
+<li>3.创建 NSURLSessionDataTask 前先创建 NSMutableURLRequest </li>
+</ul>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (NSMutableURLRequest *)requestWithMethod:(NSString *)<span class="function"><span class="keyword">method</span></span><br><span class="line">                                 <span class="title">URLString</span>:</span>(NSString *)URLString</span><br><span class="line">                                parameters:(id)parameters</span><br><span class="line">                                     error:(NSError *__autoreleasing *)error</span><br></pre></td></tr></table></figure>
+<ul>
+<li>4.用 request 创建 NSURLSessionDataTask </li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSURLSessionDataTask</span> *)dataTaskWithRequest:(<span class="built_in">NSURLRequest</span> *)request</span><br><span class="line">                               uploadProgress:(nullable <span class="keyword">void</span> (^)(<span class="built_in">NSProgress</span> *uploadProgress)) uploadProgressBlock</span><br><span class="line">                             downloadProgress:(nullable <span class="keyword">void</span> (^)(<span class="built_in">NSProgress</span> *downloadProgress)) downloadProgressBlock</span><br><span class="line">                            completionHandler:(nullable <span class="keyword">void</span> (^)(<span class="built_in">NSURLResponse</span> *response, <span class="keyword">id</span> _Nullable responseObject,  <span class="built_in">NSError</span> * _Nullable error))completionHandler</span><br></pre></td></tr></table></figure>
+<ul>
+<li>5.给 dataTask 添加 Delegate (主要为 task 提供进度管理功能) </li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)addDelegateForDataTask:(<span class="built_in">NSURLSessionDataTask</span> *)dataTask</span><br><span class="line">                uploadProgress:(nullable <span class="keyword">void</span> (^)(<span class="built_in">NSProgress</span> *uploadProgress)) uploadProgressBlock</span><br><span class="line">              downloadProgress:(nullable <span class="keyword">void</span> (^)(<span class="built_in">NSProgress</span> *downloadProgress)) downloadProgressBlock</span><br><span class="line">             completionHandler:(<span class="keyword">void</span> (^)(<span class="built_in">NSURLResponse</span> *response, <span class="keyword">id</span> responseObject, <span class="built_in">NSError</span> *error))completionHandler</span><br></pre></td></tr></table></figure>
+<p>以上方法是调用链上的主要方法，将在下文逐一解释。</p>
+<h3 id="1-Get_请求入口">1.Get 请求入口</h3><p>具体方法体如下:</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 创建这个 NSURLSessionDataTask</span><br><span class="line">   NSURLSessionDataTask <span class="keyword">*</span>dataTask = [self dataTaskWithHTTPMethod:<span class="comment">@"GET"</span></span><br><span class="line">                                                       URLString:URLString</span><br><span class="line">                                                      parameters:parameters</span><br><span class="line">                                                  uploadProgress:nil</span><br><span class="line">                                                downloadProgress:downloadProgress</span><br><span class="line">                                                         success:success</span><br><span class="line">                                                         failure:failure];</span><br><span class="line">/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">    <span class="keyword">*</span>  session task的几种状态的操作函数</span><br><span class="line">       suspend -- 可以让当前的任务暂停</span><br><span class="line">       resume ---- 方法不仅可以启动任务,还可以唤醒suspend状态的任务</span><br><span class="line">       cancel ----- 方法可以取消当前的任务,你也可以向处于suspend状态的任务发送cancel消息,任务如果被取消便不能再恢复到之前的状态.</span><br><span class="line">    <span class="keyword">*</span>/</span><br><span class="line">   [dataTask resume];</span><br></pre></td></tr></table></figure>
+<p>使用 GET 类型的 Request 来创建并运行一个 NSURLSessionDataTask，这里要注意的是用<code>[dataTask resume]</code>来开启这个 task。</p>
+<h3 id="2-创建_NSURLSessionDataTask">2.创建 NSURLSessionDataTask</h3><p>主要方法体如下：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">   <span class="comment">// 创建 NSMutableURLRequest</span></span><br><span class="line">   NSMutableURLRequest *request = [<span class="keyword">self</span>.requestSerializer requestWithMethod:<span class="function"><span class="keyword">method</span> <span class="title">URLString</span>:</span>[[NSURL URLWithString:URLString relativeToURL:<span class="keyword">self</span>.baseURL] absoluteString] parameters:parameters error:&amp;serializationError];</span><br><span class="line">   <span class="comment">// 处理构建 request 产生的错误</span></span><br><span class="line">	...</span><br><span class="line">   <span class="comment">// 创建 dataTask</span></span><br><span class="line">   __block NSURLSessionDataTask *dataTask = <span class="keyword">nil</span>;</span><br><span class="line">   dataTask = [<span class="keyword">self</span> dataTaskWithRequest:request</span><br><span class="line">                         uploadProgress:uploadProgress</span><br><span class="line">                       downloadProgress:downloadProgress</span><br><span class="line">                      completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) <span class="comment">&#123;</span><br><span class="line">       if (error) &#123;</span><br><span class="line">           if (failure) &#123;</span><br><span class="line">               failure(dataTask, error);</span><br><span class="line">           &#125;</span></span><br><span class="line">       &#125; <span class="keyword">else</span> <span class="comment">&#123;</span><br><span class="line">           if (success) &#123;</span><br><span class="line">               success(dataTask, responseObject);</span><br><span class="line">           &#125;</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;];</span><br><span class="line"></span><br><span class="line">   return dataTask;</span><br></pre></td></tr></table></figure>
+<p><code>dataTaskWithHTTPMethod:</code>这个函数的实现主要分两部分，一部分是构建NSMutableURLRequest，另一部分是根据已构建好的 Request 来创建 DataTask。<br>其中 Request 是由传递的 method 来创建，这里传递的是 GET，其它参数还有HEAD、POST、PUT、PATCH、DELETE 。</p>
+<h3 id="3-创建_NSMutableURLRequest">3.创建 NSMutableURLRequest</h3><p>使用指定的 HTTP method 和 URLString 来构建一个 NSMutableURLRequest 对象实例，主要方法体如下：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"> 	// 参数断言</span><br><span class="line">   <span class="type">NSParameterAssert</span>(<span class="keyword">method</span>);</span><br><span class="line">   <span class="type">NSParameterAssert</span>(<span class="type">URLString</span>);</span><br><span class="line"></span><br><span class="line">   <span class="type">NSURL</span> *url = [<span class="type">NSURL</span> <span class="type">URLWithString</span>:<span class="type">URLString</span>];</span><br><span class="line"></span><br><span class="line">   <span class="type">NSParameterAssert</span>(url);</span><br><span class="line"></span><br><span class="line">   // 使用url构建并初始化<span class="type">NSMutableURLRequest</span>，然后设置<span class="type">HTTPMethod</span></span><br><span class="line">   <span class="type">NSMutableURLRequest</span> *mutableRequest = [[<span class="type">NSMutableURLRequest</span> alloc] initWithURL:url];</span><br><span class="line">   mutableRequest.<span class="type">HTTPMethod</span> = <span class="keyword">method</span>;</span><br><span class="line"></span><br><span class="line">   // 给<span class="type">NSMutableURLRequest</span>自带的属性赋值</span><br><span class="line">   // 然后通过判断mutableObservedChangedKeyPaths（<span class="type">NSMutableSet</span>）中是否有这个keyPath，来设定mutableRequest对应的keyPath值</span><br><span class="line">   // <span class="type">AFHTTPRequestSerializerObservedKeyPaths</span>这个数组里的属性是固定的，且在 init 方法里全都 <span class="type">KVO</span> 了</span><br><span class="line">   /**</span><br><span class="line">    *  当 <span class="type">AFHTTPRequestSerializerObserverContext</span> 中有 value 变化了(且变化后的新值不为 <span class="type">NSNull</span> null)，就会响应 observerValueForKeyPath 这个函数，从而mutableObservedChangedKeyPaths就会添加这个 keyPath</span><br><span class="line">    */</span><br><span class="line">   <span class="keyword">for</span> (<span class="type">NSString</span> *keyPath <span class="keyword">in</span> <span class="type">AFHTTPRequestSerializerObservedKeyPaths</span>()) &#123;</span><br><span class="line">       <span class="keyword">if</span> ([self.mutableObservedChangedKeyPaths containsObject:keyPath]) &#123;</span><br><span class="line">           [mutableRequest setValue:[self valueForKeyPath:keyPath] forKey:keyPath];</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   // 将传入的parameters进行编码，并添加到request中</span><br><span class="line">   /**</span><br><span class="line">    *  一般我们请求都会按key=value的方式带上各种参数，<span class="type">GET</span>方法参数直接加在<span class="type">URL</span>上，<span class="type">POST</span>方法放在body上，<span class="type">NSURLRequest</span>没有封装好这个参数的解析，只能我们自己拼好字符串。<span class="type">AFNetworking</span>提供了接口，让参数可以是<span class="type">NSDictionary</span>, <span class="type">NSArray</span>, <span class="type">NSSet</span>这些类型，再由内部解析成字符串后赋给<span class="type">NSURLRequest</span>。</span><br><span class="line">    */</span><br><span class="line">   mutableRequest = [[self requestBySerializingRequest:mutableRequest withParameters:parameters error:error] mutableCopy];</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> mutableRequest;</span><br></pre></td></tr></table></figure>
+<p> 如果 method 是 GET、HEAD、DELETE，那 parameter 将会被用来构建一个基于 url 编码的查询字符串（query url），并且这个字符串会直接加到request的url后面。对于 POST/PUT，它们会根据 parameterEncoding 属性进行编码，而后加到 request 的 http body 上。</p>
+<h3 id="4-用_request_创建_NSURLSessionDataTask">4.用 request 创建 NSURLSessionDataTask</h3><p>主要方法体如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">__block <span class="built_in">NSURLSessionDataTask</span> *dataTask = <span class="literal">nil</span>;</span><br><span class="line"><span class="comment">// 解决iOS8之前的一个bug</span></span><br><span class="line">url_session_manager_create_task_safely(^&#123;</span><br><span class="line">    <span class="comment">//  用NSURLSession创建NSURLSessionDataTask</span></span><br><span class="line">    dataTask = [<span class="keyword">self</span><span class="variable">.session</span> dataTaskWithRequest:request];</span><br><span class="line">&#125;);</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>用 NSURLSession 的 <code>dataTaskWithRequest:</code>方法来创建 dataTask，这里需要注意的是方法被一个<code>url_session_manager_create_task_safely</code>的 block 包起来，这里是为了解决 iOS 8 上的一个 <a href="https://github.com/AFNetworking/AFNetworking/issues/2093" target="_blank" rel="external">bug</a>。</p>
+<h3 id="5-给_dataTask_添加_Delegate">5.给 dataTask 添加 Delegate</h3><p>在这个方法里给 dataTask 添加了一个 AFURLSessionManagerTaskDelegate，并为 dataTask 提供进度管理功能，具体的是在<code>[self setDelegate:delegate forTask:dataTask]</code>方法：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">NSParameterAssert(task);</span><br><span class="line">   NSParameterAssert(<span class="keyword">delegate</span>);</span><br><span class="line"></span><br><span class="line">   [<span class="keyword">self</span>.lock lock];</span><br><span class="line">   <span class="keyword">self</span>.mutableTaskDelegatesKeyedByTaskIdentifier[@(task.taskIdentifier)] = <span class="keyword">delegate</span>;</span><br><span class="line">   <span class="comment">// 设置uploadProgress和downloadProgress这两个NSProgress变量</span></span><br><span class="line">   [<span class="keyword">delegate</span> setupProgressForTask:task];</span><br><span class="line">   <span class="comment">// 给session task添加KVO</span></span><br><span class="line">   [<span class="keyword">self</span> addNotificationObserverForTask:task];</span><br><span class="line">   [<span class="keyword">self</span>.lock unlock];</span><br></pre></td></tr></table></figure>
+<p>这里首先把<code>task.taskIdentifier</code>作为 key，<code>delegate</code> 作为 value 存在一个 MutableDictionary 里，然后设置上传和下载两个 progress，并给 task 添加上启动和暂停的 KVO。</p>
+<h3 id="小结">小结</h3><p>通过这个流程可以初步了解 AFNetworking 内部方法调用关系，当然也可以看出其实 AFNetworking 就是对 NSURLSession 的高度地封装。随后的文章会结合源码，来深入理解 AFNetworking 的实现原理。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/22/simpleweather/" rel="next">
+                SimpleWeather 2.0 - 基于React Native的重构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/09/26/afnetworking-1/"
+     data-title="AFNetworking 源码阅读笔记（一）"
+     data-content=""
+     data-url="http://v2panda.com/2016/09/26/afnetworking-1/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+            <!-- 多说热评文章-->
+            <p>热评文章</p>
+            <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2016/09/26/afnetworking-1/"
+                   data-title="AFNetworking 源码阅读笔记（一）" data-url="http://v2panda.com/2016/09/26/afnetworking-1/">
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="熊猫" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">熊猫</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">先做，再说</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">标签</span>
+              
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/v2panda" target="_blank">
+                  <i class="fa fa-github"></i> Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/x2panda" target="_blank">
+                  <i class="fa fa-twitter"></i> Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/xzlovepanda" target="_blank">
+                  <i class="fa fa-weibo"></i> Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程"><span class="nav-number">2.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Get_请求入口"><span class="nav-number">3.</span> <span class="nav-text">1.Get 请求入口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-创建_NSURLSessionDataTask"><span class="nav-number">4.</span> <span class="nav-text">2.创建 NSURLSessionDataTask</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-创建_NSMutableURLRequest"><span class="nav-number">5.</span> <span class="nav-text">3.创建 NSMutableURLRequest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-用_request_创建_NSURLSessionDataTask"><span class="nav-number">6.</span> <span class="nav-text">4.用 request 创建 NSURLSessionDataTask</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-给_dataTask_添加_Delegate"><span class="nav-number">7.</span> <span class="nav-text">5.给 dataTask 添加 Delegate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">8.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">熊猫</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"v2panda"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
