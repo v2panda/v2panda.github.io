@@ -1,0 +1,754 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  
+    <link href='//fonts.useso.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+
+
+<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" />
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
+
+
+    <meta name="description" content="先做，再说" />
+
+
+
+  <meta name="keywords" content="v2panda,panda,Hexo,next" />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="v2panda's blog" type="application/atom+xml" />
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
+
+
+<meta name="description" content="AFNetworking 是 Objective-C 中用于网络请求的第三方框架，我们一般使用它来封装网络请求，这篇文章记录了阅读 AFNetworking(Version 3.1.0) 源码的笔记，简单的研究了它的实现细节。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AFNetworking 源码阅读笔记（二）">
+<meta property="og:url" content="http://v2panda.com/2016/09/29/afnetworking-2/index.html">
+<meta property="og:site_name" content="v2panda's blog">
+<meta property="og:description" content="AFNetworking 是 Objective-C 中用于网络请求的第三方框架，我们一般使用它来封装网络请求，这篇文章记录了阅读 AFNetworking(Version 3.1.0) 源码的笔记，简单的研究了它的实现细节。">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/afnetworking-logo.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/af-httpsm.png">
+<meta property="og:image" content="http://7xnmlk.com1.z0.glb.clouddn.com/af-urlsm.png">
+<meta property="og:updated_time" content="2016-09-29T13:39:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AFNetworking 源码阅读笔记（二）">
+<meta name="twitter:description" content="AFNetworking 是 Objective-C 中用于网络请求的第三方框架，我们一般使用它来封装网络请求，这篇文章记录了阅读 AFNetworking(Version 3.1.0) 源码的笔记，简单的研究了它的实现细节。">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'always'
+  };
+</script>
+
+
+
+  <title> AFNetworking 源码阅读笔记（二） | v2panda's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?ad0f846553fb2ad6f12577fc83605cb1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">v2panda's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">subtitle</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                AFNetworking 源码阅读笔记（二）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-09-29T21:30:02+08:00" content="2016-09-29">
+              2016-09-29
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/29/afnetworking-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/29/afnetworking-2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/afnetworking-logo.png" alt="AFNetworking"><br><a href="https://github.com/AFNetworking/AFNetworking/" target="_blank" rel="external">AFNetworking</a> 是 Objective-C 中用于网络请求的第三方框架，我们一般使用它来封装网络请求，这篇文章记录了阅读 AFNetworking(Version 3.1.0) 源码的笔记，简单的研究了它的实现细节。</p>
+<a id="more"></a>
+<h3 id="AFHTTPSessionManager">AFHTTPSessionManager</h3><p>AFHTTPSessionManager 继承自 AFURLSessionManager，主要是提供了一系列对外暴露的属性和方法，如下图：</p>
+<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/af-httpsm.png" alt=""></p>
+<p>可以看出对外暴露的有：</p>
+<p>三个属性：<code>baseURL</code>、<code>requestSerializer</code>、<code>responseSerializer</code></p>
+<p>三个初始化方法：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ <span class="list">(<span class="keyword">instancetype</span>)</span>manager</span><br></pre></td></tr></table></figure>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="pp">- <span class="params">(instancetype)</span>initWithBaseURL:<span class="params">(nullable <span class="variable">NSURL</span> *)</span>url</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="pp">- <span class="params">(instancetype)</span>initWithBaseURL:<span class="params">(nullable <span class="variable">NSURL</span> *)</span>url</span><br><span class="line">           sessionConfiguration:<span class="params">(nullable <span class="variable">NSURLSessionConfiguration</span> *)</span>configuration</span></span><br></pre></td></tr></table></figure>
+<p>还有一系列请求方法：<code>GET</code>、<code>HEAD</code>、<code>POST</code>、<code>PUT</code>、<code>PATCH</code>、<code>DELETE</code>。</p>
+<h4 id="初始化与请求方法">初始化与请求方法</h4><p>其中所有的初始化方法，最后都到<code>initWithBaseURL:</code>方法里来初始化对象，需要注意的是默认 response 是 JSON 类型的。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithBaseURL:(<span class="built_in">NSURL</span> *)url</span><br><span class="line">           sessionConfiguration:(<span class="built_in">NSURLSessionConfiguration</span> *)configuration</span><br><span class="line">&#123;</span><br><span class="line">	...</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.baseURL</span> = url;</span><br><span class="line">	<span class="comment">// 默认的 request 和 response</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.requestSerializer</span> = [AFHTTPRequestSerializer serializer];</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.responseSerializer</span> = [AFJSONResponseSerializer serializer];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而所有的请求方法，<code>GET</code>、<code>HEAD</code>、<code>POST</code>、<code>PUT</code>、<code>PATCH</code>、<code>DELETE</code> 等最终都是调用的 <code>dataTaskWithHTTPMethod:</code> 方法创建 task，区别是传递的method名称不同，方法体如下：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">NSError *serializationError = <span class="keyword">nil</span>;</span><br><span class="line">   <span class="comment">// 创建 NSMutableURLRequest</span></span><br><span class="line">   NSMutableURLRequest *request = [<span class="keyword">self</span>.requestSerializer requestWithMethod:<span class="function"><span class="keyword">method</span> <span class="title">URLString</span>:</span>[[NSURL URLWithString:URLString relativeToURL:<span class="keyword">self</span>.baseURL] absoluteString] parameters:parameters error:&amp;serializationError];</span><br><span class="line">   </span><br><span class="line">   ...处理构建 request 产生的错误</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 创建 dataTask</span></span><br><span class="line">   __block NSURLSessionDataTask *dataTask = <span class="keyword">nil</span>;</span><br><span class="line">   dataTask = [<span class="keyword">self</span> dataTaskWithRequest:request</span><br><span class="line">                         uploadProgress:uploadProgress</span><br><span class="line">                       downloadProgress:downloadProgress</span><br><span class="line">                      completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) <span class="comment">&#123;</span><br><span class="line">...</span><br><span class="line">   &#125;</span>];</span><br><span class="line"></span><br><span class="line">   return dataTask;</span><br></pre></td></tr></table></figure>
+<p>其中先创建 request，再根据 request 创建 dataTask。</p>
+<h4 id="NSSecureCoding">NSSecureCoding</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@interface</span> <span class="string">AFHTTPSessionManager :</span> AFURLSessionManager &lt;NSSecureCoding, NSCopying&gt;</span><br></pre></td></tr></table></figure>
+<p>可以看出 AFHTTPSessionManager 实现了 NSSecureCoding 和 NSCoding 协议，其中 NSSecureCoding 是基于 NSCoding 协议。</p>
+<p>NSSecureCoding 是苹果在 iOS6 中引入的一个新协议，基于NSCoding。简单的说就是在数据归档过程加了数据类型检验，相对更安全一点，使用起来需要多实现一个方法：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@protocol</span> NSSecureCoding &lt;NSCoding&gt;</span><br><span class="line"><span class="variable">@required</span></span><br><span class="line">+ (BOOL)supportsSecureCoding;</span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>
+<h4 id="小结">小结</h4><p>总的来说 AFHTTPSessionManager 只是在 AFURLSessionManager 的基础上做了一层包装。</p>
+<h3 id="AFURLSessionManager">AFURLSessionManager</h3><p>AFURLSessionManager 可以说是 AFNetworking 的核心类，相应的其内部实现也复杂许多，先来看一张图：<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/af-urlsm.png" alt=""><br>AFURLSessionManager.m 内部除了 AFURLSessionManager 的实现外，还包含两个自定义类的实现，AFURLSessionManagerTaskDelegate 主要为 task 提供进度管理功能，_AFURLSessionTaskSwizzling 则是修改 NSURLSessionTask 的 <code>resume</code> 和 <code>suspend</code> 方法，这里还是先从 AFURLSessionManager 初始化开始。</p>
+<h4 id="初始化">初始化</h4><p>AFURLSessionManager 的初始化在<code>initWithSessionConfiguration:</code>方法里进行了一系列的配置：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">// 默认为 defaultSessionConfiguration</span></span><br><span class="line">    <span class="keyword">if</span> (!configuration) &#123;</span><br><span class="line">        configuration = [<span class="built_in">NSURLSessionConfiguration</span> defaultSessionConfiguration];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.sessionConfiguration</span> = configuration;</span><br><span class="line">    <span class="comment">// 初始化代理队列</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.operationQueue</span> = [[<span class="built_in">NSOperationQueue</span> alloc] init];</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.operationQueue</span><span class="variable">.maxConcurrentOperationCount</span> = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 初始化 session</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.session</span> = [<span class="built_in">NSURLSession</span> sessionWithConfiguration:<span class="keyword">self</span><span class="variable">.sessionConfiguration</span> delegate:<span class="keyword">self</span> delegateQueue:<span class="keyword">self</span><span class="variable">.operationQueue</span>];</span><br><span class="line">    <span class="comment">// 初始化 response 序列，默认为 JSON</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.responseSerializer</span> = [AFJSONResponseSerializer serializer];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// AFSecurityPolicy 是 AFNetworking 用来保证 HTTP 请求安全的类，它被 AFURLSessionManager 持有</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.securityPolicy</span> = [AFSecurityPolicy defaultPolicy];</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#if !TARGET_OS_WATCH</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.reachabilityManager</span> = [AFNetworkReachabilityManager sharedManager];</span><br><span class="line"><span class="preprocessor">#endif</span></span><br><span class="line">    <span class="comment">// 初始化用来存放 AFURLSessionManagerTaskDelegate 的字典</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.mutableTaskDelegatesKeyedByTaskIdentifier</span> = [[<span class="built_in">NSMutableDictionary</span> alloc] init];</span><br><span class="line">    <span class="comment">// 初始化 NSLock</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.lock</span> = [[<span class="built_in">NSLock</span> alloc] init];</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.lock</span><span class="variable">.name</span> = AFURLSessionManagerLockName;</span><br><span class="line">    </span><br><span class="line">    ...为已有的 task 设置代理</span><br></pre></td></tr></table></figure>
+<h4 id="创建_NSURLSessionTask">创建 NSURLSessionTask</h4><p>创建 NSURLSessionTask 的方法有以下三种：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">dataTaskWithRequest:</span></span><br><span class="line"></span><br><span class="line"><span class="label">uploadTaskWithRequest:</span></span><br><span class="line"></span><br><span class="line"><span class="label">downloadTaskWithRequest:</span></span><br></pre></td></tr></table></figure>
+<p>这里以 <code>dataTaskWithRequest:</code> 方法为例，可以看出其是用 NSURLSession 的 <code>dataTaskWithRequest:</code>方法创建出 dataTask。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">__block NSURLSessionDataTask *dataTask = nil;</span><br><span class="line">   <span class="comment">// 解决iOS8之前的一个bug</span></span><br><span class="line">   url_session_manager_create_task_safely(^&#123;</span><br><span class="line">       <span class="comment">//  用NSURLSession创建NSURLSessionDataTask</span></span><br><span class="line">       dataTask = [self.session <span class="string">dataTaskWithRequest:</span>request];</span><br><span class="line">   &#125;);</span><br><span class="line">   </span><br><span class="line">   <span class="comment">// 给data task添加了一个AFURLSessionManagerTaskDelegate</span></span><br><span class="line">   <span class="comment">// 主要为 task 提供进度管理功能</span></span><br><span class="line">   [self <span class="string">addDelegateForDataTask:</span>dataTask <span class="string">uploadProgress:</span>uploadProgressBlock <span class="string">downloadProgress:</span>downloadProgressBlock <span class="string">completionHandler:</span>completionHandler];</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> dataTask;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是在创建完 dataTask 之后，又通过 <code>addDelegateForDataTask:</code>方法给 dataTask 添加了一个 AFURLSessionManagerTaskDelegate，这个 delegate 主要为 dataTask 提供上传下载的进度管理功能。</p>
+<h4 id="NSURLSession_相关的代理方法">NSURLSession 相关的代理方法</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@interface</span> <span class="string">AFURLSessionManager :</span> NSObject &lt;NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NSSecureCoding, NSCopying&gt;</span><br></pre></td></tr></table></figure>
+<p>AFURLSessionManager 遵循并实现了一系列 NSURLSession 相关的代理方法，不过 AFURLSessionManager 为所有的代理协议都提供了对应的 block 接口，这样不让用户自己实现相关方法，对外只暴露出 block。这里举个🌰：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">-</span> (<span class="tag">void</span>)<span class="rule"><span class="attribute">URLSession</span>:<span class="value">(NSURLSession *)session</span><br><span class="line">didBecomeInvalidWithError:(NSError *)error</span><br><span class="line">&#123;</span><br><span class="line">    if (self.sessionDidBecomeInvalid) &#123;</span><br><span class="line">        self.<span class="function">sessionDidBecomeInvalid</span>(session, error)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="attr_selector">[[NSNotificationCenter defaultCenter]</span> <span class="rule"><span class="attribute">postNotificationName</span>:<span class="value">AFURLSessionDidInvalidateNotification object:session]</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出在以上方法中，用户只需要调用这个 block， 就可以用来处理session无效的情况，这么做隐藏了细节，简化了调用。</p>
+<h4 id="AFURLSessionManagerTaskDelegate">AFURLSessionManagerTaskDelegate</h4><p>AFURLSessionManagerTaskDelegate 继承自 NSObject，主要作用是为 dataTask 提供进度管理功能。</p>
+<p>需要注意的是在 AFURLSessionManagerTaskDelegate 的 <code>setupProgressForTask</code>方法中将 NSProgress 和 NSURLSessionTask 进行了状态绑定，代码如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line"> 上传的totalUnitCount就对应期望发送(send)的数据大小，下载任务的就对应期望接收(receive)的数据大小。</span><br><span class="line"> </span><br><span class="line"> 接着就是设置这两个NSProgress对应的cancel、pause和resume这三个状态，正好对应session task的cancel、suspend和resume三个状态</span><br><span class="line">*/</span></span><br><span class="line"><span class="keyword">self</span><span class="variable">.uploadProgress</span><span class="variable">.totalUnitCount</span> = task<span class="variable">.countOfBytesExpectedToSend</span>;</span><br><span class="line"><span class="keyword">self</span><span class="variable">.downloadProgress</span><span class="variable">.totalUnitCount</span> = task<span class="variable">.countOfBytesExpectedToReceive</span>;</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.uploadProgress</span> setCancellable:<span class="literal">YES</span>];</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.uploadProgress</span> setCancellationHandler:^&#123;</span><br><span class="line">    __typeof__(weakTask) strongTask = weakTask;</span><br><span class="line">    [strongTask cancel];</span><br><span class="line">&#125;];</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.uploadProgress</span> setPausable:<span class="literal">YES</span>];</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.uploadProgress</span> setPausingHandler:^&#123;</span><br><span class="line">    __typeof__(weakTask) strongTask = weakTask;</span><br><span class="line">    [strongTask suspend];</span><br><span class="line">&#125;];</span><br><span class="line"><span class="keyword">if</span> ([<span class="keyword">self</span><span class="variable">.uploadProgress</span> respondsToSelector:<span class="keyword">@selector</span>(setResumingHandler:)]) &#123;</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.uploadProgress</span> setResumingHandler:^&#123;</span><br><span class="line">        __typeof__(weakTask) strongTask = weakTask;</span><br><span class="line">        [strongTask resume];</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span><span class="variable">.downloadProgress</span> setCancellable:<span class="literal">YES</span>];</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.downloadProgress</span> setCancellationHandler:^&#123;</span><br><span class="line">    __typeof__(weakTask) strongTask = weakTask;</span><br><span class="line">    [strongTask cancel];</span><br><span class="line">&#125;];</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.downloadProgress</span> setPausable:<span class="literal">YES</span>];</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.downloadProgress</span> setPausingHandler:^&#123;</span><br><span class="line">    __typeof__(weakTask) strongTask = weakTask;</span><br><span class="line">    [strongTask suspend];</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ([<span class="keyword">self</span><span class="variable">.downloadProgress</span> respondsToSelector:<span class="keyword">@selector</span>(setResumingHandler:)]) &#123;</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.downloadProgress</span> setResumingHandler:^&#123;</span><br><span class="line">        __typeof__(weakTask) strongTask = weakTask;</span><br><span class="line">        [strongTask resume];</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给两个progress添加KVO NSProgress的fractionCompleted属性（任务已经完成的比例，取值为0~1）</span></span><br><span class="line">[<span class="keyword">self</span><span class="variable">.downloadProgress</span> addObserver:<span class="keyword">self</span></span><br><span class="line">                        forKeyPath:<span class="built_in">NSStringFromSelector</span>(<span class="keyword">@selector</span>(fractionCompleted))</span><br><span class="line">                           options:<span class="built_in">NSKeyValueObservingOptionNew</span></span><br><span class="line">                           context:<span class="literal">NULL</span>];</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.uploadProgress</span> addObserver:<span class="keyword">self</span></span><br><span class="line">                      forKeyPath:<span class="built_in">NSStringFromSelector</span>(<span class="keyword">@selector</span>(fractionCompleted))</span><br><span class="line">                         options:<span class="built_in">NSKeyValueObservingOptionNew</span></span><br><span class="line">                         context:<span class="literal">NULL</span>];</span><br></pre></td></tr></table></figure>
+<h4 id="_AFURLSessionTaskSwizzling">_AFURLSessionTaskSwizzling</h4><p><code>_AFURLSessionTaskSwizzling</code> 的唯一功能就是修改 NSURLSessionTask 的 <code>resume</code> 和 <code>suspend</code> 方法，使用 <code>af_resume</code>、<code>af_suspend</code> 替换原有的实现，主要实现是在 <code>+load</code> 方法中实现了 method swizzling。</p>
+<h3 id="总结">总结</h3><p>本文只列举了一些主要的知识点，详细的可以看<a href="https://github.com/v2panda/PDSourceNotes/tree/master/AFNetworking/AFNetworking-notes" target="_blank" rel="external">源码注释</a>。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/26/afnetworking-1/" rel="next">
+                AFNetworking 源码阅读笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/09/29/afnetworking-2/"
+     data-title="AFNetworking 源码阅读笔记（二）"
+     data-content=""
+     data-url="http://v2panda.com/2016/09/29/afnetworking-2/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+            <!-- 多说热评文章-->
+            <p>热评文章</p>
+            <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2016/09/29/afnetworking-2/"
+                   data-title="AFNetworking 源码阅读笔记（二）" data-url="http://v2panda.com/2016/09/29/afnetworking-2/">
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="熊猫" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">熊猫</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">先做，再说</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">标签</span>
+              
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/v2panda" target="_blank">
+                  <i class="fa fa-github"></i> Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/x2panda" target="_blank">
+                  <i class="fa fa-twitter"></i> Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/xzlovepanda" target="_blank">
+                  <i class="fa fa-weibo"></i> Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#AFHTTPSessionManager"><span class="nav-number">1.</span> <span class="nav-text">AFHTTPSessionManager</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化与请求方法"><span class="nav-number">1.1.</span> <span class="nav-text">初始化与请求方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSSecureCoding"><span class="nav-number">1.2.</span> <span class="nav-text">NSSecureCoding</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">1.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AFURLSessionManager"><span class="nav-number">2.</span> <span class="nav-text">AFURLSessionManager</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">2.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建_NSURLSessionTask"><span class="nav-number">2.2.</span> <span class="nav-text">创建 NSURLSessionTask</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSession_相关的代理方法"><span class="nav-number">2.3.</span> <span class="nav-text">NSURLSession 相关的代理方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AFURLSessionManagerTaskDelegate"><span class="nav-number">2.4.</span> <span class="nav-text">AFURLSessionManagerTaskDelegate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#_AFURLSessionTaskSwizzling"><span class="nav-number">2.5.</span> <span class="nav-text">_AFURLSessionTaskSwizzling</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">熊猫</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"v2panda"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
