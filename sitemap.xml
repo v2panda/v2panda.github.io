@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://v2panda.com/about/index.html</loc>
+    <lastmod>2016-10-06T12:37:46.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://v2panda.com//resume.html</loc>
+    <lastmod>2016-10-06T12:34:01.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://v2panda.com/2016/09/30/afnetworking-3/</loc>
     <lastmod>2016-09-30T11:54:10.000Z</lastmod>
   </url>
@@ -99,11 +109,6 @@
   <url>
     <loc>http://v2panda.com/2015/07/27/iOS-develop-tips/</loc>
     <lastmod>2015-12-13T08:04:35.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://v2panda.com/about/index.html</loc>
-    <lastmod>2015-11-26T07:18:56.000Z</lastmod>
   </url>
   
   <url>
