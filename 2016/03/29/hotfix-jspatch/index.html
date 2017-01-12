@@ -19,7 +19,7 @@
 <p>作者推荐的一种方案如图所示:<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/JSPatchSecurity.png" alt="JSPatchSecurity"><br>1.服务端计算出脚本文件的 MD5 值，作为这个文件的数字签名。<br>2.服务端通过私钥加密第 1 步算出的 MD5 值，得到一个加密后的 MD5 值。<br>3.把脚本文件和加密后的 MD5 值一起下发给客户端。<br>4.客户端拿到加密后的 MD5 值，通过保存在客户端的公钥解密。<br>5.客户端计算脚本文件的 MD5 值。<br>6.对比第 4/5 步的两个 MD5 值（分别是客户端和服务端计算出来的 MD5 值），若相等则通过校验。<br>对于JSPatch若有更多安全上的顾虑可以参考作者的<a href="http://blog.cnbang.net/internet/2990/" target="_blank" rel="external">回应一下 JSPatch 安全问题</a>。</p>
 <h3 id="使用">使用</h3><p>目前有两种使用方法，一种是使用作者提供的<a href="http://jspatch.com/" target="_blank" rel="external">JSPatch Platform</a>平台，集成JSPatch的SDK，按请求次数收费，目前免费额度为 100w次请求/月，超出的部分会另行收费。<br>还有一种是自己造轮子，毕竟JSPatch是开源的，从前端逻辑到后台安全策略，都可以根据公司的业务需求自由定制。</p>
 <h3 id="后记">后记</h3><p>总体来说还是十分好用的，需要注意的是每次版本用JSPatch解决的线上Bug后，下个版本必须得将代码写入项目中。</p>
-</div></article></div></main><footer><div class="paginator"><a href="/2016/04/24/app-reverse/" class="prev">PREV</a><a href="/2016/02/29/buildci/" class="next">NEXT</a></div><div data-thread-key="2016/03/29/hotfix-jspatch/" data-title="基于JSPatch的在线更新" data-url="http://v2panda.com/2016/03/29/hotfix-jspatch/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"v2panda"};
+</div></article></div></main><footer><div class="paginator"><a href="/2016/04/24/app-reverse/" class="prev">上一篇</a><a href="/2016/02/29/buildci/" class="next">下一篇</a></div><div data-thread-key="2016/03/29/hotfix-jspatch/" data-title="基于JSPatch的在线更新" data-url="http://v2panda.com/2016/03/29/hotfix-jspatch/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"v2panda"};
 (function() {
     var ds = document.createElement('script');
     ds.type = 'text/javascript';ds.async = true;
