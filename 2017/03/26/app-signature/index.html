@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> App 常用签名设计 · v2panda's blog</title><meta name="description" content="App 常用签名设计 - 熊猫"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/v2panda.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://v2panda.com/atom.xml" title="v2panda's blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/v2panda.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">ABOUT</a></li><li class="nav-list-item"><a href="http://weibo.com/xzlovepanda" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/v2panda" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">App 常用签名设计</h1><div class="post-info">Mar 26, 2017</div><div class="post-content"><h3 id="前言">前言</h3><p>一般来说，客户端 App 与服务器端是通过接口进行交互，来互相传递数据的，而为了保证数据的安全性，一般都会专门设计一个签名规则。</p>
+<a id="more"></a>
+<h3 id="三种安全强度的签名设计">三种安全强度的签名设计</h3><h4 id="第一种：客户端加密(对称加密，如_AES)，服务端解密，配合_token_和流水号">第一种：客户端加密(对称加密，如 AES)，服务端解密，配合 token 和流水号</h4><p>优点：能够保持用户登录状态、区分用户，相对于不返回任何信息的登录要安全了一些。</p>
+<p>缺点：如果通过网络嗅探器（例如：青花瓷）可以获取到http链接，会造成信息泄露，并且还能被伪造请求。</p>
+<h4 id="第二种：客户端加密(非对称加密，如_RSA)，服务端解密，配合_token_和流水号">第二种：客户端加密(非对称加密，如 RSA)，服务端解密，配合 token 和流水号</h4><p>采用 RSA 非对称加密。具体流程如下：</p>
+<ul>
+<li><p>客户端向服务器第一次发起登录请求（不传输用户名和密码）。</p>
+</li>
+<li><p>服务器利用RSA算法产生一对公钥和私钥。并保留私钥， 将公钥发送给客户端。</p>
+</li>
+<li><p>客户端收到公钥后， 加密用户密码， 向服务器发起第二次登录请求（传输用户名和加密后的密码）。</p>
+</li>
+<li><p>服务器利用保留的私钥对密文进行解密，得到真正的密码。</p>
+</li>
+</ul>
+<h4 id="第三种：非对称加密_+_token_+_流水号">第三种：非对称加密 + token + 流水号</h4><p>前两种方法如果 token 被截获了，那么他人完全就能够模拟出用户的请求，所以在服务器向客户端发送的 token 数据，也需要加密。</p>
+<p>具体流程如下：</p>
+<ul>
+<li><p>客户端向服务器第一次发起登录请求（不传输用户名和密码），服务器利用RSA算法产生一对公钥和私钥，并保留私钥，将公钥发送给客户端。</p>
+</li>
+<li><p>客户端收到公钥后，加密用户密码，向服务器发送用户名和加密后的用户密码； 同时另外产生一对公钥和私钥，自己保留私钥, 向服务器发送公钥，于是第二次登录请求传输了用户名和加密后的密码以及客户端生成的公钥。</p>
+</li>
+<li><p>服务器利用保留的私钥对密文进行解密，得到真正的密码。经过判断， 确定用户可以登录后，生成sessionId和token，同时利用客户端发送的公钥，对token进行加密。最后将sessionId和加密后的token返还给客户端。</p>
+</li>
+<li><p>客户端利用自己生成的私钥对token密文解密，得到真正的token。</p>
+</li>
+</ul>
+<h3 id="实践">实践</h3><p>从签名强度来看，上面方法第三种 &gt; 第二种 &gt; 第一种，所以此处省略第一二种实践方式，主要看看第三种。</p>
+<h4 id="流程">流程</h4><p>具体的实践分为登录(拿 token) 和与用户信息相关的接口加密(AES) ，比上文第三种签名方式，多出一步 AES 加密：</p>
+<ul>
+<li><p>1.客户端向服务器第一次发起登录请求(注意这里是登录请求，不是调登录接口)。</p>
+</li>
+<li><p>2.服务器生成公私钥对(公钥1、私钥1)，将公钥1发送给客户端。</p>
+</li>
+<li><p>3.客户端收到公钥1后，加密用户密码，同时本地生成公私钥对(公钥2、私钥2)，调用登录接口，将公钥2和用公钥1加密过后的用户密码发给服务端。</p>
+</li>
+<li><p>4.服务器用私钥1对密文进行解密，得到真正的密码。经过判断，确定用户可以登录后，生成 sessionId 和 token，同时用客户端发送的公钥2，对 token 加密，最后将 sessionId 和加密后的 token 以及 AES 密钥返给客户端。</p>
+</li>
+<li><p>5.客户端用私钥2解密，得到 token 、sessionId、AES 密钥。</p>
+</li>
+<li><p>6.登录流程结束，本地存储有公钥1、公钥2、私钥2、AES 密钥、sessionId 和 token。</p>
+</li>
+</ul>
+<h4 id="密钥传递与处理">密钥传递与处理</h4><p>首先要明确 RSA 公私钥密文格式，这里建议客户端和服务端统一使用字符串，即公私钥在客户端是以字符串的形式传递的。</p>
+<p>其次，本地存储的公钥1、公钥2、私钥2、AES 密钥、sessionId 和 token，建议统一放到 keychain 中去，防止泄露。</p>
+<h4 id="密钥生成">密钥生成</h4><p>利用 OpenSSL 在客户端生成 RSA 密钥对时，并没找到方法将密钥(SecKeyRef)转成字符串(若您找到了，请告知于我，不胜感激)，所以在这用了一个取巧的方法：将公私钥保存为本地文件，然后再从这个文件中读取出来。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#pragma mark - 本地生成 RSA 公私钥对</span></span><br><span class="line">+ (<span class="built_in">NSArray</span> *)generateKeys &#123;</span><br><span class="line">    RSA *rsa = <span class="literal">NULL</span>;</span><br><span class="line">    rsa = RSA_new();</span><br><span class="line">    rsa = RSA_generate_key(<span class="number">1024</span>,<span class="number">0x10001</span>,<span class="literal">NULL</span>,<span class="literal">NULL</span>);</span><br><span class="line">    <span class="comment">// 路径</span></span><br><span class="line">    <span class="built_in">NSString</span> *documentsPath = [<span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>,<span class="built_in">NSUserDomainMask</span>,<span class="literal">YES</span>)objectAtIndex:<span class="number">0</span>];</span><br><span class="line">    <span class="comment">//获取公钥字符串</span></span><br><span class="line">    <span class="built_in">NSString</span> *pubPath = [documentsPath stringByAppendingPathComponent:<span class="string">@"PubFile.txt"</span>];</span><br><span class="line">    FILE *pubWrite = <span class="literal">NULL</span>;</span><br><span class="line">    pubWrite = fopen([pubPath UTF8String],<span class="string">"wb"</span>);</span><br><span class="line">    <span class="keyword">if</span>(pubWrite == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Read Filed."</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        PEM_write_RSA_PUBKEY(pubWrite,rsa);</span><br><span class="line">        fclose(pubWrite);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">NSString</span> *publicStr = [<span class="built_in">NSString</span> stringWithContentsOfFile:pubPath encoding:<span class="built_in">NSUTF8StringEncoding</span> error:<span class="literal">nil</span>];</span><br><span class="line">    publicStr = [publicStr stringByReplacingOccurrencesOfString:<span class="string">@"-----BEGIN PUBLIC KEY-----"</span>withString:<span class="string">@""</span>];</span><br><span class="line">    publicStr = [publicStr stringByReplacingOccurrencesOfString:<span class="string">@"-----END PUBLIC KEY-----"</span>withString:<span class="string">@""</span>];</span><br><span class="line">    publicStr = [publicStr stringByReplacingOccurrencesOfString:<span class="string">@"\n"</span>withString:<span class="string">@""</span>];</span><br><span class="line">    <span class="comment">//获取私钥字符串</span></span><br><span class="line">    <span class="built_in">NSString</span> *priPath = [documentsPath stringByAppendingPathComponent:<span class="string">@"PriFile.txt"</span>];</span><br><span class="line">    FILE *priWtire = <span class="literal">NULL</span>;</span><br><span class="line">    priWtire = fopen([priPath UTF8String],<span class="string">"wb"</span>);</span><br><span class="line">    EVP_PKEY *pkey = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">if</span>(priWtire == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Read Filed."</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        pkey =EVP_PKEY_new();</span><br><span class="line">        EVP_PKEY_assign_RSA(pkey, rsa);</span><br><span class="line">        PEM_write_PKCS8PrivateKey(priWtire, pkey,<span class="literal">NULL</span>,<span class="literal">NULL</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="literal">NULL</span>);</span><br><span class="line">        fclose(priWtire);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">NSString</span> *privateStr = [<span class="built_in">NSString</span> stringWithContentsOfFile:priPath encoding:<span class="built_in">NSUTF8StringEncoding</span> error:<span class="literal">nil</span>];</span><br><span class="line">    privateStr = [privateStr stringByReplacingOccurrencesOfString:<span class="string">@"-----BEGIN PRIVATE KEY-----"</span>withString:<span class="string">@""</span>];</span><br><span class="line">    privateStr = [privateStr stringByReplacingOccurrencesOfString:<span class="string">@"-----END PRIVATE KEY-----"</span>withString:<span class="string">@""</span>];</span><br><span class="line">    privateStr = [privateStr stringByReplacingOccurrencesOfString:<span class="string">@"\n"</span>withString:<span class="string">@""</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> @[publicStr,privateStr];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="最后">最后</h3><p>以上只是较常用三种安全强度的签名设计，真正 App 签名设计远远不止这三种，比这些安全强度高的也有许多，继续学习。</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2016/12/25/vlutr/" class="next">下一篇</a></div><div data-thread-key="2017/03/26/app-signature/" data-title="App 常用签名设计" data-url="http://v2panda.com/2017/03/26/app-signature/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"v2panda"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+
+</script><div class="copyright"><p>© 2014 - 2017 <a href="http://v2panda.com">熊猫</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
