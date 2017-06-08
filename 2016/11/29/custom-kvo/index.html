@@ -59,14 +59,12 @@
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span><span class="variable">.message</span> pd_addObserver:<span class="keyword">self</span> forKey:<span class="string">@"info"</span> withBlock:^(<span class="keyword">id</span> observedObject, <span class="built_in">NSString</span> *observedKey, <span class="keyword">id</span> oldValue, <span class="keyword">id</span> newValue) &#123;</span><br><span class="line">        <span class="keyword">self</span><span class="variable">.label</span><span class="variable">.text</span> = newValue;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 <p>具体实现可见 <a href="https://github.com/v2panda/PDPractice/tree/master/Demo_KVO" target="_blank" rel="external">Demo</a> 的 <code>NSObject+PDKVO</code> 类。</p>
 <h3 id="Reference">Reference</h3><p><a href="http://tech.glowing.com/cn/implement-kvo/" target="_blank" rel="external">如何自己动手实现 KVO</a></p>
-</div></article></div></main><footer><div class="paginator"><a href="/2016/12/25/vlutr/" class="prev">上一篇</a><a href="/2016/10/31/mvc-reconsitution/" class="next">下一篇</a></div><div data-thread-key="2016/11/29/custom-kvo/" data-title="自实现 KVO" data-url="http://v2panda.com/2016/11/29/custom-kvo/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"v2panda"};
+</div></article></div></main><footer><div class="paginator"><a href="/2016/12/25/vlutr/" class="prev">上一篇</a><a href="/2016/10/31/mvc-reconsitution/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'v2panda-com';
+var disqus_identifier = '2016/11/29/custom-kvo/';
+var disqus_title = '自实现 KVO';
+var disqus_url = 'http://v2panda.com/2016/11/29/custom-kvo/';
 (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] 
-     || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-
-</script><div class="copyright"><p>© 2014 - 2017 <a href="http://v2panda.com">熊猫</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//v2panda-com.disqus.com/count.js" async></script><div class="copyright"><p>© 2014 - 2017 <a href="http://v2panda.com">熊猫</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

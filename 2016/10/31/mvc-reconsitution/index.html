@@ -79,14 +79,12 @@
 <p>就能构建一个容易维护，便于协同的项目。</p>
 <p>本文只是在项目重构中总结的一些比较重要的点，并不意味着都是最优解。而我在项目的架构和代码的组织上经验尚浅，若本文有什么错误或是有更好的方法请直接指出，欢迎交流讨论。</p>
 <h3 id="Reference">Reference</h3><p><a href="http://casatwy.com/iosying-yong-jia-gou-tan-viewceng-de-zu-zhi-he-diao-yong-fang-an.html" target="_blank" rel="external">iOS应用架构谈 view层的组织和调用方案</a></p>
-</div></article></div></main><footer><div class="paginator"><a href="/2016/11/29/custom-kvo/" class="prev">上一篇</a><a href="/2016/09/30/afnetworking-3/" class="next">下一篇</a></div><div data-thread-key="2016/10/31/mvc-reconsitution/" data-title="基于 MVC 的项目重构" data-url="http://v2panda.com/2016/10/31/mvc-reconsitution/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"v2panda"};
+</div></article></div></main><footer><div class="paginator"><a href="/2016/11/29/custom-kvo/" class="prev">上一篇</a><a href="/2016/09/30/afnetworking-3/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'v2panda-com';
+var disqus_identifier = '2016/10/31/mvc-reconsitution/';
+var disqus_title = '基于 MVC 的项目重构';
+var disqus_url = 'http://v2panda.com/2016/10/31/mvc-reconsitution/';
 (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] 
-     || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-
-</script><div class="copyright"><p>© 2014 - 2017 <a href="http://v2panda.com">熊猫</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//v2panda-com.disqus.com/count.js" async></script><div class="copyright"><p>© 2014 - 2017 <a href="http://v2panda.com">熊猫</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
