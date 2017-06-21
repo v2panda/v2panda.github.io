@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://v2panda.com/about/index.html</loc>
+    
+    <lastmod>2017-06-21T06:31:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://v2panda.com/2017/03/26/app-signature/</loc>
     
     <lastmod>2017-04-26T08:32:11.000Z</lastmod>
@@ -33,13 +40,6 @@
     <loc>http://v2panda.com/2016/11/29/custom-kvo/</loc>
     
     <lastmod>2016-12-01T08:44:55.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://v2panda.com/about/index.html</loc>
-    
-    <lastmod>2016-10-06T12:37:46.000Z</lastmod>
     
   </url>
   
