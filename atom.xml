@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://v2panda.com/"/>
-  <updated>2017-04-26T08:32:11.000Z</updated>
+  <updated>2018-10-20T05:02:47.355Z</updated>
   <id>http://v2panda.com/</id>
   
   <author>
@@ -14,6 +14,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>学会有目的的投入 - 读《刻意练习》</title>
+    <link href="http://v2panda.com/2018/10/20/deliberate-practice/"/>
+    <id>http://v2panda.com/2018/10/20/deliberate-practice/</id>
+    <published>2018-10-20T05:01:57.000Z</published>
+    <updated>2018-10-20T05:02:47.355Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;media/15399357994009/15399385338349.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;杰出不是一种天赋，而是一种技巧；这种技巧，你和我都可以掌握。&lt;/p&gt;
+&lt;h3 id=&quot;超越一万小时定律&quot;&gt;超越一万小时定律&lt;/h3&gt;&lt;p&gt;格拉
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>App 常用签名设计</title>
@@ -376,28 +394,6 @@
     
     
       <category term="Shadowsocks" scheme="http://v2panda.com/tags/Shadowsocks/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>滑动返回手势探究</title>
-    <link href="http://v2panda.com/2015/10/13/research-slidingback-gesture/"/>
-    <id>http://v2panda.com/2015/10/13/research-slidingback-gesture/</id>
-    <published>2015-10-13T08:44:49.000Z</published>
-    <updated>2015-12-14T09:18:07.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;前言&quot;&gt;前言&lt;/h4&gt;&lt;p&gt;从iOS7开始，苹果增加了页面右滑返回的效果，具体的是以UINavigationController为容器的ViewController间右滑切换页面。&lt;/p&gt;
-&lt;p&gt;代码里的设置是：&lt;/p&gt;
-&lt;figure class=&quot;highlight objectivec&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;.navigationController&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;.interactivePopGestureRecognizer&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;.enabled&lt;/span&gt; = &lt;span class=&quot;literal&quot;&gt;YES&lt;/span&gt;;（&lt;span class=&quot;keyword&quot;&gt;default&lt;/span&gt; is &lt;span class=&quot;literal&quot;&gt;YES&lt;/span&gt;）&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;可以看到苹果给navigationController添加了一个手势（具体为&lt;code&gt;UIScreenEdgePanGestureRecognizer&lt;/code&gt;（边缘手势，同样是ios7以后才有的）），就是利用这个手势实现的 iOS7的侧滑返回。&lt;/p&gt;
-&lt;p&gt;但在日常开发中，我们大多会自定义返回按钮，此时系统的右滑返回就会失效。然而支持滑动返回已成为iOS上必须实现的交互，若没有那APP离被卸载就不远了。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://v2panda.com/tags/iOS/"/>
     
   </entry>
   
