@@ -17,9 +17,9 @@
 <p>安装fir-cli,详细的参考<a href="https://github.com/FIRHQ/fir-cli/blob/master/README.md" target="_blank" rel="external">文档</a></p>
 <figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gem install fir-<span class="keyword">cli</span></span><br></pre></td></tr></table></figure>
 <h3 id="新建项目">新建项目</h3><p>新建一个项目，选择自由风格的软件项目。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blognewItem.png" alt="newItem"><br>继续填写基本信息与源码管理,若选用Git则需注意填写Repositories地址与    Branches to build<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogbasicInfo.png" alt="basicInfo"></p>
-<h3 id="构建配置">构建配置</h3><p>添加构建触发器,这里就是告诉Jenkins什么时候自动构建。<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogbuildWhen.png" alt="buildWhen"><br>这里选择的是有push到github时构建，也可以选Poll SCM设置构建时间<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogbuildPoll.png" alt="buildPoll"><br>这里的配置为周一到周五每天8点到9点之间执行一次。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogexecuteShell.png" alt="executeShell"><br>选择构建配置为Execute Shell，填入</p>
+<p><img src="http://cdn.v2pd.com/blognewItem.png" alt="newItem"><br>继续填写基本信息与源码管理,若选用Git则需注意填写Repositories地址与    Branches to build<br><img src="http://cdn.v2pd.com/blogbasicInfo.png" alt="basicInfo"></p>
+<h3 id="构建配置">构建配置</h3><p>添加构建触发器,这里就是告诉Jenkins什么时候自动构建。<br><img src="http://cdn.v2pd.com/blogbuildWhen.png" alt="buildWhen"><br>这里选择的是有push到github时构建，也可以选Poll SCM设置构建时间<br><img src="http://cdn.v2pd.com/blogbuildPoll.png" alt="buildPoll"><br>这里的配置为周一到周五每天8点到9点之间执行一次。</p>
+<p><img src="http://cdn.v2pd.com/blogexecuteShell.png" alt="executeShell"><br>选择构建配置为Execute Shell，填入</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">fir</span> build_ipa <span class="variable">$&#123;WORKSPACE1&#125;</span> -o <span class="variable">$&#123;WORKSPACE2&#125;</span>/TestJenkins.ipa -p -T <span class="comment">#API Token#</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>WORKSPACE1——–为项目路径</li>
@@ -27,13 +27,13 @@
 <li>#API Token#————fir API Token</li>
 </ul>
 <p>然后保存退出。</p>
-<h3 id="构建">构建</h3><p>建议逐步构建，避免错误，构建历史如下<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogbuildHistory.png" alt=""></p>
+<h3 id="构建">构建</h3><p>建议逐步构建，避免错误，构建历史如下<br><img src="http://cdn.v2pd.com/blogbuildHistory.png" alt=""></p>
 <p>蓝色的为构建成功，红色为失败，若遇到以下类似的错误</p>
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">PluginLoading</span>: <span class="string">Required plug-in compatibility UUID F41BD31E-2683-44B8-</span></span><br><span class="line"></span><br><span class="line"><span class="dos">AE7F-<span class="number">5</span>F09E919790E <span class="flow">for</span> plug-<span class="flow">in</span> <span class="built_in">at</span> <span class="built_in">path</span> '~/Library/Application Support/</span><br><span class="line"></span><br><span class="line">Developer/Shared/Xcode/Plug-ins/KSImageNamed.xcplugin' <span class="flow">not</span> present <span class="flow">in</span> </span><br><span class="line"></span><br><span class="line">DVTPlugInCompatibilityUUIDs</span></span><br></pre></td></tr></table></figure>
 <p>可以参考<a href="http://stackoverflow.com/questions/20732327/xcode-5-required-plug-in-not-present-in-dvtplugincompatibilityuuids" target="_blank" rel="external">stackoverflow</a>。</p>
-<h3 id="发布">发布</h3><p>构建成功后就可以在fir上看到应用了，扫码或打开短链接下载应用。<br><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogfirim.png" alt="firim"></p>
+<h3 id="发布">发布</h3><p>构建成功后就可以在fir上看到应用了，扫码或打开短链接下载应用。<br><img src="http://cdn.v2pd.com/blogfirim.png" alt="firim"></p>
 <p>注意这里只能安装开发者账号设备列表里的设备，个人开发者账号和企业账号有所区别</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/blogdeviceslist.png" alt="deviceslist"></p>
+<p><img src="http://cdn.v2pd.com/blogdeviceslist.png" alt="deviceslist"></p>
 <p>详情可以查看<a href="http://fir.im/support/articles/faq/ios_certificate" target="_blank" rel="external">fir support</a>。</p>
 </div></article></div></main><footer><div class="paginator"><a href="/2016/03/29/hotfix-jspatch/" class="prev">上一篇</a><a href="/2016/01/17/PDPullToRefresh/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'v2panda-com';
 var disqus_identifier = '2016/02/29/buildci/';

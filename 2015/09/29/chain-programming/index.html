@@ -6,7 +6,7 @@
 <h4 id="链式编程特点">链式编程特点</h4><p>方法的返回值是block,block必须有返回值（本身对象），block参数（需要操作的值）</p>
 <h4 id="实战">实战</h4><p>模仿masonry，写一个加法计算器，练习链式编程。</p>
 <p>1.新建类。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/234048-193e56372a1f9b54.png" alt="a.png"></p>
+<p><img src="http://cdn.v2pd.com/234048-193e56372a1f9b54.png" alt="a.png"></p>
 <p>2.在CaculatorMaker.h里定义四则运算</p>
 <figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">interface</span> <span class="type">CaculatorMaker</span> : <span class="type">NSObject</span></span><br><span class="line"></span><br><span class="line">@property (nonatomic, assign) <span class="type">int</span> <span class="literal">result</span>;</span><br><span class="line"></span><br><span class="line">- (<span class="type">CaculatorMaker</span> *(^)(<span class="type">int</span>))add;</span><br><span class="line">- (<span class="type">CaculatorMaker</span> *(^)(<span class="type">int</span>))sub;</span><br><span class="line">- (<span class="type">CaculatorMaker</span> *(^)(<span class="type">int</span>))multi;</span><br><span class="line">- (<span class="type">CaculatorMaker</span> *(^)(<span class="type">int</span>))divide;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>3.在CaculatorMaker.m里实现</p>

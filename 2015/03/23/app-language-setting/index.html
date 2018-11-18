@@ -1,13 +1,13 @@
 <!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> iOS多语言设置 · v2panda's blog</title><meta name="description" content="iOS多语言设置 - 熊猫"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/v2panda.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://v2panda.com/atom.xml" title="v2panda's blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/v2panda.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">ABOUT</a></li><li class="nav-list-item"><a href="https://weibo.com/xzlovepanda" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/v2panda" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">iOS多语言设置</h1><div class="post-info">Mar 23, 2015</div><div class="post-content"><p>最近为自己写的一个应用，做了多语言支持(English&amp;Chinese)，在这里记录下来。</p>
 <a id="more"></a>
 <h3 id="基本设置">基本设置</h3><p>第一步：先在Project的info里添加所需要支持的语言，这里选择的是Chinese(Simplified)和English-Development Language。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language1.png" alt=""><br>第二步：创建Localizable.strings文件(注意:文件名最好不要随意更改)作为多语言对应的词典，存储多种语言。</p>
+<p><img src="http://cdn.v2pd.com/language1.png" alt=""><br>第二步：创建Localizable.strings文件(注意:文件名最好不要随意更改)作为多语言对应的词典，存储多种语言。</p>
 <p>点击Localizable.strings文件右侧Localize…</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language2.png" alt="">         </p>
+<p><img src="http://cdn.v2pd.com/language2.png" alt="">         </p>
 <p>继续在Localization里添加所要支持的语言，将其勾选上。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language3.png" alt=""></p>
+<p><img src="http://cdn.v2pd.com/language3.png" alt=""></p>
 <p>第三步:最后就可以在Localizable.strings里随意设置所需要支持的语言啦。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/language4.png" alt=""></p>
+<p><img src="http://cdn.v2pd.com/language4.png" alt=""></p>
 <h4 id="格式">格式</h4><p>Localizable.strings内设置格式: </p>
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"testName"</span> = <span class="string">"测试名称"</span></span><br></pre></td></tr></table></figure>
 <p>NSLocalizedString代替String:</p>

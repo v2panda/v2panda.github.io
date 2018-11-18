@@ -25,7 +25,7 @@
 <p>不推荐</p>
 <figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (user.isHappy )          多余空格</span><br><span class="line">&#123;                  换行位置不对</span><br><span class="line">  // <span class="keyword">Do</span> something</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">  // <span class="keyword">Do</span> something <span class="keyword">else</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="项目层级划分">项目层级划分</h3><h4 id="物理层级">物理层级</h4><p>上文确认了项目架构是以 MVC 为主，所以这里推荐使用 MVC + 按业务划分项目层级的方式。具体的如下图：</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/mvc1.png" alt=""></p>
+<p><img src="http://cdn.v2pd.com/mvc1.png" alt=""></p>
 <p>整个项目主要分为4个文件夹，分别是：</p>
 <ul>
 <li>AppDelegate: 程序入口。</li>
@@ -34,7 +34,7 @@
 <li>Supporting Files: 存放配置文件，如 Info.plist、main.m、pch 文件等。</li>
 </ul>
 <p>而其中 Classes 目录下，又细分如下图：</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/mvc2.png" alt=""></p>
+<p><img src="http://cdn.v2pd.com/mvc2.png" alt=""></p>
 <ul>
 <li>General：存放一些通用的类，如基类、Category、Model 等。</li>
 <li>Sections：按业务模块细分 MVC。</li>

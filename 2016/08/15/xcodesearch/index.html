@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 【译】Xcode Search the Hidden Gems · v2panda's blog</title><meta name="description" content="【译】Xcode Search the Hidden Gems - 熊猫"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/v2panda.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://v2panda.com/atom.xml" title="v2panda's blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/v2panda.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">ABOUT</a></li><li class="nav-list-item"><a href="https://weibo.com/xzlovepanda" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/v2panda" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">【译】Xcode Search the Hidden Gems</h1><div class="post-info">Aug 15, 2016</div><div class="post-content"><p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_0.png" alt=""></p>
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 【译】Xcode Search the Hidden Gems · v2panda's blog</title><meta name="description" content="【译】Xcode Search the Hidden Gems - 熊猫"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/v2panda.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://v2panda.com/atom.xml" title="v2panda's blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/v2panda.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">ABOUT</a></li><li class="nav-list-item"><a href="https://weibo.com/xzlovepanda" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/v2panda" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">【译】Xcode Search the Hidden Gems</h1><div class="post-info">Aug 15, 2016</div><div class="post-content"><p><img src="http://cdn.v2pd.com/xcodesearch_0.png" alt=""></p>
 <p>作为软件开发人员,我们常常会花大量时间去阅读代码。 <a href="https://twitter.com/unclebobmartin" target="_blank" rel="external">Robert C. Martin</a> 在他的<a href="http://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882" target="_blank" rel="external">Clean Code</a>中说道:</p>
 <blockquote>
 <p>Indeed, the ratio of time spent reading versus writing is well over 10 to 1. We are constantly reading old code as part of the effort to write new code.</p>
@@ -7,30 +7,30 @@
 <a id="more"></a>
 <h3 id="1_:_Patterns">1 : Patterns</h3><p>直接在 Xcode 搜索文本是非常容易的，按下 Command-Shift-F 输入你想搜索的文本就可以了。而仅仅这样是不够的，当我们想要一个更高级的搜索，比如想要搜索一个包含 URLs 的字符串。这是很常见的需求，苹果也帮我们实现了这个功能即 – 通配符模式。</p>
 <p>首先单击放大镜按钮旁边的下拉按钮，如下图：</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_1.png" alt="Search Options"></p>
+<p><img src="http://cdn.v2pd.com/xcodesearch_1.png" alt="Search Options"></p>
 <p>然后会看到一个下拉选择列表：</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_2.png" alt="List of Available Patterns"></p>
+<p><img src="http://cdn.v2pd.com/xcodesearch_2.png" alt="List of Available Patterns"></p>
 <p>点击列表中的 URL 模式搜索字段，就会得到想要的结果：</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_3.png" alt="Strings Representing URLs"></p>
+<p><img src="http://cdn.v2pd.com/xcodesearch_3.png" alt="Strings Representing URLs"></p>
 <h3 id="2_:_Definitions">2 : Definitions</h3><p>Xcode 还提供了搜索选项来帮助我们理解项目代码结构。比方说，想搜索到项目中所有带 shared 的定义，而且假设项目中所有的单例也是以 <code>shared</code> 开头，类似 <code>shared*</code>。</p>
 <p>如果仅仅搜索 <code>shared</code>，会得到很多结果：</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_4.png" alt="Default Search Results"></p>
+<p><img src="http://cdn.v2pd.com/xcodesearch_4.png" alt="Default Search Results"></p>
 <p>这当然不是我们想要的，点击 Text 切换选择到 Definitions 来缩小搜索结果：</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_5.png" alt="Definitions Option
+<p><img src="http://cdn.v2pd.com/xcodesearch_5.png" alt="Definitions Option
 "></p>
 <p>就像这样：</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_6.png" alt="Search Results Narrowed to Definitions"></p>
+<p><img src="http://cdn.v2pd.com/xcodesearch_6.png" alt="Search Results Narrowed to Definitions"></p>
 <p>得到了我们想要的结果，当然也可以使用这个去过滤结构体、枚举、枚举选项等等。</p>
 <h3 id="3:_Search_Scopes">3: Search Scopes</h3><p>选择一个经常要搜索的项目:</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_7.png" alt="Scopes Menu"></p>
+<p><img src="http://cdn.v2pd.com/xcodesearch_7.png" alt="Scopes Menu"></p>
 <p>让我们想象一下，假如我们的项目是 Objective-C/Swift 代码混合的代码库。(它不是很难想象,对吧?😉)。这时我们想在 Swift 文件里搜索些东西，我们可以很容易的自定义搜索范围。点击 <em>New Scope</em> 按钮，选择搜索结果的过滤：<em>Location, Name, Path, Path Extension and Type</em>。Type 似乎是一个非常合适的选择，但不幸的是，这里没有 Swift :</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_8.png" alt="No Swift here ¯\_(ツ)_/¯"></p>
+<p><img src="http://cdn.v2pd.com/xcodesearch_8.png" alt="No Swift here ¯\_(ツ)_/¯"></p>
 <p>所以，我们用 <em>Path Extension</em> 来替代，如：</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_9.png" alt="Scope Filtering .swift Files"></p>
+<p><img src="http://cdn.v2pd.com/xcodesearch_9.png" alt="Scope Filtering .swift Files"></p>
 <h3 id="4:_Call_Hierarchy">4: Call Hierarchy</h3><p>Xcode 7中增加了一个新功能，可以直接搜索调用的层次结构。通过它，我们可以更直观的查看或使用方法和函数。我不经常使用它，但是当我用到它时会节省很多时间。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_10.png" alt="Call Hierarchy Search Example"></p>
+<p><img src="http://cdn.v2pd.com/xcodesearch_10.png" alt="Call Hierarchy Search Example"></p>
 <h3 id="When_Not_to_Search">When Not to Search</h3><p>在Xcode中 Find navigator 非常强大，它不仅仅只有搜索功能。当我们要找东西时，搜索并不总是最好的解决方法。例如，当我们要查看一些属性的定义时，最好的方法是将鼠标移动到属性上并按下 Command-Control-J 查看，这样比直接搜索它的定义要好得多。或者当我们想看看某些方法的调用情况，我们可以直接按下(Control-1)菜单来查看。</p>
-<p><img src="http://7xnmlk.com1.z0.glb.clouddn.com/xcodesearch_11.png" alt="Related Items Menu"></p>
+<p><img src="http://cdn.v2pd.com/xcodesearch_11.png" alt="Related Items Menu"></p>
 <h3 id="Conclusion">Conclusion</h3><p>搜索在 Xcode 中变得越来越强大，它帮助我们更容易的阅读自己的代码或第三方代码。正如所有其他工具(或任何生活中)一样，它也带有一些权衡，但是我们可以选择使用最好的工具来工作。</p>
 <blockquote>
 <p>作者:Arkadiusz Holko</p>
